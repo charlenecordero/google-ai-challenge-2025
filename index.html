@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cordero | AI Solutions Architect</title>
+    <title>Charlene Cordero | AI Solutions Architect</title>
 
     <!-- Alpine.js -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -21,12 +21,14 @@
         /* Cyberpunk-Cottagecore Design System */
         :root {
             /* Palette */
-            --void-moss: #050a07;
-            /* Darker background */
-            --deep-moss: #0B120E;
-            /* Base BG */
+            --void-moss: #000000;
+            /* Pure Black */
+            --deep-moss: #050505;
+            /* Almost Black */
             --neon-mint: #4AF2A1;
             /* Primary Accent */
+            --neon-pink: #FF2E88;
+            /* Sakura Accent */
             --hologram-fern: #2d5a45;
             /* Secondary/Muted */
             --txt-bone: #E0E5D7;
@@ -34,7 +36,7 @@
             --txt-muted: #8A9A90;
 
             /* Glass Effects */
-            --glass-bg: rgba(11, 18, 14, 0.65);
+            --glass-bg: rgba(5, 5, 5, 0.75);
             --glass-border: rgba(74, 242, 161, 0.15);
             --glass-shine: rgba(255, 255, 255, 0.03);
 
@@ -43,14 +45,21 @@
         }
 
         body {
-            background-color: var(--deep-moss);
+            background-color: var(--void-moss);
             color: var(--txt-bone);
             font-family: 'Fira Code', monospace;
             /* Tech base */
             overflow-x: hidden;
             background-image:
-                radial-gradient(circle at 10% 20%, rgba(74, 242, 161, 0.03) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(74, 242, 161, 0.02) 0%, transparent 20%);
+                /* Neon Sakura (Pink) */
+                radial-gradient(circle at 85% 15%, rgba(255, 46, 136, 0.15) 0%, transparent 25%),
+                radial-gradient(circle at 15% 85%, rgba(255, 46, 136, 0.1) 0%, transparent 20%),
+                /* Neon Plants (Green) */
+                radial-gradient(circle at 10% 20%, rgba(74, 242, 161, 0.15) 0%, transparent 30%),
+                radial-gradient(circle at 90% 80%, rgba(74, 242, 161, 0.1) 0%, transparent 30%),
+                /* Deep Atmosphere */
+                radial-gradient(circle at 50% 50%, rgba(11, 18, 14, 0.8) 0%, rgba(0, 0, 0, 1) 100%);
+            background-attachment: fixed;
         }
 
         /* Typography Override */
@@ -152,6 +161,40 @@
     <!-- Scanline Effect -->
     <div class="scanlines"></div>
 
+    <!-- Background Decorations (Vines & Sakura) -->
+    <div id="bg-decorations" class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <!-- Left: Neon Green Vines -->
+        <svg class="absolute left-0 top-0 h-full w-full md:w-1/3 opacity-30" preserveAspectRatio="none"
+            viewBox="0 0 100 800">
+            <path d="M0,0 C30,150 10,300 40,450 C70,600 20,750 0,900" fill="none" stroke="#4AF2A1" stroke-width="2"
+                style="filter: drop-shadow(0 0 5px #4AF2A1);" />
+            <path d="M-10,0 C20,200 60,350 10,550 C-20,700 30,800 0,1000" fill="none" stroke="#2d5a45" stroke-width="3"
+                opacity="0.5" />
+            <!-- Leaves/Tech Nodes -->
+            <circle cx="30" cy="150" r="3" fill="#4AF2A1" style="filter: drop-shadow(0 0 8px #4AF2A1);" />
+            <rect x="35" y="445" width="6" height="6" fill="#4AF2A1" transform="rotate(45 38 448)" />
+        </svg>
+
+        <!-- Right: Neon Pink Sakura -->
+        <svg class="absolute right-0 top-0 h-full w-full md:w-1/3 opacity-30" preserveAspectRatio="none"
+            viewBox="0 0 100 800">
+            <!-- Falling Petals/Blossoms -->
+            <g transform="translate(60, 100)">
+                <circle cx="0" cy="0" r="4" fill="#FF2E88" style="filter: drop-shadow(0 0 8px #FF2E88);">
+                    <animate attributeName="cy" from="0" to="20" dur="4s" repeatCount="indefinite" />
+                    <animate attributeName="opacity" values="0.8;0.3;0.8" dur="4s" repeatCount="indefinite" />
+                </circle>
+            </g>
+            <circle cx="80" cy="50" r="2" fill="#FF2E88" opacity="0.6" />
+            <circle cx="40" cy="200" r="3" fill="#FF2E88" opacity="0.8" style="filter: drop-shadow(0 0 5px #FF2E88);" />
+            <circle cx="70" cy="350" r="5" fill="#FF2E88" opacity="0.5" />
+            <circle cx="30" cy="500" r="2" fill="#FF2E88" opacity="0.7" />
+            <circle cx="90" cy="650" r="4" fill="#FF2E88" opacity="0.6" style="filter: drop-shadow(0 0 5px #FF2E88);" />
+            <!-- Minimal Branch suggestion (abstract) -->
+            <path d="M100,50 Q60,150 100,250" fill="none" stroke="#FF2E88" stroke-width="1" opacity="0.3" />
+        </svg>
+    </div>
+
     <!-- Main Container -->
     <div class="relative z-10 max-w-5xl mx-auto w-full p-4 md:p-8 flex flex-col h-full">
 
@@ -201,125 +244,28 @@
             <!-- Home / Welcome Message (Visible only when no specific section is active) -->
             <div x-show="currentSection === 'home'" x-transition:enter="transition ease-out duration-300"
                 x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
-                class="max-w-2xl mx-auto text-center">
+                class="max-w-4xl mx-auto text-center">
 
-                <div class="glass-panel p-8 border-organic animate-breathe inline-block">
-                    <p class="text-[#E0E5D7] font-organic text-xl italic leading-relaxed">
-                        "Welcome to the garden of digital thought.<br>I decompose complexity into organic growth."
+                <div class="glass-panel p-8 border-organic animate-breathe inline-block text-left">
+                    <p class="text-[#E0E5D7] font-tech text-sm leading-relaxed mb-4">
+                        AI-driven solutions and systems thinker with 7+ years of experience across software engineering,
+                        DevOps, application support, QA, and business analytics in telecom, utilities, SaaS, and
+                        enterprise environments. Strong foundation in system design, workflow automation, SQL,
+                        UNIX/Linux, and data analysis, with a proven ability to break down complex business and
+                        technical problems into structured, actionable solutions.
                     </p>
-                    <p class="text-xs text-[#4AF2A1] mt-4 tracking-widest uppercase font-tech">Awaiting Input...</p>
+                    <p class="text-[#E0E5D7] font-tech text-sm leading-relaxed">
+                        Currently transitioning into AI Solutions Architecture, with formal training in AI fundamentals,
+                        Generative AI concepts, and applied data analysis, and hands-on experience validating outputs,
+                        improving workflows, and supporting production systems. Known for learning fast, adapting to new
+                        tools (including AI-assisted workflows), and taking ownership of real systems, not just code.
+                    </p>
+                    <p class="text-[10px] text-[#4AF2A1] mt-6 tracking-widest uppercase font-tech text-center">
+                        Awaiting Input...
+                    </p>
                 </div>
             </div>
 
-            <!-- Roots Section -->
-            <template x-if="section === 'roots'">
-                <div class="glass p-8 rounded-xl animate-fade-in space-y-8">
-
-                    <div class="border-l-4 border-mint pl-6">
-                        <h2 class="bloom-text text-3xl text-mint">System Roots & Evolution</h2>
-                        <p class="text-gray-400 mt-2 italic">"7+ Years of decomposing business problems into reliable
-                            technical workflows."</p>
-                    </div>
-
-                    <div class="relative pl-8 border-l border-mint/30 pb-8">
-                        <div class="absolute -left-1.5 top-0 w-3 h-3 bg-mint rounded-full shadow-[0_0_10px_#4AF2A1]">
-                        </div>
-                        <h3 class="font-bold text-xl text-gray-100">Business Insights Analyst</h3>
-                        <p class="text-xs text-mint mb-2">TaskUs (DoorDash) | May 2024 – Present</p>
-                        <ul class="list-disc list-inside text-sm text-gray-300 space-y-1 mb-3 font-light">
-                            <li>Designed data-driven decision systems supporting merchant growth strategies.</li>
-                            <li>Decomposed ambiguous business questions using SQL on internal ETL pipelines.</li>
-                            <li>Validated data logic and assumptions to ensure "Human-in-the-Loop" accuracy.</li>
-                            <li>Bridged the gap between technical data analysis and strategic business execution.</li>
-                        </ul>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="text-[10px] px-2 py-1 border border-mint/40 rounded text-mint">SQL</span>
-                            <span class="text-[10px] px-2 py-1 border border-mint/40 rounded text-mint">UNIX</span>
-                            <span class="text-[10px] px-2 py-1 border border-mint/40 rounded text-mint">Sigma
-                                Computing</span>
-                            <span class="text-[10px] px-2 py-1 border border-mint/40 rounded text-mint">ETL
-                                Workflows</span>
-                        </div>
-                    </div>
-
-                    <div class="relative pl-8 border-l border-mint/30 pb-8">
-                        <div class="absolute -left-1.5 top-0 w-3 h-3 bg-gray-600 rounded-full"></div>
-                        <h3 class="font-bold text-xl text-gray-100">Technical & Business Operations Analyst</h3>
-                        <p class="text-xs text-mint mb-2">Amdocs | Dec 2022 – Dec 2023</p>
-                        <ul class="list-disc list-inside text-sm text-gray-300 space-y-1 mb-3 font-light">
-                            <li>Maintained large-scale telecom architectures (CRM, Billing, Order Mgmt).</li>
-                            <li>Monitored batch workflows to identify failure points and optimize reliability.</li>
-                            <li>Translated complex system incidents into actionable resolution steps.</li>
-                        </ul>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="text-[10px] px-2 py-1 border border-gray-600 rounded text-gray-400">System
-                                Monitoring</span>
-                            <span class="text-[10px] px-2 py-1 border border-gray-600 rounded text-gray-400">Incident
-                                Mgmt</span>
-                            <span class="text-[10px] px-2 py-1 border border-gray-600 rounded text-gray-400">Oracle
-                                SQL</span>
-                        </div>
-                    </div>
-
-                    <div class="relative pl-8 border-l border-mint/30 pb-8">
-                        <div class="absolute -left-1.5 top-0 w-3 h-3 bg-gray-600 rounded-full"></div>
-                        <h3 class="font-bold text-xl text-gray-100">DevOps Back-end Software Engineer</h3>
-                        <p class="text-xs text-mint mb-2">Accenture | May 2021 – July 2022</p>
-                        <ul class="list-disc list-inside text-sm text-gray-300 space-y-1 mb-3 font-light">
-                            <li>Application Consultant for North American Utilities (CRS, Billprint, EDI).</li>
-                            <li>Resolved automation job errors using UNIX Shell Scripting and Oracle SQL.</li>
-                            <li>Conducted backend maintenance and enhancement for production stability.</li>
-                        </ul>
-                        <div class="flex flex-wrap gap-2">
-                            <span
-                                class="text-[10px] px-2 py-1 border border-gray-600 rounded text-gray-400">DevOps</span>
-                            <span class="text-[10px] px-2 py-1 border border-gray-600 rounded text-gray-400">UNIX
-                                Shell</span>
-                            <span class="text-[10px] px-2 py-1 border border-gray-600 rounded text-gray-400">Java</span>
-                        </div>
-                    </div>
-
-                    <div class="relative pl-8 border-l border-mint/30 pb-8">
-                        <div class="absolute -left-1.5 top-0 w-3 h-3 bg-gray-600 rounded-full"></div>
-                        <h3 class="font-bold text-xl text-gray-100">Quality Assurance Specialist</h3>
-                        <p class="text-xs text-mint mb-2">Multisys Technologies | Oct 2020 – Apr 2021</p>
-                        <ul class="list-disc list-inside text-sm text-gray-300 space-y-1 mb-3 font-light">
-                            <li>Conducted QA audits for Android/iOS apps to ensure manufacturing reliability.</li>
-                            <li>Defined expected ranges and implemented corrective measures for deviations.</li>
-                        </ul>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="text-[10px] px-2 py-1 border border-gray-600 rounded text-gray-400">QA
-                                Testing</span>
-                            <span class="text-[10px] px-2 py-1 border border-gray-600 rounded text-gray-400">Mobile
-                                Validation</span>
-                        </div>
-                    </div>
-
-                    <div class="relative pl-8 border-l border-mint/30 pb-8">
-                        <div
-                            class="absolute -left-1.5 top-0 w-3 h-3 bg-pink-500 rounded-full shadow-[0_0_10px_#FF2E88]">
-                        </div>
-                        <h3 class="font-bold text-xl text-gray-100">Health Advocate (Chat Support)</h3>
-                        <p class="text-xs text-pink-400 mb-2">Care Coach | Jan 2020 – Oct 2020</p>
-                        <div class="p-3 bg-pink-500/10 border border-pink-500/30 rounded mb-2">
-                            <p class="text-xs text-gray-300 italic">"My first exposure to Avatar-based Interfaces. I
-                                operated a digital avatar to deliver health coaching—an early lesson in Human-Computer
-                                Interaction (HCI)."</p>
-                        </div>
-                    </div>
-
-                    <div class="relative pl-8 border-l border-mint/30">
-                        <div class="absolute -left-1.5 top-0 w-3 h-3 bg-gray-600 rounded-full"></div>
-                        <h3 class="font-bold text-xl text-gray-100">Front-End Oracle PeopleSoft Developer</h3>
-                        <p class="text-xs text-mint mb-2">Accenture | Mar 2018 – Dec 2019</p>
-                        <ul class="list-disc list-inside text-sm text-gray-300 space-y-1 mb-3 font-light">
-                            <li>Configured PeopleSoft HCM applications for State Dept of Transportation.</li>
-                            <li>Designed business process requirements using Oracle SQL Developer.</li>
-                        </ul>
-                    </div>
-
-                </div>
-            </template>
 
             <!-- Projects Section -->
             <div x-show="currentSection === 'projects'" x-cloak x-transition:enter="transition ease-out duration-300"
@@ -356,24 +302,183 @@
                 </div>
             </div>
 
-            <!-- Contact Section (Modal style) -->
-            <div x-show="currentSection === 'contact'" x-cloak x-transition:enter="transition ease-out duration-300"
-                x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
-                class="max-w-md mx-auto text-center mt-20">
-                <div class="glass-panel p-10 border-organic">
-                    <h2 class="font-organic text-2xl text-[#E0E5D7] mb-6">Initialize Handshake</h2>
-                    <div class="space-y-4 font-tech text-sm">
-                        <a href="mailto:cascordero@outlook.com"
-                            class="block p-3 border border-[#4AF2A1]/20 hover:bg-[#4AF2A1]/10 hover:border-[#4AF2A1] transition-all text-[#4AF2A1]">
-                            email :: cascordero@outlook.com
-                        </a>
-                        <a href="#"
-                            class="block p-3 border border-[#4AF2A1]/20 hover:bg-[#4AF2A1]/10 hover:border-[#4AF2A1] transition-all text-[#4AF2A1]">
-                            link :: linkedin.com/in/charlene
-                        </a>
+            <!-- Roots Section -->
+            <div x-show="currentSection === 'roots'" x-cloak x-transition:enter="transition ease-out duration-300"
+                x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
+                class="space-y-6">
+
+                <div class="mb-8 border-b border-[#4AF2A1]/10 pb-4">
+                    <h2 class="font-organic text-3xl text-[#4AF2A1]">Roots</h2>
+                    <p class="text-sm text-[#8A9A90] font-tech mt-1">// Career Timeline & Experience</p>
+                </div>
+
+                <div class="glass-panel p-6 border-organic flex flex-col md:flex-row gap-4">
+                    <div class="md:w-1/4">
+                        <h3 class="font-bold text-[#E0E5D7] font-tech">Business Insights Analyst</h3>
+                        <p class="text-xs text-[#4AF2A1] mt-1">TaskUs</p>
+                        <p class="text-[10px] text-[#8A9A90] mt-1">May 2024 – Present</p>
+                    </div>
+                    <div class="md:w-3/4">
+                        <ul class="list-disc list-inside text-sm text-[#8A9A90] space-y-1 font-tech">
+                            <li>Designed data-driven decision systems supporting merchant growth strategies.</li>
+                            <li>Decomposed ambiguous business questions using SQL on internal ETL pipelines.</li>
+                            <li>Validated data logic and assumptions to ensure "Human-in-the-Loop" accuracy.</li>
+                            <li>Bridged the gap between technical data analysis and strategic business execution.
+                            </li>
+                        </ul>
+                        <div class="flex flex-wrap gap-2 mt-3">
+                            <span
+                                class="text-[10px] uppercase border border-[#4AF2A1]/30 text-[#4AF2A1] px-2 py-1 rounded-sm">SQL</span>
+                            <span
+                                class="text-[10px] uppercase border border-[#4AF2A1]/30 text-[#4AF2A1] px-2 py-1 rounded-sm">UNIX</span>
+                            <span
+                                class="text-[10px] uppercase border border-[#4AF2A1]/30 text-[#4AF2A1] px-2 py-1 rounded-sm">Sigma
+                                Computing</span>
+                            <span
+                                class="text-[10px] uppercase border border-[#4AF2A1]/30 text-[#4AF2A1] px-2 py-1 rounded-sm">ETL
+                                Workflows</span>
+                        </div>
                     </div>
                 </div>
-            </div>
+
+                <div class="glass-panel p-6 border-organic flex flex-col md:flex-row gap-4">
+                    <div class="md:w-1/4">
+                        <h3 class="font-bold text-[#E0E5D7] font-tech">Technical & Business Operations Analyst</h3>
+                        <p class="text-xs text-[#4AF2A1] mt-1">Amdocs</p>
+                        <p class="text-[10px] text-[#8A9A90] mt-1">December 2022 – December 2023</p>
+                    </div>
+                    <div class="md:w-3/4">
+                        <ul class="list-disc list-inside text-sm text-[#8A9A90] space-y-1 font-tech">
+                            <li>Maintained large-scale telecom architectures (CRM, Billing, Order Mgmt).</li>
+                            <li>Monitored batch workflows to identify failure points and optimize reliability.</li>
+                            <li>Translated complex system incidents into actionable resolution steps.</li>
+                        </ul>
+                        <div class="flex flex-wrap gap-2 mt-3">
+                            <span
+                                class="text-[10px] uppercase border border-[#4AF2A1]/30 text-[#4AF2A1] px-2 py-1 rounded-sm">System
+                                Monitoring</span>
+                            <span
+                                class="text-[10px] uppercase border border-[#4AF2A1]/30 text-[#4AF2A1] px-2 py-1 rounded-sm">Incident
+                                Mgmt</span>
+                            <span
+                                class="text-[10px] uppercase border border-[#4AF2A1]/30 text-[#4AF2A1] px-2 py-1 rounded-sm">Oracle
+                                SQL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-6 border-organic flex flex-col md:flex-row gap-4">
+                    <div class="md:w-1/4">
+                        <h3 class="font-bold text-[#E0E5D7] font-tech">DevOps Engineer</h3>
+                        <p class="text-xs text-[#4AF2A1] mt-1">Accenture</p>
+                        <p class="text-[10px] text-[#8A9A90] mt-1">May 2021 – July 2022</p>
+                    </div>
+                    <div class="md:w-3/4">
+                        <ul class="list-disc list-inside text-sm text-[#8A9A90] space-y-1 font-tech">
+                            <li>Application Consultant for North American Utilities (CRS, Billprint, EDI).</li>
+                            <li>Resolved automation job errors using UNIX Shell Scripting and Oracle SQL.</li>
+                            <li>Conducted backend maintenance and enhancement for production stability.</li>
+                        </ul>
+                        <div class="flex flex-wrap gap-2 mt-3">
+                            <span
+                                class="text-[10px] uppercase border border-[#4AF2A1]/30 text-[#4AF2A1] px-2 py-1 rounded-sm">DevOps</span>
+                            <span
+                                class="text-[10px] uppercase border border-[#4AF2A1]/30 text-[#4AF2A1] px-2 py-1 rounded-sm">UNIX
+                                Shell</span>
+                            <span
+                                class="text-[10px] uppercase border border-[#4AF2A1]/30 text-[#4AF2A1] px-2 py-1 rounded-sm">Java</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-6 border-organic flex flex-col md:flex-row gap-4">
+                    <div class="md:w-1/4">
+                        <h3 class="font-bold text-[#E0E5D7] font-tech">Quality Assurance Specialist</h3>
+                        <p class="text-xs text-[#4AF2A1] mt-1">Multisys Technologies</p>
+                        <p class="text-[10px] text-[#8A9A90] mt-1">October 2020 – April 2021</p>
+                    </div>
+                    <div class="md:w-3/4">
+                        <ul class="list-disc list-inside text-sm text-[#8A9A90] space-y-1 font-tech">
+                            <li>Conducted QA audits for Android/iOS apps to ensure manufacturing reliability.</li>
+                            <li>Defined expected ranges and implemented corrective measures for deviations.</li>
+                        </ul>
+                        <div class="flex flex-wrap gap-2 mt-3">
+                            <span
+                                class="text-[10px] uppercase border border-[#4AF2A1]/30 text-[#4AF2A1] px-2 py-1 rounded-sm">QA
+                                Testing</span>
+                            <span
+                                class="text-[10px] uppercase border border-[#4AF2A1]/30 text-[#4AF2A1] px-2 py-1 rounded-sm">Mobile
+                                Validation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-6 border-organic flex flex-col md:flex-row gap-4">
+                    <div class="md:w-1/4">
+                        <h3 class="font-bold text-[#E0E5D7] font-tech">Health Advocate</h3>
+                        <p class="text-xs text-[#FF2E88] mt-1">Care Coach</p>
+                        <p class="text-[10px] text-[#8A9A90] mt-1">January 2020 – October 2020</p>
+                    </div>
+                    <div class="md:w-3/4">
+                        <div class="p-3 bg-[#FF2E88]/10 border border-[#FF2E88]/30 rounded mb-2">
+                            <p class="text-xs text-[#E0E5D7] italic font-tech">"My first exposure to Avatar-based
+                                Interfaces. I operated a digital avatar to deliver health coaching—an early lesson
+                                in Human-Computer Interaction (HCI)."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-6 border-organic flex flex-col md:flex-row gap-4">
+                    <div class="md:w-1/4">
+                        <h3 class="font-bold text-[#E0E5D7] font-tech">Oracle PeopleSoft Developer</h3>
+                        <p class="text-xs text-[#4AF2A1] mt-1">Accenture</p>
+                        <p class="text-[10px] text-[#8A9A90] mt-1">March 2018 – December 2019</p>
+                    </div>
+                    <div class="md:w-3/4">
+                        <ul class="list-disc list-inside text-sm text-[#8A9A90] space-y-1 font-tech">
+                            <li>Configured PeopleSoft HCM applications for State Dept of Transportation.</li>
+                            <li>Designed business process requirements using Oracle SQL Developer.</li>
+                        </ul>
+                        <div class="flex flex-wrap gap-2 mt-3">
+                            <span
+                                class="text-[10px] uppercase border border-[#4AF2A1]/30 text-[#4AF2A1] px-2 py-1 rounded-sm">Oracle
+                                PeopleSoft</span>
+                            <span
+                                class="text-[10px] uppercase border border-[#4AF2A1]/30 text-[#4AF2A1] px-2 py-1 rounded-sm">Oracle
+                                HCM</span>
+                            <span
+                                class="text-[10px] uppercase border border-[#4AF2A1]/30 text-[#4AF2A1] px-2 py-1 rounded-sm">Oracle
+                                SQL Developer</span>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+                <!-- Contact Section (Modal style) -->
+                <div x-show="currentSection === 'contact'" x-cloak x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+                    class="max-w-md mx-auto text-center mt-20">
+                    <div class="glass-panel p-10 border-organic">
+                        <h2 class="font-organic text-2xl text-[#E0E5D7] mb-6">Initialize Handshake</h2>
+                        <div class="space-y-4 font-tech text-sm">
+                            <a href="mailto:cascordero@outlook.com"
+                                class="block p-3 border border-[#4AF2A1]/20 hover:bg-[#4AF2A1]/10 hover:border-[#4AF2A1] transition-all text-[#4AF2A1]">
+                                email :: cascordero@outlook.com
+                            </a>
+                            <a href="#"
+                                class="block p-3 border border-[#4AF2A1]/20 hover:bg-[#4AF2A1]/10 hover:border-[#4AF2A1] transition-all text-[#4AF2A1]">
+                                linkedin :: linkedin.com/in/charlenecordero <i class="fa-brands fa-linkedin"></i>
+                            </a>
+                            <a href="#"
+                                class="block p-3 border border-[#4AF2A1]/20 hover:bg-[#4AF2A1]/10 hover:border-[#4AF2A1] transition-all text-[#4AF2A1]">
+                                github :: github.com/charlenecordero <i class="fa-brands fa-linkedin"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
 
         </main>
 
