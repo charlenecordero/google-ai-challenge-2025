@@ -457,26 +457,103 @@
 
 
 
-                <!-- Contact Section (Modal style) -->
-                <div x-show="currentSection === 'contact'" x-cloak x-transition:enter="transition ease-out duration-300"
-                    x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
-                    class="max-w-md mx-auto text-center mt-20">
-                    <div class="glass-panel p-10 border-organic">
-                        <h2 class="font-organic text-2xl text-[#E0E5D7] mb-6">Initialize Handshake</h2>
-                        <div class="space-y-4 font-tech text-sm">
-                            <a href="mailto:cascordero@outlook.com"
-                                class="block p-3 border border-[#4AF2A1]/20 hover:bg-[#4AF2A1]/10 hover:border-[#4AF2A1] transition-all text-[#4AF2A1]">
-                                email :: cascordero@outlook.com
-                            </a>
-                            <a href="#"
-                                class="block p-3 border border-[#4AF2A1]/20 hover:bg-[#4AF2A1]/10 hover:border-[#4AF2A1] transition-all text-[#4AF2A1]">
-                                linkedin :: linkedin.com/in/charlenecordero <i class="fa-brands fa-linkedin"></i>
-                            </a>
-                            <a href="#"
-                                class="block p-3 border border-[#4AF2A1]/20 hover:bg-[#4AF2A1]/10 hover:border-[#4AF2A1] transition-all text-[#4AF2A1]">
-                                github :: github.com/charlenecordero <i class="fa-brands fa-linkedin"></i>
-                            </a>
+                 <!-- Contact Section (Revamped 2-Column) -->
+                <div id="contact"
+                    class="min-h-screen py-20 max-w-5xl mx-auto flex flex-col justify-center reveal snap-section"
+                    x-data="{ shown: false, subject: '', message: '' }"
+                    x-intersect.threshold.10="shown = true; currentSection = 'contact'"
+                    :class="shown ? 'reveal-visible' : ''">
+
+                    <div class="mb-12 border-b border-[#4AF2A1]/10 pb-4 text-center md:text-left">
+                        <h2 class="font-organic text-3xl text-[#4AF2A1]">Initialize Handshake</h2>
+                        <p class="text-sm text-[#8A9A90] font-tech mt-1">// Connect & Collaborate</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
+
+                        <!-- Left: Contact Form -->
+                        <div class="glass-panel p-8 border-organic">
+                            <h3 class="font-tech text-[#E0E5D7] text-lg mb-6">Transmission Uplink</h3>
+                            <form class="space-y-4"
+                                @submit.prevent="window.location.href = `mailto:hello@charlenecordero.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`">
+                                <div>
+                                    <label class="block text-[#4AF2A1] text-xs font-tech mb-2 tracking-widest">SUBJECT
+                                        ::</label>
+                                    <input type="text" x-model="subject" required
+                                        class="w-full bg-[#050505]/50 border border-[#4AF2A1]/30 text-[#E0E5D7] font-tech p-3 rounded-sm focus:border-[#4AF2A1] outline-none transition-all placeholder-[#8A9A90]/30"
+                                        placeholder="Project / Inquiry / Hello">
+                                </div>
+                                <div>
+                                    <label class="block text-[#4AF2A1] text-xs font-tech mb-2 tracking-widest">MESSAGE
+                                        ::</label>
+                                    <textarea x-model="message" rows="5" required
+                                        class="w-full bg-[#050505]/50 border border-[#4AF2A1]/30 text-[#E0E5D7] font-tech p-3 rounded-sm focus:border-[#4AF2A1] outline-none transition-all placeholder-[#8A9A90]/30 custom-scrollbar"
+                                        placeholder="Enter your message sequence here..."></textarea>
+                                </div>
+                                <button type="submit"
+                                    class="w-full py-3 bg-[#4AF2A1]/10 border border-[#4AF2A1] text-[#4AF2A1] font-tech tracking-widest hover:bg-[#4AF2A1] hover:text-[#000] transition-all duration-300 uppercase text-sm font-bold relative group overflow-hidden">
+                                    <span class="relative z-10">Transmit Data</span>
+                                    <div
+                                        class="absolute inset-0 bg-[#4AF2A1] transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-0">
+                                    </div>
+                                </button>
+                            </form>
                         </div>
+
+
+                        <!-- Right: Social Links -->
+                        <div class="glass-panel p-8 border-organic h-full flex flex-col justify-center">
+                            <div class="flex flex-col gap-4 w-full">
+                                <!-- LinkedIn -->
+                                <div class="group flex items-center gap-4 p-4 rounded-sm border border-[#4AF2A1]/30 bg-[#4AF2A1]/5 hover:bg-[#4AF2A1]/20 hover:border-[#4AF2A1] transition-all cursor-pointer"
+                                    onclick="window.open('https://linkedin.com/in/charlenecordero', '_blank')">
+                                    <div
+                                        class="w-10 h-10 rounded-full bg-[#4AF2A1]/10 flex items-center justify-center border border-[#4AF2A1]/30 group-hover:bg-[#4AF2A1] group-hover:text-black transition-colors">
+                                        <i
+                                            class="fa-brands fa-linkedin text-[#4AF2A1] group-hover:text-black text-xl transition-colors"></i>
+                                    </div>
+                                    <span
+                                        class="font-tech text-[#E0E5D7] group-hover:text-[#4AF2A1] transition-colors">LinkedIn</span>
+                                </div>
+
+                                <!-- GitHub -->
+                                <div class="group flex items-center gap-4 p-4 rounded-sm border border-[#4AF2A1]/30 bg-[#4AF2A1]/5 hover:bg-[#4AF2A1]/20 hover:border-[#4AF2A1] transition-all cursor-pointer"
+                                    onclick="window.open('https://github.com/charlenecordero', '_blank')">
+                                    <div
+                                        class="w-10 h-10 rounded-full bg-[#4AF2A1]/10 flex items-center justify-center border border-[#4AF2A1]/30 group-hover:bg-[#4AF2A1] group-hover:text-black transition-colors">
+                                        <i
+                                            class="fa-brands fa-github text-[#4AF2A1] group-hover:text-black text-xl transition-colors"></i>
+                                    </div>
+                                    <span
+                                        class="font-tech text-[#E0E5D7] group-hover:text-[#4AF2A1] transition-colors">GitHub</span>
+                                </div>
+
+                                <!-- Dev.to -->
+                                <div class="group flex items-center gap-4 p-4 rounded-sm border border-[#4AF2A1]/30 bg-[#4AF2A1]/5 hover:bg-[#4AF2A1]/20 hover:border-[#4AF2A1] transition-all cursor-pointer"
+                                    onclick="window.open('https://dev.to/charlenecordero', '_blank')">
+                                    <div
+                                        class="w-10 h-10 rounded-full bg-[#4AF2A1]/10 flex items-center justify-center border border-[#4AF2A1]/30 group-hover:bg-[#4AF2A1] group-hover:text-black transition-colors">
+                                        <i
+                                            class="fa-brands fa-dev text-[#4AF2A1] group-hover:text-black text-xl transition-colors"></i>
+                                    </div>
+                                    <span
+                                        class="font-tech text-[#E0E5D7] group-hover:text-[#4AF2A1] transition-colors">Dev.to</span>
+                                </div>
+
+                                <!-- X -->
+                                <div class="group flex items-center gap-4 p-4 rounded-sm border border-[#4AF2A1]/30 bg-[#4AF2A1]/5 hover:bg-[#4AF2A1]/20 hover:border-[#4AF2A1] transition-all cursor-pointer"
+                                    onclick="window.open('https://x.com/ccords8', '_blank')">
+                                    <div
+                                        class="w-10 h-10 rounded-full bg-[#4AF2A1]/10 flex items-center justify-center border border-[#4AF2A1]/30 group-hover:bg-[#4AF2A1] group-hover:text-black transition-colors">
+                                        <i
+                                            class="fa-brands fa-x-twitter text-[#4AF2A1] group-hover:text-black text-xl transition-colors"></i>
+                                    </div>
+                                    <span
+                                        class="font-tech text-[#E0E5D7] group-hover:text-[#4AF2A1] transition-colors">X</span>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
