@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAC | System Architecture</title>
+
+    <!-- Alpine.js -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Fira+Code:wght@300;400;600&family=Cinzel:wght@400;700&family=Orbitron:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .glass-panel {
+            background: rgba(5, 5, 5, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(74, 242, 161, 0.1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .tech-card {
+            transition: all 0.3s ease;
+        }
+
+        .tech-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(74, 242, 161, 0.2);
+            border-color: #4AF2A1;
+        }
+
+        .code-block {
+            font-family: 'Fira Code', monospace;
+            background: #0a0a0a;
+            border-left: 3px solid #FF2E88;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col justify-between bg-[#050505] text-[#E0E5D7] overflow-x-hidden font-tech">
+
+    <!-- Scanline Effect -->
+    <div class="scanlines"></div>
+
+    <!-- Background Decorations -->
+    <div id="bg-decorations" class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <svg class="absolute left-0 top-0 h-full w-full md:w-1/3 opacity-30" preserveAspectRatio="none"
+            viewBox="0 0 100 800">
+            <path d="M0,0 C30,150 10,300 40,450 C70,600 20,750 0,900" fill="none" stroke="#4AF2A1" stroke-width="2"
+                style="filter: drop-shadow(0 0 5px #4AF2A1);" />
+        </svg>
+    </div>
+
+    <!-- Top Header / Status Bar -->
+    <header
+        class="fixed top-0 left-0 w-full z-50 bg-[#050505]/95 border-b border-[#FF2E88]/20 backdrop-blur-md px-4 py-3 shadow-[0_4px_20px_rgba(255,46,136,0.1)] font-tech">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <!-- Left: Identity -->
+            <div class="flex flex-col md:flex-row md:items-center gap-1 md:gap-4">
+                <a href="index.html" class="flex items-center gap-2 group cursor-pointer decoration-transparent">
+                    <span
+                        class="text-[#FF2E88] font-tech text-base md:text-lg tracking-widest font-bold drop-shadow-[0_0_5px_rgba(255,46,136,0.5)]">>
+                        SYSTEM ARCHITECTURE</span>
+                    <span class="animate-pulse text-[#4AF2A1]">
+                        <_< /span>
+                </a>
+            </div>
+
+            <!-- Right: System Stats -->
+            <div class="flex items-center gap-4 text-[10px] font-tech text-[#4AF2A1]/60 tracking-wider">
+                <div class="hidden md:flex items-center gap-2">
+                    <span class="text-[#8A9A90]">MODE:</span>
+                    <span class="text-[#4AF2A1]">DEBUG_VIEW</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="relative z-10 w-full max-w-7xl mx-auto px-4 pt-24 pb-20 flex-grow">
+
+        <!-- Header Section -->
+        <div class="mb-12 border-b border-[#4AF2A1]/20 pb-6">
+            <h1 class="text-3xl md:text-5xl font-playfair italic text-[#E0E5D7] mb-4">
+                <span class="text-[#FF2E88] not-italic font-tech text-2xl mr-2">>></span>
+                Codebase <span class="text-[#4AF2A1]">Overview</span>
+            </h1>
+            <p class="text-[#8A9A90] max-w-2xl text-sm md:text-base font-tech leading-relaxed">
+                <span class="text-[#FF2E88] font-bold">SYSTEM_LOG:</span> This portfolio is built as a lightweight
+                Single Page Application (SPA) leveraging modern frontend technologies without heavy framework overhead.
+            </p>
+        </div>
+
+        <!-- Tech Stack Grid -->
+        <h2 class="text-2xl font-tech text-[#4AF2A1] mb-6 flex items-center gap-2">
+            <i class="fa-solid fa-layer-group text-sm"></i> TECHNOLOGY STACK
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+            <!-- Alpine.js -->
+            <div class="glass-panel p-6 rounded-lg tech-card group">
+                <div class="text-[#FF2E88] text-3xl mb-4 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-code"></i>
+                </div>
+                <h3 class="text-xl font-playfair italic mb-2">Alpine.js</h3>
+                <p class="text-xs text-[#8A9A90] font-tech leading-relaxed">
+                    Handles reactive state management, routing (via View swapping), and UI interactions like the dynamic
+                    calendar and modal logic.
+                </p>
+            </div>
+
+            <!-- Tailwind CSS -->
+            <div class="glass-panel p-6 rounded-lg tech-card group">
+                <div class="text-[#4AF2A1] text-3xl mb-4 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-wind"></i>
+                </div>
+                <h3 class="text-xl font-playfair italic mb-2">Tailwind CSS</h3>
+                <p class="text-xs text-[#8A9A90] font-tech leading-relaxed">
+                    Utility-first styling framework enabling the custom "Cyberpunk x Cottagecore" design system through
+                    arbitrary values.
+                </p>
+            </div>
+
+            <!-- HTML5 -->
+            <div class="glass-panel p-6 rounded-lg tech-card group">
+                <div class="text-[#FF2E88] text-3xl mb-4 group-hover:scale-110 transition-transform">
+                    <i class="fa-brands fa-html5"></i>
+                </div>
+                <h3 class="text-xl font-playfair italic mb-2">Semantic HTML5</h3>
+                <p class="text-xs text-[#8A9A90] font-tech leading-relaxed">
+                    Accessible, structured markup ensuring SEO optimization and proper document outline for screen
+                    readers.
+                </p>
+            </div>
+
+            <!-- Chart.js -->
+            <div class="glass-panel p-6 rounded-lg tech-card group">
+                <div class="text-[#4AF2A1] text-3xl mb-4 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-chart-line"></i>
+                </div>
+                <h3 class="text-xl font-playfair italic mb-2">Chart.js</h3>
+                <p class="text-xs text-[#8A9A90] font-tech leading-relaxed">
+                    Powers the "Career Timeline" visualization in the dashboard, rendering responsive canvas-based
+                    graphs.
+                </p>
+            </div>
+        </div>
+
+        <!-- Architecture Breakdown -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+            <!-- File Structure -->
+            <div>
+                <h2 class="text-2xl font-tech text-[#FF2E88] mb-6 flex items-center gap-2">
+                    <i class="fa-solid fa-folder-tree text-sm"></i> DIRECTORY STRUCTURE
+                </h2>
+                <div class="glass-panel p-6 rounded-lg font-tech text-xs md:text-sm text-[#8A9A90]">
+                    <ul class="space-y-2">
+                        <li class="pl-2 border-l border-[#4AF2A1]"><span class="text-[#E0E5D7]">public/</span></li>
+                        <li class="pl-6 border-l border-[#4AF2A1]/20">
+                            <span class="text-[#FF2E88]">index.html</span> <span class="text-[#8A9A90]/50">// Core SPA
+                                Entry Point</span>
+                        </li>
+                        <li class="pl-6 border-l border-[#4AF2A1]/20">
+                            <span class="text-[#FF2E88]">code_architecture.html</span> <span
+                                class="text-[#8A9A90]/50">// You are here</span>
+                        </li>
+                        <li class="pl-6 border-l border-[#4AF2A1]/20">
+                            <span class="text-[#4AF2A1]">style.css</span> <span class="text-[#8A9A90]/50">// Custom
+                                Animations & Glitch Effects</span>
+                        </li>
+                        <li class="pl-6 border-l border-[#4AF2A1]/20">
+                            <span class="text-[#E0E5D7]">assets/</span> <span class="text-[#8A9A90]/50">// Images &
+                                Resources</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Core Logic -->
+            <div>
+                <h2 class="text-2xl font-tech text-[#FF2E88] mb-6 flex items-center gap-2">
+                    <i class="fa-solid fa-microchip text-sm"></i> CORE LOGIC
+                </h2>
+                <div class="code-block p-4 rounded-lg text-xs overflow-x-auto">
+                    <pre><code class="language-javascript">
+<span class="text-[#8A9A90]">// Main Application State</span>
+function <span class="text-[#FF2E88]">appData()</span> {
+    return {
+        <span class="text-[#4AF2A1]">currentSection</span>: 'dashboard',
+        <span class="text-[#4AF2A1]">inputQuery</span>: '',
+        
+        <span class="text-[#8A9A90]">// Navigation Handler</span>
+        <span class="text-[#FF2E88]">handleCommand()</span> {
+            const cmd = this.inputQuery.toLowerCase();
+            if (cmd === 'about') this.currentSection = 'about';
+            // ... handles routing
+        },
+
+        <span class="text-[#8A9A90]">// Calendar Logic</span>
+        <span class="text-[#FF2E88]">get daysInMonth()</span> {
+            return new Date(this.year, this.month + 1, 0).getDate();
+        }
+    }
+}
+                    </code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Action -->
+        <div class="flex justify-center mt-12">
+            <a href="index.html"
+                class="px-8 py-3 bg-[#FF2E88]/10 border border-[#FF2E88] hover:bg-[#FF2E88]/20 transition-all text-[#FF2E88] font-tech text-sm tracking-widest hover:shadow-[0_0_15px_#FF2E88]">
+                << RETURN TO MAIN TERMINAL </a>
+        </div>
+
+    </main>
+
+</body>
+
+</html>

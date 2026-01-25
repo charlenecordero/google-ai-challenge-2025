@@ -1,0 +1,626 @@
+function appData() {
+    return {
+        currentSection: 'dashboard',
+        subject: '',
+        message: '',
+        inputQuery: '',
+        isLightMode: false,
+
+        // Blog Data
+        selectedBlog: null,
+        careerChartInstance: null,
+        stackChartInstance: null,
+        learningChartInstance: null,
+        chartRefreshTimeout: null,
+
+        // System Version History Data
+        activeVersion: 6,
+        systemHistory: [
+            {
+                version: 1,
+                id: 'v1.0.0',
+                label: 'APL-Web',
+                year: '2016',
+                role: 'Intern Web Programmer',
+                company: 'APL co. ptd. Ltd.',
+                focus: 'Module_Focus: Web Development Foundation',
+                skills: ['PHP', 'MySQL', 'JavaScript', 'HTML/CSS'],
+                desc: 'Assisted in front-end and back-end web development tasks. Built foundational skills in translating requirements into functional web components.'
+            },
+            {
+                version: 2,
+                id: 'v2.0.0',
+                label: 'Accenture-PS',
+                year: '2018-2019',
+                role: 'Oracle PeopleSoft Developer',
+                company: 'Accenture',
+                focus: 'Module_Focus: Enterprise HR Systems',
+                skills: ['Oracle PeopleSoft', 'HCM', 'Oracle SQL', 'Enterprise Architecture'],
+                desc: 'Designed and configured enterprise HR systems for state DOT. Translated complex business requirements into technical configurations.'
+            },
+            {
+                version: 3,
+                id: 'v3.0.0',
+                label: 'CareCoach-AI',
+                year: '2020',
+                role: 'Health Advocate',
+                company: 'Care Coach',
+                focus: 'Module_Focus: AI-Assisted UX',
+                skills: ['Human-AI Interaction', 'Workflow Design', 'Responsible Automation'],
+                desc: 'Delivered interactive user experiences through AI-assisted conversational systems. Balanced automation with human empathy.'
+            },
+            {
+                version: 4,
+                id: 'v4.0.0',
+                label: 'Multisys-QA',
+                year: '2020-2021',
+                role: 'Mobile QA Specialist',
+                company: 'Multisys Tech',
+                focus: 'Module_Focus: Quality Assurance',
+                skills: ['End-to-End Testing', 'Mobile Validation', 'Edge-Case Analysis'],
+                desc: 'Conducted end-to-end quality validation for web and mobile apps. Designed test scenarios to verify system behavior.'
+            },
+            {
+                version: 5,
+                id: 'v5.0.0',
+                label: 'DevOps-Unix',
+                year: '2021-2023',
+                role: 'DevOps / Ops Analyst',
+                company: 'Accenture / Amdocs',
+                focus: 'Module_Focus: Production Systems & Automation',
+                skills: ['UNIX Shell', 'Oracle SQL', 'Automation Pipelines', 'Incident Management'],
+                desc: 'Supported large-scale customer resource and telecom systems. Enhanced backend workflows and resolved production incidents.'
+            },
+            {
+                version: 6,
+                id: 'v6.0.0',
+                label: 'TaskUs-AI',
+                year: '2024-Present',
+                role: 'Business Insights Analyst',
+                company: 'TaskUs',
+                focus: 'Module_Focus: AI & Data Strategy',
+                skills: ['SQL', 'Sigma Computing', 'ETL', 'Business Strategy'],
+                desc: 'Designing data-driven decision systems. Bridging technical analysis and business strategy for sales/ops growth.'
+            }
+        ],
+
+        blogs: [
+            {
+                id: 5,
+                title: 'GreetStyle AI: The Solution to "Cringey" Greetings',
+                date: 'Jan 24, 2026',
+                summary: 'An AI-powered greeting card generator that makes personal messages more fun and interactive.',
+                content: `
+                    <h4 class="text-[#FF2E88] font-bold text-lg mb-2">The Problem with Digital Greetings</h4>
+                    <p class="mb-4">We've all been there: It's your friend's birthday, and you want to tell them how much you appreciate them. But how do you say it without being "cringey" or awkward?</p>
+
+                    <h4 class="text-[#FF2E88] font-bold text-lg mb-2">The Story: A Birthday, a Dilemma, and an Idea</h4>
+                    <p class="mb-4">Last week, while staring at a blank text box, I realized I didn't know what "mood" the celebrant was in. Was he in the mood for a heartfelt message? A joke? Or maybe something completely absurd? I thought: “What if he could choose how to read my message?”</p>
+
+                    <h4 class="text-[#4AF2A1] font-bold text-lg mb-2">The Solution: GreetStyle AI</h4>
+                    <p class="mb-4">That "what if" became GreetStyle AI. I built this platform so that the sender can be sincere, but the receiver gets to have all the fun. Now, when I send a message, he can use AI to instantly toggle the "vibe":</p>
+                    <ul class="list-disc list-inside mb-4 pl-4 text-[#8A9A90]">
+                        <li>Feeling silly? Switch to <span class="text-[#FF2E88]">Minion Language 🍌</span>.</li>
+                        <li>Feeling chaotic? Switch to <span class="text-[#FF2E88]">Gen Z Slang 💀</span>.</li>
+                        <li>Feeling fancy? Switch to <span class="text-[#FF2E88]">Royalty 👑</span>.</li>
+                    </ul>
+
+                    <h4 class="text-[#8B5CF6] font-bold text-lg mb-2">The Tech Stack ("The How")</h4>
+                    <ul class="list-disc list-inside mb-4 pl-4 text-[#8A9A90]">
+                        <li><strong>Brain:</strong> Integrated <span class="text-[#4AF2A1]">Gemini 2.5 Flash-Lite</span> for high-speed, creative styling.</li>
+                        <li><strong>Infrastructure:</strong> Deployed a dual-platform setup with GitHub Pages (Frontend) and Hugging Face (Backend).</li>
+                        <li><strong>Efficiency:</strong> Used <span class="text-[#4AF2A1]">LZ-String compression</span> to store data in the URL, making it a "serverless" experience.</li>
+                        <li><strong>Reliability:</strong> Built a custom Direct Fetch architecture and Auto-Retry logic to handle API quotas.</li>
+                    </ul>
+
+                    <h4 class="text-[#E0E5D7] font-bold text-lg mb-2">Takeaway</h4>
+                    <p class="mb-4">Sometimes the best technical solutions come from a very human problem: trying to connect with your special someone in a fun way.</p>
+                    
+                    <p class="mt-4"><a href="https://greetstyle.com" target="_blank" class="text-[#4AF2A1] underline">Check it out at greetstyle.com</a></p>
+                    <div class="flex gap-2 mt-4 text-[10px] text-[#4AF2A1]/60 font-mono flex-wrap">
+                        <span>#GenAI</span> <span>#WebDev</span> <span>#GeminiAI</span> <span>#BuildInPublic</span> <span>#FullStack</span>
+                    </div>
+                `
+            },
+            {
+                id: 4,
+                title: 'Challenge Accepted: Google AI New Year, New You',
+                date: 'Jan 24, 2026',
+                summary: 'The spark that started this Cyber-Cottage overhaul.',
+                content: 'I stumbled upon an article on dev.to about the "New Year, New You" portfolio challenge by the Google AI team. It was the perfect motivation to finally revamp my portfolio. I decided to blend my love for Cyberpunk aesthetics with Cottagecore elements, creating a unique "Neural Garden" interface. Check out the challenge here: <a href="https://dev.to/devteam/join-the-new-year-new-you-portfolio-challenge-3000-in-prizes-feedback-from-google-ai-team-4e7g" target="_blank" class="text-[#4AF2A1] underline">Join the Challenge</a>.'
+            },
+            {
+                id: 1,
+                title: 'The Ghost in the Shell Script: Automating My Life',
+                date: 'Oct 24, 2025',
+                summary: 'How I used simple bash scripts to reclaim 10 hours of my week.',
+                content: 'Automation isn\'t just for servers. In this post, I explore how I applied DevOps principles to my daily routine, from meal prep scheduling to automated budget tracking. It started with a simple cron job...'
+            },
+            {
+                id: 2,
+                title: 'Neon Gardening: Hydroponics meet IoT',
+                date: 'Nov 12, 2025',
+                summary: 'Building a self-sustaining indoor garden with Arduino and a lot of UV lights.',
+                content: 'My cottagecore dreams collided with my cyberpunk reality. Using an ESP32, some water pumps, and a custom dashboard, I created a hydroponic system that texts me when the pH is off.'
+            },
+            {
+                id: 3,
+                title: 'AI Architectures for the Lazy Developer',
+                date: 'Jan 05, 2026',
+                summary: 'Why "good enough" is sometimes better than state-of-the-art.',
+                content: 'We often obsess over the latest transformer models, but sometimes a simple regression is all you need. Here is a breakdown of practical AI architecture decisions for real-world business problems.'
+            }
+        ],
+
+
+
+        // Theme Logic
+
+
+        getThemeColor(cssVar) {
+            return getComputedStyle(document.body).getPropertyValue(cssVar).trim();
+        },
+
+        refreshCharts() {
+            // Debounce: Clear previous timer if it exists
+            if (this.chartRefreshTimeout) {
+                clearTimeout(this.chartRefreshTimeout);
+            }
+
+            // Small delay to allow CSS variable propagation
+            this.chartRefreshTimeout = setTimeout(() => {
+                this.initChart();
+                this.initStackChart();
+                this.initLearningChart();
+            }, 100); // Increased to 100ms for safety
+        },
+
+        projects: [
+            {
+                title: 'GreetStyle AI',
+                desc: 'AI-powered greeting card generator.',
+                tags: ['AI', 'GenAI', 'Web App'],
+                link: 'https://greetstyle.com'
+            },
+            {
+                title: 'Weird Wanderess',
+                desc: 'Personal blog for worldly exploration.',
+                tags: ['Blog', 'Exploration', 'Personal'],
+                link: 'https://weirdwanderess.com'
+            },
+            {
+                title: 'Ibasari',
+                desc: 'Ecommerce platform for online variety store.',
+                tags: ['E-commerce', 'Store', 'Business'],
+                link: 'https://ibasari.com'
+            },
+            {
+                title: 'CyberCottage.ai',
+                desc: 'Future AI startup brand.',
+                tags: ['Startup', 'AI', 'Future'],
+                link: 'https://cybercottage.ai'
+            },
+            {
+                title: 'Portfolio Dashboard',
+                desc: 'This interactive portfolio dashboard, built with core web technologies.',
+                tags: ['HTML', 'Tailwind CSS', 'Alpine.js'],
+                link: 'code_architecture.html'
+            }
+        ],
+
+        autoType(cmd) {
+            if (cmd === 'clear') {
+                this.inputQuery = '';
+                return;
+            }
+            this.inputQuery = cmd;
+            this.handleCommand();
+        },
+
+        handleCommand() {
+            const cmd = this.inputQuery.trim().toLowerCase();
+            if (!cmd) return;
+
+            if (cmd.includes('root') || cmd.includes('experi')) {
+                this.currentSection = 'experience';
+            } else if (cmd.includes('project') || cmd.includes('lab') || cmd.includes('work')) {
+                this.currentSection = 'projects';
+            } else if (cmd.includes('blog') || cmd.includes('write') || cmd.includes('read')) {
+                this.currentSection = 'blog';
+            } else if (cmd.includes('learn') || cmd.includes('cert') || cmd.includes('school')) {
+                this.currentSection = 'about'; // Redirect to about as Knowledge Base is now there
+            } else if (cmd.includes('about') || cmd.includes('who') || cmd.includes('intro')) {
+                this.currentSection = 'about';
+            } else if (cmd.includes('contact') || cmd.includes('email') || cmd.includes('hire')) {
+                this.currentSection = 'contact';
+            } else if (cmd.includes('cal') || cmd.includes('sched') || cmd.includes('date')) {
+                this.currentSection = 'calendar';
+            } else if (cmd.includes('home') || cmd.includes('dash') || cmd.includes('start')) {
+                this.currentSection = 'dashboard';
+            } else if (cmd === 'clear') {
+                this.inputQuery = '';
+            }
+
+            // Optional: clear input after successful command if desired, but user might want to see what they typed.
+            // keeping text allows 'clear' button to have purpose.
+        },
+
+        initChart() {
+            const ctx = document.getElementById('careerChart');
+            if (ctx) {
+                if (this.careerChartInstance) this.careerChartInstance.destroy();
+
+                const mint = '#4AF2A1';
+                const pink = '#FF2E88';
+                const text = '#E0E5D7';
+                const axisText = '#8A9A90';
+                const gridColor = 'rgba(74, 242, 161, 0.1)';
+
+
+                this.careerChartInstance = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['2016', '2018', '2020', '2021', '2022', '2024', '2026'],
+                        datasets: [{
+                            label: 'Career Trajectory',
+                            data: [1, 2, 2.5, 3, 3.5, 4, 5],
+                            borderColor: mint,
+                            backgroundColor: 'rgba(74, 242, 161, 0.1)',
+                            tension: 0.4,
+                            pointBackgroundColor: pink,
+                            pointBorderColor: mint,
+                            pointRadius: 4,
+                            pointHoverRadius: 6,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    label: function (context) {
+                                        const roles = [
+                                            "Web Intern (APL)",
+                                            "PeopleSoft Dev (Accenture)",
+                                            "Health Advocate / QA",
+                                            "DevOps (Accenture)",
+                                            "Ops Analyst (Amdocs)",
+                                            "Business Insights (TaskUs)",
+                                            "AI Architect Goal"
+                                        ];
+                                        return roles[context.dataIndex];
+                                    }
+                                },
+                                backgroundColor: 'rgba(5, 5, 5, 0.9)',
+                                titleColor: mint,
+                                bodyColor: '#E0E5D7',
+                                borderColor: mint,
+                                borderWidth: 1,
+                                displayColors: false,
+                                bodyFont: { family: 'Fira Code' }
+                            }
+                        },
+                        plugins: [{
+                            afterDatasetsDraw: (chart) => {
+                                const ctx = chart.ctx;
+                                ctx.save();
+                                ctx.font = '10px "Fira Code"';
+                                ctx.fillStyle = text;
+                                ctx.textAlign = 'center';
+                                ctx.textBaseline = 'bottom';
+
+                                const roles = [
+                                    "Intern",
+                                    "PeopleSoft",
+                                    "Health/QA",
+                                    "DevOps",
+                                    "Ops Analyst",
+                                    "Biz Analyst",
+                                    "AI Architect"
+                                ];
+
+                                const meta = chart.getDatasetMeta(0);
+                                meta.data.forEach((point, index) => {
+                                    const role = roles[index];
+                                    if (role) {
+                                        ctx.fillText(role, point.x, point.y - 12);
+                                    }
+                                });
+                                ctx.restore();
+                            }
+                        }],
+                        scales: {
+                            y: {
+                                display: false,
+                                grid: { color: this.getThemeColor('--glass-border') || 'rgba(74, 242, 161, 0.1)' }
+                            },
+                            x: {
+                                grid: { color: this.getThemeColor('--glass-border') || 'rgba(74, 242, 161, 0.1)' },
+                                ticks: {
+                                    color: text,
+                                    font: { family: 'Fira Code', size: 10 }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        },
+        initStackChart() {
+            const ctx = document.getElementById('architectStackChart');
+            if (ctx) {
+                if (this.stackChartInstance) this.stackChartInstance.destroy();
+
+                if (this.stackChartInstance) this.stackChartInstance.destroy();
+
+                const mint = '#4AF2A1';
+                const pink = '#FF2E88'; // Keep pink consistent
+                const text = '#E0E5D7';
+
+                this.stackChartInstance = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['SYSTEM DESIGN', 'AI/LLM OPS', 'AUTOMATION', 'AI STRATEGY', 'GOVERNANCE'],
+                        datasets: [{
+                            data: [30, 25, 20, 15, 10],
+                            backgroundColor: [
+                                mint, // System Design
+                                '#2D5A45', // AI/LLM Ops (Keep static or var?)
+                                '#98F5C6', // Automation (Pale Mint)
+                                pink, // AI Strategy
+                                '#FF85B3'  // Governance (Soft Pink)
+                            ],
+                            borderColor: 'transparent',
+                            borderWidth: 2,
+                            hoverOffset: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        layout: {
+                            padding: 24
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(5, 5, 5, 0.9)',
+                                titleColor: mint,
+                                bodyColor: '#E0E5D7',
+                                borderColor: mint,
+                                borderWidth: 1,
+                                bodyFont: { family: 'Monaco' }
+                            }
+                        }
+                    },
+                    plugins: [{
+                        id: 'outerLabels',
+                        afterDraw: (chart) => {
+                            const { ctx, chartArea: { width, height } } = chart;
+                            chart.data.datasets.forEach((dataset, i) => {
+                                const meta = chart.getDatasetMeta(i);
+                                meta.data.forEach((element, index) => {
+                                    const { x, y, startAngle, endAngle, outerRadius } = element;
+                                    const midAngle = (startAngle + endAngle) / 2;
+                                    const startX = x + Math.cos(midAngle) * outerRadius;
+                                    const startY = y + Math.sin(midAngle) * outerRadius;
+                                    const lineLen = 15;
+                                    const endX = x + Math.cos(midAngle) * (outerRadius + lineLen);
+                                    const endY = y + Math.sin(midAngle) * (outerRadius + lineLen);
+
+                                    ctx.save();
+                                    ctx.beginPath();
+                                    ctx.moveTo(startX, startY);
+                                    ctx.lineTo(endX, endY);
+                                    ctx.strokeStyle = '#74E39A';
+                                    ctx.lineWidth = 1;
+                                    ctx.stroke();
+
+                                    const label = chart.data.labels[index];
+                                    ctx.font = '10px "Monaco", "Roboto Mono", monospace';
+                                    ctx.fillStyle = text;
+
+                                    const isRight = Math.cos(midAngle) > 0;
+                                    ctx.textAlign = isRight ? 'left' : 'right';
+                                    ctx.textBaseline = 'middle';
+                                    const textX = endX + (isRight ? 6 : -6);
+
+                                    ctx.fillText(label, textX, endY);
+                                    ctx.restore();
+                                });
+                            });
+                        }
+                    }]
+                });
+            }
+        },
+
+
+        initLearningChart() {
+            const ctx = document.getElementById('learningChart');
+            if (ctx) {
+                if (this.learningChartInstance) this.learningChartInstance.destroy();
+
+                const mint = '#4AF2A1';
+                const text = '#E0E5D7';
+                const axisText = '#8A9A90';
+
+                this.learningChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['UDEMY AI', 'LINKEDIN AI', 'COURSERA GENAI', 'CRASHCOURSE'],
+                        datasets: [{
+                            label: 'Completion',
+                            data: [50, 100, 100, 60],
+                            backgroundColor: 'rgba(74, 242, 161, 0.2)',
+                            borderColor: mint,
+                            borderWidth: 1,
+                            barPercentage: 0.6
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        layout: {
+                            padding: {
+                                right: 30 // Add padding for labels
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(5, 5, 5, 0.9)',
+                                titleColor: mint,
+                                bodyColor: '#E0E5D7',
+                                borderColor: mint,
+                                borderWidth: 1,
+                                bodyFont: { family: 'Fira Code' },
+                                callbacks: {
+                                    label: function (context) {
+                                        return context.raw + '%';
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                min: 0,
+                                max: 100,
+                                grid: {
+                                    color: this.getThemeColor('--glass-border') || 'rgba(74, 242, 161, 0.1)'
+                                },
+                                ticks: {
+                                    color: axisText,
+                                    font: { family: 'Fira Code', size: 10 }
+                                }
+                            },
+                            y: {
+                                grid: {
+                                    display: false
+                                },
+                                ticks: {
+                                    color: text,
+                                    font: { family: 'Fira Code', size: 10 }
+                                }
+                            }
+                        }
+                    },
+                    plugins: [{
+                        id: 'percentLabels',
+                        afterDatasetsDraw(chart, args, options) {
+                            const { ctx } = chart;
+                            chart.data.datasets.forEach((dataset, i) => {
+                                const meta = chart.getDatasetMeta(i);
+                                meta.data.forEach((bar, index) => {
+                                    const value = dataset.data[index];
+                                    ctx.save();
+                                    ctx.fillStyle = mint;
+                                    ctx.font = 'bold 10px "Fira Code"'; // Match font
+                                    ctx.textAlign = 'left';
+                                    ctx.textBaseline = 'middle';
+                                    ctx.fillText(value + '%', bar.x + 5, bar.y);
+                                    ctx.restore();
+                                });
+                            });
+                        }
+                    }]
+                });
+            }
+        },
+
+        // Resume Data
+        experience: [
+            {
+                company: 'TaskUs',
+                role: 'Business Insights Analyst',
+                years: 'May 2024 – Present',
+                points: [
+                    'Design and deliver data-driven decision systems to support merchant and vendor growth.',
+                    'Use SQL on ETL pipelines to decompose business questions and identify patterns.',
+                    'Build and maintain Sigma Computing dashboards as decision-support tools.',
+                    'Validate data, assumptions, and logic to ensure accuracy and trust.'
+                ],
+                skills: ['SQL', 'UNIX', 'Sigma Computing', 'ETL']
+            },
+            {
+                company: 'Amdocs',
+                role: 'Technical & Business Operations Analyst',
+                years: 'Dec 2022 – Dec 2023',
+                points: [
+                    'Supported large-scale telecom systems (CRM, billing, invoicing) in production.',
+                    'Monitored batch jobs and system workflows, identifying failures.',
+                    'Broke down complex system issues into actionable steps for resolution.'
+                ],
+                skills: ['System Monitoring', 'Workflow Analysis', 'SQL', 'Incident Mgmt']
+            },
+            {
+                company: 'Accenture',
+                role: 'DevOps / Production Systems Engineer',
+                years: 'May 2021 – July 2022',
+                points: [
+                    'Supported enterprise-scale customer resource systems (CRS) for NA utilities.',
+                    'Designed and maintained backend workflows and automation pipelines.',
+                    'Diagnosed automation job failures and implemented durable fixes.',
+                    'Used UNIX shell scripting, Oracle SQL, and Java for reliability.'
+                ],
+                skills: ['DevOps', 'UNIX Shell', 'Oracle SQL', 'Automation']
+            },
+            {
+                company: 'Multisys Technologies',
+                role: 'Mobile QA Specialist',
+                years: 'Oct 2020 – Apr 2021',
+                points: [
+                    'Conducted end-to-end quality validation for web and mobile applications.',
+                    'Designed and executed test scenarios to verify system behavior.',
+                    'Identified edge cases and documented findings.'
+                ],
+                skills: ['QA Testing', 'Mobile Validation']
+            },
+            {
+                company: 'Care Coach',
+                role: 'Health Advocate',
+                years: 'Jan 2020 – Oct 2020',
+                points: [
+                    'Delivered interactive user experiences through AI-assisted conversational systems.',
+                    'Adapted interactions based on user responses and context.',
+                    'Supported system-driven engagement while maintaining empathy.'
+                ],
+                skills: ['HCI', 'Workflow Design']
+            },
+            {
+                company: 'Accenture',
+                role: 'Oracle PeopleSoft Developer',
+                years: 'Mar 2018 – Dec 2019',
+                points: [
+                    'Designed and configured enterprise HR systems for state DOT.',
+                    'Translated business requirements into technical configurations.',
+                    'Used Oracle SQL Developer for data-driven configurations.'
+                ],
+                skills: ['Oracle PeopleSoft', 'HCM', 'Oracle SQL']
+            },
+            {
+                company: 'APL co. ptd. Ltd.',
+                role: 'Intern Web Programmer',
+                years: 'July 2016 – Oct 2016',
+                points: ['Assisted in front-end and back-end web development tasks (PHP, MySQL).'],
+                skills: ['PHP', 'MySQL', 'JS']
+            }
+        ],
+
+        init() {
+            this.refreshCharts();
+            // Start scanline effect
+            setTimeout(() => {
+                document.querySelector('.scanlines').style.opacity = '0.15';
+            }, 100);
+        }
+    }
+}

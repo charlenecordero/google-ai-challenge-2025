@@ -1,0 +1,256 @@
+@import "tailwindcss";
+
+/* Cyberpunk-Cottagecore Design System */
+:root {
+    /* Palette */
+    --void-moss: #000000;
+    /* Pure Black */
+    --deep-moss: #050505;
+    /* Almost Black */
+    --neon-mint: #4AF2A1;
+    /* Primary Accent */
+    --neon-pink: #FF2E88;
+    /* Sakura Accent */
+    --hologram-fern: #2d5a45;
+    /* Secondary/Muted */
+    --txt-bone: #E0E5D7;
+    /* Text Base */
+    --txt-muted: #8A9A90;
+
+    /* Glass Effects */
+    --glass-bg: rgba(5, 5, 5, 0.75);
+    --glass-border: rgba(74, 242, 161, 0.15);
+    --glass-shine: rgba(74, 242, 161, 0.1);
+
+    /* Animations */
+    --scanline-speed: 6s;
+}
+
+
+
+html {
+    height: 100vh;
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+}
+
+body {
+    min-height: 100vh;
+    background-color: var(--void-moss);
+    color: var(--txt-bone);
+    font-family: 'Fira Code', monospace;
+    /* Tech base */
+    overflow-x: hidden;
+    /* Restore snap */
+    background-image:
+        /* Stylized Neon Vegetation (Green) */
+        radial-gradient(circle at 10% 20%, rgba(74, 242, 161, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(74, 242, 161, 0.05) 0%, transparent 40%),
+        /* Neon Blooms (Pink) */
+        radial-gradient(circle at 85% 15%, rgba(255, 46, 136, 0.1) 0%, transparent 35%),
+        radial-gradient(circle at 15% 85%, rgba(255, 46, 136, 0.08) 0%, transparent 30%),
+        /* Deep Void Atmosphere */
+        radial-gradient(circle at 50% 50%, rgba(5, 10, 8, 0.95) 0%, rgba(0, 0, 0, 1) 100%);
+    background-attachment: fixed;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+
+
+/* Typography Override */
+.font-organic {
+    font-family: 'Playfair Display', serif;
+}
+
+.font-tech {
+    font-family: 'Fira Code', monospace;
+}
+
+.font-cyber-cottage {
+    font-family: 'Cinzel', serif;
+}
+
+.font-futuristic {
+    font-family: 'Orbitron', sans-serif;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--void-moss);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--hologram-fern);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--neon-mint);
+}
+
+/* Effects */
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    box-shadow:
+        0 4px 30px rgba(0, 0, 0, 0.5),
+        inset 0 0 0 1px var(--glass-shine);
+    position: relative;
+    overflow: hidden;
+}
+
+.text-glow {
+    text-shadow: 0 0 10px rgba(74, 242, 161, 0.3);
+}
+
+.text-glow-hover:hover {
+    text-shadow: 0 0 15px rgba(74, 242, 161, 0.6);
+}
+
+/* Scanline Overlay */
+.scanlines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background: linear-gradient(to bottom,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0) 50%,
+            rgba(0, 0, 0, 0.1) 50%,
+            rgba(0, 0, 0, 0.1));
+    background-size: 100% 4px;
+    z-index: 50;
+    opacity: 0.15;
+}
+
+/* Utility Classes */
+.border-organic {
+    border-radius: 12px 2px 12px 2px;
+}
+
+/* Scroll Snap */
+/* Scroll Snap */
+/* Scroll Snap */
+.snap-section {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    min-height: 100vh;
+}
+
+/* Animations */
+@keyframes glitch {
+    0% {
+        transform: translate(0)
+    }
+
+    20% {
+        transform: translate(-2px, 2px)
+    }
+
+    40% {
+        transform: translate(-2px, -2px)
+    }
+
+    60% {
+        transform: translate(2px, 2px)
+    }
+
+    80% {
+        transform: translate(2px, -2px)
+    }
+
+    100% {
+        transform: translate(0)
+    }
+}
+
+.glitch-text:hover {
+    animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+    color: var(--neon-pink);
+    text-shadow: 2px 2px var(--neon-mint), -2px -2px var(--deep-moss);
+}
+
+@keyframes pulse-green {
+
+    0%,
+    100% {
+        box-shadow: 0 0 5px rgba(74, 242, 161, 0.1);
+    }
+
+    50% {
+        box-shadow: 0 0 15px rgba(74, 242, 161, 0.3);
+    }
+}
+
+.animate-breathe {
+    animation: pulse-green 3s infinite ease-in-out;
+}
+
+/* Scroll Reveal Transitions */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+}
+
+.reveal-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+[x-cloak] {
+    display: none !important;
+}
+
+/* Map Marker Animation */
+.map-marker {
+    width: 12px;
+    height: 12px;
+    background-color: #FF2E88;
+    border-radius: 50%;
+    position: absolute;
+    box-shadow: 0 0 10px #FF2E88;
+}
+
+.map-pulse {
+    width: 100%;
+    height: 100%;
+    background-color: #FF2E88;
+    border-radius: 50%;
+    position: absolute;
+    animation: pulse-ring 2s infinite;
+}
+
+@keyframes pulse-ring {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scale(3);
+        opacity: 0;
+    }
+}
+
+@keyframes scan-x {
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 100%;
+    }
+}
+
+.animate-scan-x {
+    animation: scan-x 5s linear infinite;
+}

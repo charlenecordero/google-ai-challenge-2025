@@ -4,7 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Charlene Cordero | AI Solutions Architect</title>
+    <title>CAC | AI Solutions Architect</title>
+
+    <!-- Alpine.js Plugins -->
+    <script defer src="https://unpkg.com/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
 
     <!-- Alpine.js -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -12,641 +15,1030 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
     <!-- Fonts -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Fira+Code:wght@300;400;600&family=Cinzel:wght@400;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Fira+Code:wght@300;400;600&family=Cinzel:wght@400;700&family=Orbitron:wght@400;500;700&display=swap"
         rel="stylesheet">
 
-    <style>
-        /* Cyberpunk-Cottagecore Design System */
-        :root {
-            /* Palette */
-            --void-moss: #000000;
-            /* Pure Black */
-            --deep-moss: #050505;
-            /* Almost Black */
-            --neon-mint: #4AF2A1;
-            /* Primary Accent */
-            --neon-pink: #FF2E88;
-            /* Sakura Accent */
-            --hologram-fern: #2d5a45;
-            /* Secondary/Muted */
-            --txt-bone: #E0E5D7;
-            /* Text Base */
-            --txt-muted: #8A9A90;
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-            /* Glass Effects */
-            --glass-bg: rgba(5, 5, 5, 0.75);
-            --glass-border: rgba(74, 242, 161, 0.15);
-            --glass-shine: rgba(255, 255, 255, 0.03);
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="style.css">
 
-            /* Animations */
-            --scanline-speed: 6s;
-        }
 
-        body {
-            background-color: var(--void-moss);
-            color: var(--txt-bone);
-            font-family: 'Fira Code', monospace;
-            /* Tech base */
-            overflow-x: hidden;
-            background-image:
-                /* Neon Sakura (Pink) */
-                radial-gradient(circle at 85% 15%, rgba(255, 46, 136, 0.15) 0%, transparent 25%),
-                radial-gradient(circle at 15% 85%, rgba(255, 46, 136, 0.1) 0%, transparent 20%),
-                /* Neon Plants (Green) */
-                radial-gradient(circle at 10% 20%, rgba(74, 242, 161, 0.15) 0%, transparent 30%),
-                radial-gradient(circle at 90% 80%, rgba(74, 242, 161, 0.1) 0%, transparent 30%),
-                /* Deep Atmosphere */
-                radial-gradient(circle at 50% 50%, rgba(11, 18, 14, 0.8) 0%, rgba(0, 0, 0, 1) 100%);
-            background-attachment: fixed;
-        }
-
-        /* Typography Override */
-        .font-organic {
-            font-family: 'Playfair Display', serif;
-        }
-
-        .font-tech {
-            font-family: 'Fira Code', monospace;
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--void-moss);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--hologram-fern);
-            border-radius: 3px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--neon-mint);
-        }
-
-        /* Effects */
-        .glass-panel {
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
-            box-shadow:
-                0 4px 30px rgba(0, 0, 0, 0.5),
-                inset 0 0 0 1px var(--glass-shine);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .text-glow {
-            text-shadow: 0 0 10px rgba(74, 242, 161, 0.3);
-        }
-
-        .text-glow-hover:hover {
-            text-shadow: 0 0 15px rgba(74, 242, 161, 0.6);
-        }
-
-        /* Scanline Overlay */
-        .scanlines {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            background: linear-gradient(to bottom,
-                    rgba(255, 255, 255, 0),
-                    rgba(255, 255, 255, 0) 50%,
-                    rgba(0, 0, 0, 0.1) 50%,
-                    rgba(0, 0, 0, 0.1));
-            background-size: 100% 4px;
-            z-index: 50;
-            opacity: 0.15;
-        }
-
-        /* Utility Classes */
-        .border-organic {
-            border-radius: 12px 2px 12px 2px;
-        }
-
-        /* Animations */
-        @keyframes pulse-green {
-
-            0%,
-            100% {
-                box-shadow: 0 0 5px rgba(74, 242, 161, 0.1);
-            }
-
-            50% {
-                box-shadow: 0 0 15px rgba(74, 242, 161, 0.3);
-            }
-        }
-
-        .animate-breathe {
-            animation: pulse-green 3s infinite ease-in-out;
-        }
-
-        [x-cloak] {
-            display: none !important;
-        }
-    </style>
 </head>
 
-<body class="min-h-screen flex flex-col justify-between" x-data="appData()">
+<body class="min-h-screen flex flex-col justify-between bg-[var(--void-moss)] text-[var(--txt-bone)] overflow-x-hidden"
+    x-data="appData()">
 
     <!-- Scanline Effect -->
     <div class="scanlines"></div>
 
-    <!-- Background Decorations (Vines & Sakura) -->
+    <!-- Background Decorations -->
     <div id="bg-decorations" class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <!-- Left: Neon Green Vines -->
         <svg class="absolute left-0 top-0 h-full w-full md:w-1/3 opacity-30" preserveAspectRatio="none"
             viewBox="0 0 100 800">
-            <path d="M0,0 C30,150 10,300 40,450 C70,600 20,750 0,900" fill="none" stroke="#4AF2A1" stroke-width="2"
-                style="filter: drop-shadow(0 0 5px #4AF2A1);" />
+            <path d="M0,0 C30,150 10,300 40,450 C70,600 20,750 0,900" fill="none" stroke="var(--neon-mint)"
+                stroke-width="2" style="filter: drop-shadow(0 0 5px var(--neon-mint));" />
             <path d="M-10,0 C20,200 60,350 10,550 C-20,700 30,800 0,1000" fill="none" stroke="#2d5a45" stroke-width="3"
                 opacity="0.5" />
-            <!-- Leaves/Tech Nodes -->
-            <circle cx="30" cy="150" r="3" fill="#4AF2A1" style="filter: drop-shadow(0 0 8px #4AF2A1);" />
-            <rect x="35" y="445" width="6" height="6" fill="#4AF2A1" transform="rotate(45 38 448)" />
         </svg>
-
-        <!-- Right: Neon Pink Sakura -->
         <svg class="absolute right-0 top-0 h-full w-full md:w-1/3 opacity-30" preserveAspectRatio="none"
             viewBox="0 0 100 800">
-            <!-- Falling Petals/Blossoms -->
             <g transform="translate(60, 100)">
                 <circle cx="0" cy="0" r="4" fill="#FF2E88" style="filter: drop-shadow(0 0 8px #FF2E88);">
                     <animate attributeName="cy" from="0" to="20" dur="4s" repeatCount="indefinite" />
                     <animate attributeName="opacity" values="0.8;0.3;0.8" dur="4s" repeatCount="indefinite" />
                 </circle>
             </g>
-            <circle cx="80" cy="50" r="2" fill="#FF2E88" opacity="0.6" />
-            <circle cx="40" cy="200" r="3" fill="#FF2E88" opacity="0.8" style="filter: drop-shadow(0 0 5px #FF2E88);" />
-            <circle cx="70" cy="350" r="5" fill="#FF2E88" opacity="0.5" />
-            <circle cx="30" cy="500" r="2" fill="#FF2E88" opacity="0.7" />
-            <circle cx="90" cy="650" r="4" fill="#FF2E88" opacity="0.6" style="filter: drop-shadow(0 0 5px #FF2E88);" />
-            <!-- Minimal Branch suggestion (abstract) -->
-            <path d="M100,50 Q60,150 100,250" fill="none" stroke="#FF2E88" stroke-width="1" opacity="0.3" />
+        </svg>
+        <svg class="absolute left-1/4 bottom-0 h-1/2 w-full md:w-1/3 opacity-20 pointer-events-none"
+            preserveAspectRatio="none" viewBox="0 0 100 100">
+            <!-- Animated Neon Plant -->
+            <path d="M50,100 Q60,50 50,0" stroke="#4AF2A1" stroke-width="0.5" fill="none">
+                <animate attributeName="d" values="M50,100 Q60,50 50,0; M50,100 Q40,50 50,0; M50,100 Q60,50 50,0"
+                    dur="10s" repeatCount="indefinite" />
+            </path>
+            <circle cx="50" cy="10" r="2" fill="#FF2E88" opacity="0.8">
+                <animate attributeName="cy" values="10; 15; 10" dur="5s" repeatCount="indefinite" />
+            </circle>
         </svg>
     </div>
 
-    <!-- Main Container -->
-    <div class="relative z-10 max-w-5xl mx-auto w-full p-4 md:p-8 flex flex-col h-full">
+    <!-- Top Header / Status Bar -->
+    <header
+        class="fixed top-0 left-0 w-full z-50 bg-[var(--void-moss)]/95 border-b border-[#FF2E88]/20 backdrop-blur-md px-4 py-3 shadow-[0_4px_20px_rgba(255,46,136,0.1)] font-tech">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
 
-        <!-- Header / Status Bar -->
-        <header class="flex justify-between items-end border-b border-[#4AF2A1]/20 pb-4 mb-4 select-none">
-            <div>
-                <h1 class="font-organic text-4xl md:text-5xl text-[#4AF2A1] tracking-wide text-glow">
-                    Charlene Cordero
-                </h1>
-                <p class="text-sm md:text-base text-[#8A9A90] mt-1 font-tech tracking-wider">
-                    <span class="text-[#4AF2A1]">></span> Systems_Architect <span class="text-[#4AF2A1]">::</span>
-                    AI_Ops
-                </p>
+            <!-- Left: Identity -->
+            <div class="flex flex-col md:flex-row md:items-center gap-1 md:gap-4">
+                <div class="flex items-center gap-2 group cursor-pointer" @click="currentSection = 'dashboard'">
+                    <span
+                        class="text-[#FF2E88] font-tech text-base md:text-lg tracking-widest font-bold drop-shadow-[0_0_5px_rgba(255,46,136,0.5)]">>
+                        CHARLENE ANNE CORDERO</span>
+                    <span class="animate-pulse text-[#4AF2A1]">_</span>
+                </div>
+                <div class="hidden md:block w-px h-4 bg-[#FF2E88]/40"></div>
+                <span class="text-[#FF2E88]">>></span> <span
+                    class="text-[var(--txt-muted)] text-[10px] md:text-xs font-tech tracking-[0.1em]">Systems
+                    Architect<span class="text-[#FF2E88]"> :: </span><span
+                        class="text-[var(--txt-muted)] text-[10px] md:text-xs font-tech tracking-[0.1em]">AI Automation
+                        &
+                        Integration</span>
+                </span>
             </div>
-            <div class="hidden md:block text-right text-[10px] text-[#4AF2A1]/60 tracking-widest font-tech">
-                <p>SYS.STATUS: ONLINE</p>
-                <p x-text="'MEMORY: ' + Math.floor(Math.random() * 30 + 70) + '%'"></p>
-                <p x-text="'PING: ' + Math.floor(Math.random() * 20 + 5) + 'ms'"></p>
+
+            <!-- Right: System Stats -->
+            <div class="flex items-center gap-4 text-[10px] font-tech tracking-wider text-[#4AF2A1]/80">
+                <!-- Theme Toggle -->
+
+                <div class="hidden md:flex items-center gap-2">
+                    <span class="text-[var(--txt-muted)]">STATUS:</span>
+                    <span class="animate-pulse text-[#4AF2A1]">ONLINE</span>
+                </div>
+                <div class="hidden md:flex items-center gap-2">
+                    <span class="text-[var(--txt-muted)]">MEM:</span>
+                    <span x-text="Math.floor(Math.random() * 20 + 40) + '%'">42%</span>
+                </div>
+                <div class="hidden md:flex items-center gap-2">
+                    <span class="text-[var(--txt-muted)]">PING:</span>
+                    <span x-text="Math.floor(Math.random() * 30 + 10) + 'ms'">24ms</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-[var(--txt-muted)]">DATE:</span>
+                    <span x-text="new Date().toLocaleDateString('en-US', {month:'2-digit', day:'2-digit'})"></span>
+                </div>
             </div>
-        </header>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="relative z-10 w-full max-w-7xl mx-auto px-4 pt-24 pb-20 flex-grow">
 
         <!-- Persistent Console Input -->
+        <div
+            class="mt-2 text-xs md:text-sm text-[var(--txt-bone)] font-tech opacity-80 flex flex-wrap justify-center gap-2 mb-2">
+            <span class="mr-1">TRY:</span>
+            <button @click="autoType('dashboard')"
+                class="hover:text-[#4AF2A1] cursor-pointer transition-colors hover:shadow-[0_0_8px_#FF2E88]">DASHBOARD</button>
+            <span class="text-[#FF2E88]/40">/</span>
+            <button @click="autoType('about')"
+                class="hover:text-[#4AF2A1] cursor-pointer transition-colors hover:shadow-[0_0_8px_#FF2E88]">ABOUT</button>
+            <span class="text-[#FF2E88]/40">/</span>
+            <button @click="autoType('projects')"
+                class="hover:text-[#4AF2A1] cursor-pointer transition-colors hover:shadow-[0_0_8px_#FF2E88]">PROJECTS</button>
+            <span class="text-[#FF2E88]/40">/</span>
+
+            <button @click="autoType('experience')"
+                class="hover:text-[#4AF2A1] cursor-pointer transition-colors hover:shadow-[0_0_8px_#FF2E88]">EXPERIENCE</button>
+            <span class="text-[#FF2E88]/40">/</span>
+
+            <button @click="autoType('blog')"
+                class="hover:text-[#4AF2A1] cursor-pointer transition-colors hover:shadow-[0_0_8px_#FF2E88]">BLOG</button>
+            <span class="text-[#FF2E88]/40">/</span>
+            <button @click="autoType('contact')"
+                class="hover:text-[#4AF2A1] cursor-pointer transition-colors hover:shadow-[0_0_8px_#FF2E88]">CONTACT</button>
+        </div>
+
         <div class="max-w-2xl mx-auto w-full mb-12">
             <div class="relative group">
                 <span
-                    class="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#4AF2A1] font-tech text-lg">></span>
+                    class="absolute left-4 top-1/2 transform -translate-y-1/2 text-[var(--neon-mint)] font-tech text-lg">></span>
                 <input type="text" x-model="inputQuery" @keyup.enter="handleCommand()"
                     placeholder="Type 'roots', 'projects', or 'contact'..."
-                    class="w-full bg-[#050a07]/50 text-[#4AF2A1] font-tech pl-10 pr-4 py-4 border border-[#4AF2A1]/30 focus:border-[#4AF2A1] outline-none rounded-sm focus:shadow-[0_0_15px_rgba(74,242,161,0.2)] transition-all placeholder-[#4AF2A1]/30"
+                    class="w-full font-tech pl-10 pr-24 py-4 border border-[var(--neon-mint)] focus:border-[var(--neon-mint)] outline-none rounded-sm focus:shadow-[0_0_15px_rgba(74,242,161,0.2)] transition-all placeholder-[var(--neon-mint)]/30 bg-black/80 text-[#4AF2A1]"
                     autocomplete="off" autofocus>
-            </div>
-            <div class="mt-2 flex gap-2 text-[10px] text-[#8A9A90] justify-center font-tech opacity-60">
-                <span>Try:</span>
-                <button @click="autoType('roots')" class="hover:text-[#4AF2A1] cursor-pointer">roots</button>
-                <span>/</span>
-                <button @click="autoType('projects')" class="hover:text-[#4AF2A1] cursor-pointer">projects</button>
-                <span>/</span>
-                <button @click="autoType('contact')" class="hover:text-[#4AF2A1] cursor-pointer">contact</button>
-                <span>/</span>
-                <button @click="autoType('clear')" class="hover:text-[#4AF2A1] cursor-pointer">clear</button>
+
+                <button @click="autoType('clear')"
+                    class="absolute right-2 top-1/2 transform -translate-y-1/2 text-[#FF2E88] text-[10px] border border-[#FF2E88]/30 px-2 py-1 rounded hover:bg-[#FF2E88]/10 transition-colors font-tech tracking-widest z-10">
+                    CLEAR
+                </button>
             </div>
         </div>
 
-        <!-- Content Area -->
-        <main class="flex-grow relative min-h-[400px]">
+        <!-- DASHBOARD SECTION (Default) -->
+        <section x-show="currentSection === 'dashboard'" x-transition:enter="transition ease-out duration-500"
+            x-transition:enter-start="opacity-0 transform scale-95"
+            x-transition:enter-end="opacity-100 transform scale-100" class="space-y-6">
 
-            <!-- Home / Welcome Message (Visible only when no specific section is active) -->
-            <div x-show="currentSection === 'home'" x-transition:enter="transition ease-out duration-300"
-                x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
-                class="max-w-4xl mx-auto text-center">
-
-                <div class="glass-panel p-8 border-organic animate-breathe inline-block text-left">
-                    <p class="text-[#E0E5D7] font-tech text-sm leading-relaxed mb-4">
-                        AI-driven solutions and systems thinker with 7+ years of experience across software engineering,
-                        DevOps, application support, QA, and business analytics in telecom, utilities, SaaS, and
-                        enterprise environments. Strong foundation in system design, workflow automation, SQL,
-                        UNIX/Linux, and data analysis, with a proven ability to break down complex business and
-                        technical problems into structured, actionable solutions.
-                    </p>
-                    <p class="text-[#E0E5D7] font-tech text-sm leading-relaxed">
-                        Currently transitioning into AI Solutions Architecture, with formal training in AI fundamentals,
-                        Generative AI concepts, and applied data analysis, and hands-on experience validating outputs,
-                        improving workflows, and supporting production systems. Known for learning fast, adapting to new
-                        tools (including AI-assisted workflows), and taking ownership of real systems, not just code.
-                    </p>
-                    <p class="text-[10px] text-[#4AF2A1] mt-6 tracking-widest uppercase font-tech text-center">
-                        Awaiting Input...
-                    </p>
+            <!-- Welcome Header -->
+            <div class="mb-4 border-b border-[var(--neon-mint)]/10 pb-2">
+                <div>
+                    <h1 class="font-futuristic text-xl md:text-3xl mb-1 glitch-text text-[var(--txt-bone)]">System
+                        Dashboard
+                    </h1>
+                    <div class="flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
+                        <p class="font-tech text-[var(--txt-muted)] text-xs md:text-sm">// Real-time metrics and status
+                            overview.
+                        </p>
+                    </div>
                 </div>
+            </div>
+            </div>
+
+            <!-- Dashboard Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+
+                <!-- 0. Summary Card - Span 12 -->
+                <div class="md:col-span-12 glass-panel p-6 border-organic flex flex-col justify-center relative">
+                    <h2 class="font-futuristic text-lg text-[#FF2E88] mb-2 glitch-text">System Identity</h2>
+                    <p class="font-tech text-sm md:text-base leading-relaxed text-[var(--txt-bone)]">
+                        <strong class="text-[var(--neon-mint)]">Business Insights
+                            Analyst at TaskUs</strong>
+                        transitioning into
+                        <strong class="text-[var(--neon-mint)]">AI &
+                            Automation</strong>.
+                        I leverage <strong>8 years</strong> of technical rigor—spanning DevOps, QA, and Analytics—to
+                        bridge the gap between operational data and intelligent systems.
+                        My background ensures I build AI solutions that are not just innovative, but resilient,
+                        scalable, and engineered for real-world impact.
+                    </p>
+                    <div class="absolute top-4 right-4 animate-pulse">
+                        <i class="fa-solid fa-fingerprint text-4xl text-[var(--neon-mint)]/20"></i>
+                    </div>
+                </div>
+
+                <!-- 1. Map Visualization (Manila) - Span 4 -->
+                <!-- Removed row-span-2 to reduce size to match Skills -->
+                <div class="md:col-span-4 glass-panel p-0 border-organic relative overflow-hidden h-[250px] group">
+                    <div class="absolute inset-0 bg-[var(--void-moss)] opacity-80 z-10 transition-colors"></div>
+                    <!-- Abstract grid lines representing map -->
+                    <div class="absolute inset-0"
+                        style="background-image: radial-gradient(var(--neon-mint) 1px, transparent 1px); background-size: 20px 20px; opacity: 0.1;">
+                    </div>
+                    <!-- Stylized Manila Outline (SVG) with Glow -->
+                    <svg class="absolute inset-0 w-full h-full z-0 transition-opacity duration-500"
+                        viewBox="0 0 400 300" style="filter: drop-shadow(0 0 8px var(--neon-mint));">
+                        <!-- Abstract Bay Coastline (Land on Right) -->
+                        <path d="M140,60 C175,120 175,180 130,240 L260,230 L270,70 Z" fill="none"
+                            stroke="var(--neon-mint)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
+                        <!-- Grid Overlay for Tech Feel -->
+                        <path d="M150,100 L260,100 M160,140 L260,140 M150,180 L250,180" stroke="var(--neon-mint)"
+                            stroke-width="0.5" opacity="0.2" />
+                    </svg>
+
+                    <!-- Location Marker -->
+                    <div
+                        class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center">
+                        <div class="relative w-4 h-4">
+                            <div class="map-pulse"></div>
+                            <div class="map-marker"></div>
+                        </div>
+                        <div class="mt-4 text-center">
+                            <span
+                                class="block font-futuristic text-xl text-[var(--txt-bone)] tracking-widest text-glow">MANILA,
+                                PH</span>
+                            <span class="block font-tech text-[10px] text-[var(--neon-mint)]">CENTRAL_HUB</span>
+                        </div>
+                    </div>
+
+                    <div class="absolute bottom-4 left-4 z-20">
+                        <h3
+                            class="font-playfair text-[#FF2E88] italic text-xs mb-1 border-b border-[#FF2E88]/30 pb-1 inline-block">
+                            Location Data</h3>
+                        <p class="text-[10px] text-[var(--txt-muted)]">REGION: APAC</p>
+                        <p class="text-[10px] text-[var(--txt-muted)]">TIMEZONE: GMT+8</p>
+                    </div>
+                </div>
+
+                <!-- 2. Skills Bars - Span 4 -->
+                <div class="md:col-span-4 glass-panel p-6 border-organic flex flex-col justify-center h-[250px]">
+                    <h3 class="font-playfair text-lg text-[#FF2E88] italic mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-code"></i> Core Tools
+                    </h3>
+                    <div class="space-y-4">
+                        <!-- Skill: Python -->
+                        <div>
+                            <div class="flex justify-between text-xs font-tech mb-1">
+                                <span class="text-[var(--txt-bone)]">PYTHON</span>
+                                <span class="text-[#4AF2A1]">INTERMEDIATE</span>
+                            </div>
+                            <div class="w-full bg-[#4AF2A1]/20 h-1.5 rounded-full overflow-hidden">
+                                <div
+                                    class="bg-gradient-to-r from-[#4AF2A1]/50 to-[#4AF2A1] h-full w-[65%] text-right pr-1 shadow-[0_0_10px_#4AF2A1]">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Skill: SQL -->
+                        <div>
+                            <div class="flex justify-between text-xs font-tech mb-1">
+                                <span class="text-[var(--txt-bone)]">SQL (PL/SQL,
+                                    PostgreSQL)</span>
+                                <span class="text-[#4AF2A1]">ADVANCED</span>
+                            </div>
+                            <div class="w-full bg-[#4AF2A1]/20 h-1.5 rounded-full overflow-hidden">
+                                <div
+                                    class="bg-gradient-to-r from-[#4AF2A1]/50 to-[#4AF2A1] h-full w-[90%] text-right pr-1 shadow-[0_0_10px_#4AF2A1]">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Skill: AI -->
+                        <div>
+                            <div class="flex justify-between text-xs font-tech mb-1">
+                                <span class="text-[var(--txt-bone)]">AI
+                                    CONCEPTS/ENG</span>
+                                <span class="text-[#4AF2A1]">INTERMEDIATE</span>
+                            </div>
+                            <div class="w-full bg-[#4AF2A1]/20 h-1.5 rounded-full overflow-hidden">
+                                <div
+                                    class="bg-gradient-to-r from-[#4AF2A1]/50 to-[#4AF2A1] h-full w-[65%] text-right pr-1 shadow-[0_0_10px_#4AF2A1]">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Skill: Analysis -->
+                        <div>
+                            <div class="flex justify-between text-xs font-tech mb-1">
+                                <span class="text-[var(--txt-bone)]">DATA
+                                    ANALYSIS</span>
+                                <span class="text-[#4AF2A1]">ADVANCED</span>
+                            </div>
+                            <div class="w-full bg-[#4AF2A1]/20 h-1.5 rounded-full overflow-hidden">
+                                <div
+                                    class="bg-gradient-to-r from-[#4AF2A1]/50 to-[#4AF2A1] h-full w-[85%] text-right pr-1 shadow-[0_0_10px_#4AF2A1]">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Learning Progress - Span 4 -->
+                <div class="md:col-span-4 glass-panel p-6 border-organic flex flex-col justify-center h-[250px]">
+                    <h3 class="font-playfair text-lg italic mb-4 flex items-center gap-2 text-[#FF2E88]">
+                        <i class="fa-solid fa-graduation-cap"></i> Learning Modules
+                    </h3>
+                    <div class="w-full h-full relative">
+                        <canvas id="learningChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- 6. Architect Stack Chart - Span 4 -->
+                <div class="md:col-span-4 glass-panel p-6 border-organic flex flex-col justify-center h-[300px]">
+                    <h3 class="font-playfair text-lg italic mb-4 flex items-center gap-2 text-[#FF2E88]">
+                        <i class="fa-solid fa-layer-group"></i> Architect Stack
+                    </h3>
+                    <div class="w-full h-[200px] relative">
+                        <canvas id="architectStackChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- REPLACED BY SYSTEM VERSION HISTORY COMPONENT -->
+                <!-- 5. System Version History (Replaces Career Timeline) - Span 8 -->
+                <!-- SYSTEM VERSION HISTORY COMPONENT -->
+                <div
+                    class="md:col-span-8 md:row-span-2 glass-panel p-6 border-organic min-h-[300px] h-full flex flex-col relative overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.5)] transition-colors duration-300 bg-black/80 text-[var(--txt-bone)]">
+
+                    <!-- Header -->
+                    <div class="flex justify-between items-center mb-6 border-b border-[#4AF2A1]/20 pb-2">
+                        <h3 class="font-playfair text-lg italic flex items-center gap-2 text-[#FF2E88]">
+                            <i class="fa-solid fa-code-branch"></i> System Version History
+                        </h3>
+                        <div class="font-tech text-xs text-[#4AF2A1] animate-pulse">
+                            >> LIVE_MONITORING
+                        </div>
+                    </div>
+
+                    <!-- Timeline Container -->
+                    <div class="relative py-8 px-4 mb-6 flex-grow flex items-center">
+                        <!-- Progress Line background -->
+                        <div class="absolute top-1/2 left-0 w-full h-1 bg-[#4AF2A1]/20 -translate-y-1/2 z-0">
+                        </div>
+
+                        <!-- Scan Animation -->
+                        <div
+                            class="absolute top-0 bottom-0 w-16 bg-gradient-to-r from-transparent via-[#4AF2A1]/20 to-transparent z-0 pointer-events-none animate-scan-x">
+                        </div>
+
+                        <!-- Nodes -->
+                        <div class="relative z-10 flex justify-between items-center w-full">
+                            <template x-for="(version, index) in systemHistory" :key="version.id">
+                                <div class="relative group cursor-pointer" @click="activeVersion = version.version">
+                                    <!-- Connector Line (Active) -->
+                                    <div class="absolute top-1/2 right-[50%] w-[100vw] h-1 bg-[#4AF2A1] -translate-y-1/2 -z-10 origin-right transition-transform duration-500"
+                                        :class="activeVersion > version.version ? 'scale-x-100' : 'scale-x-0'"
+                                        style="left: 50%; width: 500px; transform-origin: left;"></div>
+
+                                    <!-- Node Icon -->
+                                    <div class="w-10 h-10 rounded-sm border-2 flex items-center justify-center transition-all duration-300 relative bg-black"
+                                        :class="[
+                                            activeVersion === version.version ? 'border-[#FF2E88] shadow-[0_0_15px_#FF2E88] text-[#FF2E88] scale-110' : 
+                                            (activeVersion > version.version ? 'border-[#4AF2A1] text-[#4AF2A1]' : 'border-[#4AF2A1]/30 text-[#4AF2A1]/30')
+                                        ]">
+                                        <i class="fa-solid fa-terminal text-sm"></i>
+
+                                        <!-- Tooltip -->
+                                        <div
+                                            class="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity border border-[#4AF2A1] px-2 py-1 text-[9px] font-tech text-[#4AF2A1] z-20 pointer-events-none bg-black/90">
+                                            <span x-text="version.id"></span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Label (Desktop) -->
+                                    <div
+                                        class="absolute -top-8 left-1/2 -translate-x-1/2 hidden md:block text-center w-24">
+                                        <span class="font-tech text-[10px] block transition-colors duration-300"
+                                            :class="activeVersion === version.version ? 'text-[#FF2E88] font-bold' : 'text-[var(--txt-muted)]'"
+                                            x-text="version.year"></span>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+
+                    <!-- Detail Panel -->
+                    <div
+                        class="grid grid-cols-1 md:grid-cols-3 gap-6 p-4 border border-[#4AF2A1]/20 rounded-sm relative mt-auto bg-[var(--void-moss)]/50">
+                        <!-- Decorator Corners -->
+                        <div class="absolute top-0 left-0 w-2 h-2 border-t border-l border-[#4AF2A1]"></div>
+                        <div class="absolute top-0 right-0 w-2 h-2 border-t border-r border-[#4AF2A1]"></div>
+                        <div class="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-[#4AF2A1]"></div>
+                        <div class="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-[#4AF2A1]">
+                        </div>
+
+                        <!-- Version Info -->
+                        <div
+                            class="md:col-span-1 border-b md:border-b-0 md:border-r border-[#4AF2A1]/20 pb-4 md:pb-0 md:pr-4 grid grid-cols-1">
+                            <template x-for="v in systemHistory">
+                                <div x-show="activeVersion === v.version" x-transition.opacity.duration.300ms
+                                    class="row-start-1 col-start-1">
+                                    <h4 class="font-futuristic text-2xl text-[#FF2E88] mb-1" x-text="v.id">
+                                    </h4>
+                                    <h5 class="font-tech text-sm text-[#4AF2A1] mb-2" x-text="v.label"></h5>
+                                    <p class="font-bold text-xs mb-1 text-[var(--txt-bone)]" x-text="v.role">
+                                    </p>
+                                    <p class="text-[var(--txt-muted)] text-[10px] uppercase tracking-wider"
+                                        x-text="v.company"></p>
+                                </div>
+                            </template>
+                        </div>
+
+                        <!-- Module Focus & Skills -->
+                        <div class="md:col-span-2 pl-0 md:pl-4 grid grid-cols-1">
+                            <template x-for="v in systemHistory">
+                                <div x-show="activeVersion === v.version" x-transition.opacity.duration.300ms
+                                    class="h-full flex flex-col justify-center row-start-1 col-start-1">
+                                    <div class="mb-4">
+                                        <span class="font-tech text-[10px] uppercase text-[#FF2E88]">>>
+                                            MODULE_FOCUS:</span>
+                                        <p class="font-tech text-sm mt-1 ml-2 border-l-2 border-[#4AF2A1] pl-3 text-[var(--txt-bone)]"
+                                            x-text="v.focus.replace('Module_Focus: ', '')"></p>
+                                    </div>
+                                    <div class="mb-3">
+                                        <span class="font-tech text-[10px] text-[#4AF2A1] uppercase">>>
+                                            KEY_SKILLS_LOADED:</span>
+                                        <div class="flex flex-wrap gap-2 mt-2 ml-2">
+                                            <template x-for="skill in v.skills" :key="skill">
+                                                <span
+                                                    class="px-2 py-1 bg-[#4AF2A1]/10 text-[#4AF2A1] text-[10px] border border-[#4AF2A1]/30 rounded-sm font-tech"
+                                                    x-text="skill"></span>
+                                            </template>
+                                        </div>
+                                    </div>
+                                    <p class="text-[var(--txt-muted)] text-xs italic mt-auto pt-2 border-t border-[#4AF2A1]/10"
+                                        x-text="v.desc"></p>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. Architect Stack Chart - Span 4 -->
+                <!-- 4. Recent Blogs (Moved to Bottom) - Span 4 -->
+                <div class="md:col-span-4 glass-panel p-6 border-organic flex flex-col h-[300px]">
+                    <h3 class="font-playfair text-lg italic mb-4 flex items-center gap-2 text-[#FF2E88]">
+                        <i class="fa-solid fa-rss"></i> Recent Logs
+                    </h3>
+                    <div class="space-y-3 overflow-y-auto custom-scrollbar pr-2">
+                        <template x-for="blog in blogs.slice(0, 3)" :key="blog.id">
+                            <div @click="selectedBlog = blog; currentSection = 'blog'"
+                                class="p-3 border border-[#0f2e1e] hover:border-[#FF2E88] bg-[var(--neon-mint)]/5 hover:bg-[#FF2E88]/10 rounded cursor-pointer transition-all group">
+                                <span class="block font-tech text-[var(--neon-mint)] text-[10px] mb-1 opacity-70"
+                                    x-text="blog.date"></span>
+                                <span
+                                    class="block font-tech text-xs font-bold transition-colors truncate text-[var(--txt-bone)] group-hover:text-[#FF2E88]"
+                                    x-text="blog.title"></span>
+                                <span class="block font-tech text-[10px] text-[var(--txt-muted)] mt-1 line-clamp-1"
+                                    x-text="blog.summary"></span>
+                            </div>
+                        </template>
+                        <button @click="currentSection = 'blog'"
+                            class="w-full text-center text-[10px] text-[var(--neon-mint)] hover:text-[#FF2E88] pt-2 font-tech transition-colors">
+                            VIEW_ALL_ARCHIVES >>
+                        </button>
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- System Status Footer -->
+            <div
+                class="mt-6 border-t border-[var(--neon-mint)]/10 pt-4 flex justify-between items-center font-tech text-[10px] text-[var(--txt-muted)]">
+                <p>>> SYSTEM_STATUS: STABLE</p>
+                <p class="animate-pulse text-[var(--neon-pink)]">>>
+                    Cyberpunk x Cottagecore Interface Loaded...</p>
+                <p>v2.0.26</p>
+            </div>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section x-show="currentSection === 'about'" x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
+            class="max-w-7xl mx-auto">
+            <button @click="currentSection = 'dashboard'"
+                class="mb-6 text-[#4AF2A1] font-tech text-xs hover:text-[var(--txt-bone)] flex items-center gap-2 transition-colors">
+                <i class="fa-solid fa-arrow-left"></i> RETURN_TO_DASHBOARD
+            </button>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                <!-- 1. CYBERPUNK BADDIE CONTAINER (Tech Focus) - Span 8 -->
+                <div class="md:col-span-8 glass-panel p-8 border-organic relative overflow-hidden flex flex-col h-full">
+                    <div class="absolute top-0 right-0 p-4 opacity-20">
+                        <i class="fa-solid fa-microchip text-6xl text-[#4AF2A1]"></i>
+                    </div>
+
+                    <h2 class="font-futuristic text-xl md:text-3xl text-[var(--txt-bone)] mb-6 glitch-text">CYBERPUNK
+                        BADDIE
+                    </h2>
+
+                    <div
+                        class="prose prose-invert max-w-none font-tech text-sm text-[var(--txt-muted)] space-y-4 leading-relaxed mb-6">
+                        <p>
+                            <strong class="text-[var(--txt-bone)]">AI-driven solutions and systems thinker</strong> with
+                            <strong class="text-[var(--txt-bone)]">7+ years of experience</strong> across software
+                            engineering,
+                            DevOps,
+                            application support, QA, and business analytics in telecom, utilities, SaaS, and enterprise
+                            environments.
+                        </p>
+                        <p>
+                            I possess a strong foundation in <span class="text-[#FF2E88]">system design, workflow
+                                automation, SQL, UNIX/Linux, and data analysis</span>, with a proven ability to break
+                            down
+                            complex business and technical problems into structured, actionable solutions.
+                        </p>
+                        <p>
+                            Currently transitioning into <strong class="text-[var(--txt-bone)]">AI Solutions
+                                Architecture</strong>,
+                            with formal training in AI fundamentals, Generative AI concepts, and applied data analysis.
+                            I
+                            have hands-on experience validating outputs, improving workflows, and supporting production
+                            systems. Known for learning fast, adapting to new tools (including AI-assisted workflows),
+                            and
+                            taking ownership of real systems, not just code.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-[var(--neon-mint)]/20">
+                        <div>
+                            <h3
+                                class="text-[var(--txt-bone)] font-bold mb-2 uppercase text-xs tracking-widest text-[var(--neon-mint)]">
+                                Core Strengths</h3>
+                            <ul class="list-disc list-inside space-y-1 text-xs font-tech text-[var(--txt-muted)]">
+                                <li>Systems & workflow design</li>
+                                <li>Business problem decomposition</li>
+                                <li>AI-assisted solution development & validation</li>
+                                <li>Critical thinking & reasoning</li>
+                                <li>Attention to detail & quality control</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3
+                                class="text-[var(--txt-bone)] font-bold mb-2 uppercase text-xs tracking-widest text-[var(--neon-mint)]">
+                                Technical Stack</h3>
+                            <ul class="space-y-1 text-xs font-tech text-[var(--txt-muted)]">
+                                <li><span class="text-[var(--txt-bone)]">Languages:</span> Python (foundational), SQL
+                                    (Oracle,
+                                    PostgreSQL), Basic Statistics</li>
+                                <li><span class="text-[var(--txt-bone)]">Systems:</span> UNIX/Linux, Shell Scripting,
+                                    Oracle SQL
+                                    Developer, Dynatrace, ServiceNow</li>
+                                <li><span class="text-[var(--txt-bone)]">Visualization:</span> Excel, Power BI, Tableau
+                                    Public,
+                                    Google Sheets</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Knowledge Base Integrated -->
+                    <div class="mt-8 pt-6 border-t border-[var(--neon-mint)]/20">
+                        <h3 class="font-futuristic text-lg text-[var(--txt-bone)] mb-4">Knowledge Base</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Certificates -->
+                            <div>
+                                <h4 class="text-[var(--neon-mint)] font-bold text-xs uppercase mb-2 tracking-widest">
+                                    Certifications</h4>
+                                <ul class="space-y-3 font-tech text-xs text-[var(--txt-muted)]">
+                                    <li class="border-b border-[var(--neon-mint)]/10 pb-2">
+                                        <p class="text-[var(--txt-bone)] font-bold">LinkedIn Become an AI Engineer Path
+                                        </p>
+                                        <p class="text-[10px]">100% Completed</p>
+                                    </li>
+                                    <li class="border-b border-[var(--neon-mint)]/10 pb-2">
+                                        <p class="text-[var(--txt-bone)] font-bold">Coursera Intro to Generative AI</p>
+                                        <p class="text-[10px]">Beginner's Primer on Core Concepts Specialization - 100%
+                                        </p>
+                                    </li>
+                                    <li class="border-b border-[var(--neon-mint)]/10 pb-2">
+                                        <p class="text-[var(--txt-bone)] font-bold">Google Cloud Professional ML
+                                            Engineer</p>
+                                        <p class="text-[10px]">In Progress - 20%</p>
+                                    </li>
+                                    <li>
+                                        <p class="font-bold text-[var(--txt-bone)]">Udemy AI
+                                            Engineer Bootcamp</p>
+                                        <p class="text-[10px]">In Progress - 50%</p>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Formal Education -->
+                            <div>
+                                <h4 class="text-[#4AF2A1] font-bold text-xs uppercase mb-2 tracking-widest">Education
+                                </h4>
+                                <div class="flex flex-col gap-2">
+                                    <div
+                                        class="p-3 bg-[var(--neon-mint)]/5 border border-[var(--neon-mint)]/30 rounded">
+                                        <p class="text-[var(--txt-bone)] font-bold font-tech text-sm">Bachelor of
+                                            Science in
+                                            Computer Science</p>
+                                        <p class="text-[var(--neon-mint)] text-xs font-tech mt-1">Adamson University,
+                                            Manila</p>
+                                        <p class="text-[var(--txt-muted)] text-[10px] font-tech mt-1">SY. 2016</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. COTTAGECORE MUSE CONTAINER (Personal/Hobbies) - Span 4 -->
+                <div
+                    class="md:col-span-4 glass-panel p-8 border border-[#FF2E88]/30 relative overflow-hidden flex flex-col h-full bg-[#FF2E88]/5">
+                    <!-- Floral Filter Overlay -->
+                    <div class="absolute inset-0 pointer-events-none opacity-10"
+                        style="background-image: radial-gradient(#FF2E88 1px, transparent 1px); background-size: 10px 10px;">
+                    </div>
+                    <div class="absolute top-0 right-0 w-40 h-40 opacity-20 pointer-events-none">
+                        <svg viewBox="0 0 100 100" fill="none" stroke="#FF2E88" stroke-width="1">
+                            <path d="M50,50 Q70,20 90,50 T50,90 T10,50 T50,10" />
+                            <circle cx="50" cy="50" r="5" fill="#FF2E88" />
+                            <path d="M50,50 Q30,80 10,50 T50,10 T90,50 T50,90" opacity="0.5" />
+                        </svg>
+                    </div>
+
+                    <h2 class="font-playfair text-xl md:text-3xl text-[#FF2E88] italic mb-6 tracking-wide">Cottagecore
+                        Muse</h2>
+
+                    <div class="space-y-6 relative z-10">
+                        <!-- Intro -->
+                        <div class="text-sm font-organic text-[#E0E5D7] italic opacity-80 leading-relaxed mb-6">
+                            <p>A gentle soul drawn to slow mornings, handmade things, and creative expression. I explore
+                                the
+                                world through music, movement, and nature—singing, dancing, and crafting a softer life
+                                one
+                                skill at a time.</p>
+                        </div>
+
+                        <!-- 🎶 Creative & Performing Arts -->
+                        <div class="bg-[#050505]/40 p-4 rounded border border-[#FF2E88]/20 backdrop-blur-sm">
+                            <h4 class="text-[#FF2E88] font-bold text-xs uppercase mb-3 flex items-center gap-2">
+                                🎶 Creative & Performing Arts
+                            </h4>
+                            <ul class="space-y-2 text-xs font-tech text-[#E0E5D7]">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-[#FF2E88]">•</span> Ukulele covers & TikTok content
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-[#FF2E88]">•</span> Singer @ Amplify A Cappella Group
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-[#FF2E88]">•</span> Dance classes around Metro Manila
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- 🌱 Exploration & Skills -->
+                        <div class="bg-[#050505]/40 p-4 rounded border border-[#FF2E88]/20 backdrop-blur-sm">
+                            <h4 class="text-[#FF2E88] font-bold text-xs uppercase mb-3 flex items-center gap-2">
+                                🌱 Exploration & Skills
+                            </h4>
+                            <ul class="space-y-2 text-xs font-tech text-[#E0E5D7]">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-[#FF2E88]">•</span> Running, hiking & freediving
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-[#FF2E88]">•</span> Hydroponic farming & first aid
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- 🕯 Workshops & Hands-On Crafts -->
+                        <div class="bg-[#050505]/40 p-4 rounded border border-[#FF2E88]/20 backdrop-blur-sm">
+                            <h4 class="text-[#FF2E88] font-bold text-xs uppercase mb-3 flex items-center gap-2">
+                                🕯 Workshops & Hands-On Crafts
+                            </h4>
+                            <p class="text-[10px] text-[#E0E5D7] italic pl-2">
+                                Pottery, floral bouquet making, candle & scented crafts, barista training
+                            </p>
+                        </div>
+
+                        <!-- 🍰 Home & Hearth -->
+                        <div class="bg-[#050505]/40 p-4 rounded border border-[#FF2E88]/20 backdrop-blur-sm">
+                            <h4 class="text-[#FF2E88] font-bold text-xs uppercase mb-3 flex items-center gap-2">
+                                🍰 Home & Hearth
+                            </h4>
+                            <ul class="space-y-2 text-xs font-tech text-[#E0E5D7]">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-[#FF2E88]">•</span> Cooking & baking with love
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- 🍿 Fun & Entertainment -->
+                        <div class="bg-[#050505]/40 p-4 rounded border border-[#FF2E88]/20 backdrop-blur-sm">
+                            <h4 class="text-[#FF2E88] font-bold text-xs uppercase mb-3 flex items-center gap-2">
+                                🍿 Fun & Entertainment
+                            </h4>
+                            <ul class="space-y-2 text-xs font-tech text-[#E0E5D7]">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-[#FF2E88]">•</span> Watching anime, sci-fi, adventure shows
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-[#FF2E88]">•</span> Watching documentaries
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-[#FF2E88]">•</span> Art sessions
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-[#FF2E88]">•</span> Pickleball / tennis as sport
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Decor Bottom -->
+                    <div class="mt-auto pt-6 flex justify-center opacity-40">
+                        <i class="fa-solid fa-seedling text-2xl text-[#FF2E88] animate-pulse"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- PROJECTS SECTION -->
+        <section x-show="currentSection === 'projects'" x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0">
+            <button @click="currentSection = 'dashboard'"
+                class="mb-6 text-[var(--neon-mint)] font-tech text-xs hover:text-[#E0E5D7] flex items-center gap-2 transition-colors">
+                <i class="fa-solid fa-arrow-left"></i> RETURN_TO_DASHBOARD
+            </button>
+            <div class="mb-8 border-b border-[var(--neon-mint)]/10 pb-4">
+                <h2 class="font-futuristic text-xl md:text-3xl text-[var(--txt-bone)] glitch-text">The Lab</h2>
+                <p class="text-sm text-[var(--txt-muted)] font-tech mt-1">// AI Projects & Experiments</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Using Alpine x-for to render projects from data -->
+                <template x-for="project in projects" :key="project.title">
+                    <div
+                        class="glass-panel p-6 flex flex-col h-full hover:-translate-y-1 transition-transform duration-300 border-organic border border-[var(--glass-border)] hover:border-[#FF2E88]">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex-grow">
+                                <template x-if="project.link">
+                                    <a :href="project.link" target="_blank"
+                                        class="font-bold text-[var(--txt-bone)] font-tech hover:text-[var(--neon-mint)] transition-colors inline-flex items-center gap-2 group">
+                                        <span x-text="project.title"></span>
+                                        <svg class="w-3 h-3 text-[var(--neon-mint)] opacity-70 group-hover:opacity-100 transition-opacity"
+                                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14">
+                                            </path>
+                                        </svg>
+                                    </a>
+                                </template>
+                                <template x-if="!project.link">
+                                    <h3 class="font-bold text-[var(--txt-bone)] font-tech" x-text="project.title"></h3>
+                                </template>
+                            </div>
+                            <svg class="w-5 h-5 text-[var(--neon-mint)]" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z">
+                                </path>
+                            </svg>
+                        </div>
+                        <p class="text-xs text-[var(--txt-muted)] mb-4 flex-grow font-tech leading-relaxed"
+                            x-text="project.desc"></p>
+                        <div class="flex flex-wrap gap-2 mt-auto">
+                            <template x-for="tag in project.tags" :key="tag">
+                                <span
+                                    class="text-[10px] uppercase border border-[var(--neon-mint)]/30 text-[var(--neon-mint)] px-2 py-1 rounded-sm font-tech"
+                                    x-text="tag"></span>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </section>
+
+        <!-- EXPERIENCE SECTION -->
+        <section x-show="currentSection === 'experience'" x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0">
+            <button @click="currentSection = 'dashboard'"
+                class="mb-6 text-[var(--neon-mint)] font-tech text-xs hover:text-[#E0E5D7] flex items-center gap-2 transition-colors">
+                <i class="fa-solid fa-arrow-left"></i> RETURN_TO_DASHBOARD
+            </button>
+            <div class="mb-8 border-b border-[var(--neon-mint)]/10 pb-4">
+                <h2 class="font-futuristic text-xl md:text-3xl text-[var(--txt-bone)] glitch-text">Deploy Logs</h2>
+                <p class="text-sm text-[var(--txt-muted)] font-tech mt-1">// Work Experience & History</p>
             </div>
 
 
-            <!-- Projects Section -->
-            <div x-show="currentSection === 'projects'" x-cloak x-transition:enter="transition ease-out duration-300"
-                x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0">
 
-                <div class="mb-8 border-b border-[#4AF2A1]/10 pb-4">
-                    <h2 class="font-organic text-3xl text-[#4AF2A1]">The Lab</h2>
-                    <p class="text-sm text-[#8A9A90] font-tech mt-1">// AI Solution Architectures & Experiments</p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <template x-for="project in projects" :key="project.title">
-                        <div
-                            class="glass-panel p-6 flex flex-col h-full hover:-translate-y-1 transition-transform duration-300 border-organic">
-                            <div class="flex items-center justify-between mb-4">
-                                <h3 class="font-bold text-[#E0E5D7] font-tech" x-text="project.title"></h3>
-                                <svg class="w-5 h-5 text-[#4AF2A1]" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                        d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <p class="text-sm text-[#8A9A90] mb-4 flex-grow" x-text="project.desc"></p>
-                            <div class="flex flex-wrap gap-2 mt-auto">
-                                <template x-for="tag in project.tags" :key="tag">
-                                    <span
-                                        class="text-[10px] uppercase border border-[#4AF2A1]/30 text-[#4AF2A1] px-2 py-1 rounded-sm"
-                                        x-text="tag"></span>
+            <div class="space-y-6">
+                <template x-for="job in experience" :key="job.company + job.years">
+                    <div
+                        class="glass-panel p-6 border-organic flex flex-col md:flex-row gap-4 hover:border-[var(--neon-mint)]/50 transition-colors border border-[var(--glass-border)]">
+                        <div class="md:w-1/4">
+                            <h3 class="font-bold text-[var(--txt-bone)] font-tech text-sm" x-text="job.role"></h3>
+                            <p class="text-xs text-[var(--neon-mint)] mt-1" x-text="job.company"></p>
+                            <p class="text-[10px] text-[var(--txt-muted)] mt-1" x-text="job.years"></p>
+                        </div>
+                        <div class="md:col-span-9 bg-[var(--void-moss)]/30 p-4 border border-[#0f2e1e] rounded-sm">
+                            <ul class="list-disc list-inside text-xs text-[var(--txt-muted)] space-y-1 font-tech">
+                                <template x-for="point in job.points" :key="point">
+                                    <li x-text="point"></li>
                                 </template>
+                            </ul>
+                            <div class="flex flex-wrap gap-2 mt-3" x-show="job.skills">
+                                <template x-for="skill in job.skills" :key="skill">
+                                    <span
+                                        class="text-[9px] uppercase border border-[#0f2e1e] text-[var(--neon-mint)]/80 px-1.5 py-0.5 rounded-sm font-tech"
+                                        x-text="skill"></span>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </section>
+
+
+
+        <!-- BLOG SECTION -->
+        <section x-show="currentSection === 'blog'" x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0">
+            <button @click="currentSection = 'dashboard'"
+                class="mb-6 text-[var(--neon-mint)] font-tech text-xs hover:text-[#E0E5D7] flex items-center gap-2 transition-colors">
+                <i class="fa-solid fa-arrow-left"></i> RETURN_TO_DASHBOARD
+            </button>
+            <div class="mb-8 border-b border-[var(--neon-mint)]/10 pb-4">
+                <h2 class="font-futuristic text-xl md:text-3xl text-[var(--txt-bone)] glitch-text">Neural Archives</h2>
+                <p class="text-sm text-[var(--txt-muted)] font-tech mt-1">// Thoughts, Logs & Tutorials</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Blog Grid -->
+                <template x-for="blog in blogs" :key="blog.id">
+                    <div @click="selectedBlog = blog"
+                        class="glass-panel p-6 border-organic hover:border-[#FF2E88] cursor-pointer group transition-all relative overflow-hidden">
+                        <div
+                            class="absolute inset-0 bg-[#FF2E88]/0 group-hover:bg-[#FF2E88]/5 transition-colors duration-300">
+                        </div>
+                        <p class="font-tech text-xs text-[var(--neon-mint)] mb-2" x-text="blog.date"></p>
+                        <h3 class="font-playfair text-xl text-[var(--txt-bone)] italic mb-2 group-hover:text-[var(--neon-pink)] transition-colors"
+                            x-text="blog.title"></h3>
+                        <p class="font-tech text-xs text-[var(--txt-muted)]" x-text="blog.summary"></p>
+                        <div
+                            class="mt-4 flex items-center gap-2 text-[10px] font-tech text-[#4AF2A1] opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-[-10px] group-hover:translate-x-0">
+                            <span>READ_DATA</span> <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </section>
+
+        <!-- BLOG DETAIL MODAL (Cyberpunk Neon Frame) -->
+        <div x-show="selectedBlog" x-transition.opacity
+            class="fixed inset-0 z-[100] flex items-center justify-center p-4">
+            <!-- Backdrop -->
+            <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" @click="selectedBlog = null"></div>
+
+            <!-- Modal Content -->
+            <div class="relative w-full max-w-4xl h-[85vh] bg-[var(--void-moss)] p-1 shadow-[0_0_50px_rgba(74,242,161,0.3)] z-[101]"
+                style="clip-path: polygon(0 0, 100% 0, 100% 90%, 95% 100%, 0 100%);">
+
+                <!-- Neon Gradient Border Container -->
+                <div class="absolute inset-0 p-[2px] bg-gradient-to-br from-[#4AF2A1] to-[#FF2E88] z-0"
+                    style="clip-path: polygon(0 0, 100% 0, 100% 90%, 95% 100%, 0 100%);"></div>
+
+                <!-- Inner Content -->
+                <div class="relative z-10 bg-[var(--void-moss)] h-full w-full flex flex-col"
+                    style="clip-path: polygon(0 0, 100% 0, 100% 90%, 95% 100%, 0 100%);">
+
+                    <!-- Close Button -->
+                    <button @click="selectedBlog = null"
+                        class="absolute top-6 right-6 text-[#FF2E88] hover:text-[#4AF2A1] transition-colors font-tech text-xl z-20">
+                        <i class="fa-solid fa-times"></i>
+                    </button>
+
+                    <template x-if="selectedBlog">
+                        <div class="h-full flex flex-col p-8 md:p-12">
+                            <!-- Header Section (Fixed) -->
+                            <div class="flex-none mb-6 border-b border-[#FF2E88]/20 pb-6">
+                                <div class="flex items-center gap-2 mb-4">
+                                    <span class="bg-[#4AF2A1] w-2 h-2 rounded-full animate-pulse"></span>
+                                    <span class="font-tech text-xs text-[#4AF2A1]"
+                                        x-text="'LOG_ENTRY: ' + selectedBlog.date"></span>
+                                </div>
+
+                                <h2 class="font-playfair text-3xl md:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-[#4AF2A1] to-[#FF2E88] italic leading-tight"
+                                    x-text="selectedBlog.title"></h2>
+                            </div>
+
+                            <!-- Scrollable Content Section -->
+                            <div class="flex-1 overflow-y-auto pr-4 custom-scrollbar">
+                                <div
+                                    class="prose prose-invert max-w-none font-tech text-sm md:text-base text-[#8A9A90] leading-relaxed">
+                                    <!-- Changed x-text to x-html to render HTML tags -->
+                                    <div x-html="selectedBlog.content"></div>
+
+                                    <p class="text-[#FF2E88]/60 italic mt-8 border-t border-[#FF2E88]/10 pt-4">[End of
+                                        Transmission]</p>
+                                </div>
                             </div>
                         </div>
                     </template>
                 </div>
             </div>
+        </div>
+        </div>
+        </template>
+        </div>
+        </div>
+        </div>
 
-            <!-- Roots Section -->
-            <div x-show="currentSection === 'roots'" x-cloak x-transition:enter="transition ease-out duration-300"
-                x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
-                class="space-y-6">
+        <!-- CONTACT SECTION -->
+        <section x-show="currentSection === 'contact'" x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0">
+            <button @click="currentSection = 'dashboard'"
+                class="mb-6 text-[#4AF2A1] font-tech text-xs hover:text-[#E0E5D7] flex items-center gap-2 transition-colors">
+                <i class="fa-solid fa-arrow-left"></i> RETURN_TO_DASHBOARD
+            </button>
+            <div class="mb-8 border-b border-[#4AF2A1]/10 pb-4">
+                <h2 class="font-futuristic text-xl md:text-3xl text-[var(--txt-bone)] glitch-text">Initialize Handshake
+                </h2>
+                <p class="text-sm text-[var(--txt-muted)] font-tech mt-1">// Connect & Collaborate</p>
+            </div>
 
-                <div class="mb-8 border-b border-[#4AF2A1]/10 pb-4">
-                    <h2 class="font-organic text-3xl text-[#4AF2A1]">Roots</h2>
-                    <p class="text-sm text-[#8A9A90] font-tech mt-1">// Career Timeline & Experience</p>
-                </div>
-
-                <div class="glass-panel p-6 border-organic flex flex-col md:flex-row gap-4">
-                    <div class="md:w-1/4">
-                        <h3 class="font-bold text-[#E0E5D7] font-tech">Business Insights Analyst</h3>
-                        <p class="text-xs text-[#4AF2A1] mt-1">TaskUs</p>
-                        <p class="text-[10px] text-[#8A9A90] mt-1">May 2024 – Present</p>
-                    </div>
-                    <div class="md:w-3/4">
-                        <ul class="list-disc list-inside text-sm text-[#8A9A90] space-y-1 font-tech">
-                            <li>Designed data-driven decision systems supporting merchant growth strategies.</li>
-                            <li>Decomposed ambiguous business questions using SQL on internal ETL pipelines.</li>
-                            <li>Validated data logic and assumptions to ensure "Human-in-the-Loop" accuracy.</li>
-                            <li>Bridged the gap between technical data analysis and strategic business execution.
-                            </li>
-                        </ul>
-                        <div class="flex flex-wrap gap-2 mt-3">
-                            <span
-                                class="text-[10px] uppercase border border-[#4AF2A1]/30 text-[#4AF2A1] px-2 py-1 rounded-sm">SQL</span>
-                            <span
-                                class="text-[10px] uppercase border border-[#4AF2A1]/30 text-[#4AF2A1] px-2 py-1 rounded-sm">UNIX</span>
-                            <span
-                                class="text-[10px] uppercase border border-[#4AF2A1]/30 text-[#4AF2A1] px-2 py-1 rounded-sm">Sigma
-                                Computing</span>
-                            <span
-                                class="text-[10px] uppercase border border-[#4AF2A1]/30 text-[#4AF2A1] px-2 py-1 rounded-sm">ETL
-                                Workflows</span>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
+                <!-- Contact Form -->
+                <div class="glass-panel p-8 border-organic">
+                    <h3 class="font-tech text-[var(--txt-bone)] text-lg mb-6">Transmission Uplink</h3>
+                    <form class="space-y-4"
+                        @submit.prevent="window.location.href = `mailto:hello@charlenecordero.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`">
+                        <div>
+                            <label class="block text-[var(--neon-mint)] text-xs font-tech mb-2 tracking-widest">SUBJECT
+                                ::</label>
+                            <input type="text" x-model="subject" required
+                                class="bg-black border-[var(--neon-mint)]/30 text-[var(--txt-bone)]"
+                                class="w-full font-tech p-3 rounded-sm focus:border-[var(--neon-mint)] outline-none transition-all placeholder-[var(--txt-muted)]/30"
+                                placeholder="Project / Inquiry / Hello">
                         </div>
-                    </div>
-                </div>
-
-                <div class="glass-panel p-6 border-organic flex flex-col md:flex-row gap-4">
-                    <div class="md:w-1/4">
-                        <h3 class="font-bold text-[#E0E5D7] font-tech">Technical & Business Operations Analyst</h3>
-                        <p class="text-xs text-[#4AF2A1] mt-1">Amdocs</p>
-                        <p class="text-[10px] text-[#8A9A90] mt-1">December 2022 – December 2023</p>
-                    </div>
-                    <div class="md:w-3/4">
-                        <ul class="list-disc list-inside text-sm text-[#8A9A90] space-y-1 font-tech">
-                            <li>Maintained large-scale telecom architectures (CRM, Billing, Order Mgmt).</li>
-                            <li>Monitored batch workflows to identify failure points and optimize reliability.</li>
-                            <li>Translated complex system incidents into actionable resolution steps.</li>
-                        </ul>
-                        <div class="flex flex-wrap gap-2 mt-3">
-                            <span
-                                class="text-[10px] uppercase border border-[#4AF2A1]/30 text-[#4AF2A1] px-2 py-1 rounded-sm">System
-                                Monitoring</span>
-                            <span
-                                class="text-[10px] uppercase border border-[#4AF2A1]/30 text-[#4AF2A1] px-2 py-1 rounded-sm">Incident
-                                Mgmt</span>
-                            <span
-                                class="text-[10px] uppercase border border-[#4AF2A1]/30 text-[#4AF2A1] px-2 py-1 rounded-sm">Oracle
-                                SQL</span>
+                        <div>
+                            <label class="block text-[var(--neon-mint)] text-xs font-tech mb-2 tracking-widest">MESSAGE
+                                ::</label>
+                            <textarea x-model="message" rows="5" required
+                                class="bg-black border-[var(--neon-mint)]/30 text-[var(--txt-bone)]"
+                                class="w-full font-tech p-3 rounded-sm focus:border-[var(--neon-mint)] outline-none transition-all placeholder-[var(--txt-muted)]/30 custom-scrollbar"
+                                placeholder="Enter your message sequence here..."></textarea>
                         </div>
-                    </div>
-                </div>
-
-                <div class="glass-panel p-6 border-organic flex flex-col md:flex-row gap-4">
-                    <div class="md:w-1/4">
-                        <h3 class="font-bold text-[#E0E5D7] font-tech">DevOps Engineer</h3>
-                        <p class="text-xs text-[#4AF2A1] mt-1">Accenture</p>
-                        <p class="text-[10px] text-[#8A9A90] mt-1">May 2021 – July 2022</p>
-                    </div>
-                    <div class="md:w-3/4">
-                        <ul class="list-disc list-inside text-sm text-[#8A9A90] space-y-1 font-tech">
-                            <li>Application Consultant for North American Utilities (CRS, Billprint, EDI).</li>
-                            <li>Resolved automation job errors using UNIX Shell Scripting and Oracle SQL.</li>
-                            <li>Conducted backend maintenance and enhancement for production stability.</li>
-                        </ul>
-                        <div class="flex flex-wrap gap-2 mt-3">
-                            <span
-                                class="text-[10px] uppercase border border-[#4AF2A1]/30 text-[#4AF2A1] px-2 py-1 rounded-sm">DevOps</span>
-                            <span
-                                class="text-[10px] uppercase border border-[#4AF2A1]/30 text-[#4AF2A1] px-2 py-1 rounded-sm">UNIX
-                                Shell</span>
-                            <span
-                                class="text-[10px] uppercase border border-[#4AF2A1]/30 text-[#4AF2A1] px-2 py-1 rounded-sm">Java</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="glass-panel p-6 border-organic flex flex-col md:flex-row gap-4">
-                    <div class="md:w-1/4">
-                        <h3 class="font-bold text-[#E0E5D7] font-tech">Quality Assurance Specialist</h3>
-                        <p class="text-xs text-[#4AF2A1] mt-1">Multisys Technologies</p>
-                        <p class="text-[10px] text-[#8A9A90] mt-1">October 2020 – April 2021</p>
-                    </div>
-                    <div class="md:w-3/4">
-                        <ul class="list-disc list-inside text-sm text-[#8A9A90] space-y-1 font-tech">
-                            <li>Conducted QA audits for Android/iOS apps to ensure manufacturing reliability.</li>
-                            <li>Defined expected ranges and implemented corrective measures for deviations.</li>
-                        </ul>
-                        <div class="flex flex-wrap gap-2 mt-3">
-                            <span
-                                class="text-[10px] uppercase border border-[#4AF2A1]/30 text-[#4AF2A1] px-2 py-1 rounded-sm">QA
-                                Testing</span>
-                            <span
-                                class="text-[10px] uppercase border border-[#4AF2A1]/30 text-[#4AF2A1] px-2 py-1 rounded-sm">Mobile
-                                Validation</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="glass-panel p-6 border-organic flex flex-col md:flex-row gap-4">
-                    <div class="md:w-1/4">
-                        <h3 class="font-bold text-[#E0E5D7] font-tech">Health Advocate</h3>
-                        <p class="text-xs text-[#FF2E88] mt-1">Care Coach</p>
-                        <p class="text-[10px] text-[#8A9A90] mt-1">January 2020 – October 2020</p>
-                    </div>
-                    <div class="md:w-3/4">
-                        <div class="p-3 bg-[#FF2E88]/10 border border-[#FF2E88]/30 rounded mb-2">
-                            <p class="text-xs text-[#E0E5D7] italic font-tech">"My first exposure to Avatar-based
-                                Interfaces. I operated a digital avatar to deliver health coaching—an early lesson
-                                in Human-Computer Interaction (HCI)."</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="glass-panel p-6 border-organic flex flex-col md:flex-row gap-4">
-                    <div class="md:w-1/4">
-                        <h3 class="font-bold text-[#E0E5D7] font-tech">Oracle PeopleSoft Developer</h3>
-                        <p class="text-xs text-[#4AF2A1] mt-1">Accenture</p>
-                        <p class="text-[10px] text-[#8A9A90] mt-1">March 2018 – December 2019</p>
-                    </div>
-                    <div class="md:w-3/4">
-                        <ul class="list-disc list-inside text-sm text-[#8A9A90] space-y-1 font-tech">
-                            <li>Configured PeopleSoft HCM applications for State Dept of Transportation.</li>
-                            <li>Designed business process requirements using Oracle SQL Developer.</li>
-                        </ul>
-                        <div class="flex flex-wrap gap-2 mt-3">
-                            <span
-                                class="text-[10px] uppercase border border-[#4AF2A1]/30 text-[#4AF2A1] px-2 py-1 rounded-sm">Oracle
-                                PeopleSoft</span>
-                            <span
-                                class="text-[10px] uppercase border border-[#4AF2A1]/30 text-[#4AF2A1] px-2 py-1 rounded-sm">Oracle
-                                HCM</span>
-                            <span
-                                class="text-[10px] uppercase border border-[#4AF2A1]/30 text-[#4AF2A1] px-2 py-1 rounded-sm">Oracle
-                                SQL Developer</span>
-                        </div>
-                    </div>
-
-                </div>
-
-
-
-
-                 <!-- Contact Section (Revamped 2-Column) -->
-                <div id="contact"
-                    class="min-h-screen py-20 max-w-5xl mx-auto flex flex-col justify-center reveal snap-section"
-                    x-data="{ shown: false, subject: '', message: '' }"
-                    x-intersect.threshold.10="shown = true; currentSection = 'contact'"
-                    :class="shown ? 'reveal-visible' : ''">
-
-                    <div class="mb-12 border-b border-[#4AF2A1]/10 pb-4 text-center md:text-left">
-                        <h2 class="font-organic text-3xl text-[#4AF2A1]">Initialize Handshake</h2>
-                        <p class="text-sm text-[#8A9A90] font-tech mt-1">// Connect & Collaborate</p>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
-
-                        <!-- Left: Contact Form -->
-                        <div class="glass-panel p-8 border-organic">
-                            <h3 class="font-tech text-[#E0E5D7] text-lg mb-6">Transmission Uplink</h3>
-                            <form class="space-y-4"
-                                @submit.prevent="window.location.href = `mailto:hello@charlenecordero.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`">
-                                <div>
-                                    <label class="block text-[#4AF2A1] text-xs font-tech mb-2 tracking-widest">SUBJECT
-                                        ::</label>
-                                    <input type="text" x-model="subject" required
-                                        class="w-full bg-[#050505]/50 border border-[#4AF2A1]/30 text-[#E0E5D7] font-tech p-3 rounded-sm focus:border-[#4AF2A1] outline-none transition-all placeholder-[#8A9A90]/30"
-                                        placeholder="Project / Inquiry / Hello">
-                                </div>
-                                <div>
-                                    <label class="block text-[#4AF2A1] text-xs font-tech mb-2 tracking-widest">MESSAGE
-                                        ::</label>
-                                    <textarea x-model="message" rows="5" required
-                                        class="w-full bg-[#050505]/50 border border-[#4AF2A1]/30 text-[#E0E5D7] font-tech p-3 rounded-sm focus:border-[#4AF2A1] outline-none transition-all placeholder-[#8A9A90]/30 custom-scrollbar"
-                                        placeholder="Enter your message sequence here..."></textarea>
-                                </div>
-                                <button type="submit"
-                                    class="w-full py-3 bg-[#4AF2A1]/10 border border-[#4AF2A1] text-[#4AF2A1] font-tech tracking-widest hover:bg-[#4AF2A1] hover:text-[#000] transition-all duration-300 uppercase text-sm font-bold relative group overflow-hidden">
-                                    <span class="relative z-10">Transmit Data</span>
-                                    <div
-                                        class="absolute inset-0 bg-[#4AF2A1] transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-0">
-                                    </div>
-                                </button>
-                            </form>
-                        </div>
-
-
-                        <!-- Right: Social Links -->
-                        <div class="glass-panel p-8 border-organic h-full flex flex-col justify-center">
-                            <div class="flex flex-col gap-4 w-full">
-                                <!-- LinkedIn -->
-                                <div class="group flex items-center gap-4 p-4 rounded-sm border border-[#4AF2A1]/30 bg-[#4AF2A1]/5 hover:bg-[#4AF2A1]/20 hover:border-[#4AF2A1] transition-all cursor-pointer"
-                                    onclick="window.open('https://linkedin.com/in/charlenecordero', '_blank')">
-                                    <div
-                                        class="w-10 h-10 rounded-full bg-[#4AF2A1]/10 flex items-center justify-center border border-[#4AF2A1]/30 group-hover:bg-[#4AF2A1] group-hover:text-black transition-colors">
-                                        <i
-                                            class="fa-brands fa-linkedin text-[#4AF2A1] group-hover:text-black text-xl transition-colors"></i>
-                                    </div>
-                                    <span
-                                        class="font-tech text-[#E0E5D7] group-hover:text-[#4AF2A1] transition-colors">LinkedIn</span>
-                                </div>
-
-                                <!-- GitHub -->
-                                <div class="group flex items-center gap-4 p-4 rounded-sm border border-[#4AF2A1]/30 bg-[#4AF2A1]/5 hover:bg-[#4AF2A1]/20 hover:border-[#4AF2A1] transition-all cursor-pointer"
-                                    onclick="window.open('https://github.com/charlenecordero', '_blank')">
-                                    <div
-                                        class="w-10 h-10 rounded-full bg-[#4AF2A1]/10 flex items-center justify-center border border-[#4AF2A1]/30 group-hover:bg-[#4AF2A1] group-hover:text-black transition-colors">
-                                        <i
-                                            class="fa-brands fa-github text-[#4AF2A1] group-hover:text-black text-xl transition-colors"></i>
-                                    </div>
-                                    <span
-                                        class="font-tech text-[#E0E5D7] group-hover:text-[#4AF2A1] transition-colors">GitHub</span>
-                                </div>
-
-                                <!-- Dev.to -->
-                                <div class="group flex items-center gap-4 p-4 rounded-sm border border-[#4AF2A1]/30 bg-[#4AF2A1]/5 hover:bg-[#4AF2A1]/20 hover:border-[#4AF2A1] transition-all cursor-pointer"
-                                    onclick="window.open('https://dev.to/charlenecordero', '_blank')">
-                                    <div
-                                        class="w-10 h-10 rounded-full bg-[#4AF2A1]/10 flex items-center justify-center border border-[#4AF2A1]/30 group-hover:bg-[#4AF2A1] group-hover:text-black transition-colors">
-                                        <i
-                                            class="fa-brands fa-dev text-[#4AF2A1] group-hover:text-black text-xl transition-colors"></i>
-                                    </div>
-                                    <span
-                                        class="font-tech text-[#E0E5D7] group-hover:text-[#4AF2A1] transition-colors">Dev.to</span>
-                                </div>
-
-                                <!-- X -->
-                                <div class="group flex items-center gap-4 p-4 rounded-sm border border-[#4AF2A1]/30 bg-[#4AF2A1]/5 hover:bg-[#4AF2A1]/20 hover:border-[#4AF2A1] transition-all cursor-pointer"
-                                    onclick="window.open('https://x.com/ccords8', '_blank')">
-                                    <div
-                                        class="w-10 h-10 rounded-full bg-[#4AF2A1]/10 flex items-center justify-center border border-[#4AF2A1]/30 group-hover:bg-[#4AF2A1] group-hover:text-black transition-colors">
-                                        <i
-                                            class="fa-brands fa-x-twitter text-[#4AF2A1] group-hover:text-black text-xl transition-colors"></i>
-                                    </div>
-                                    <span
-                                        class="font-tech text-[#E0E5D7] group-hover:text-[#4AF2A1] transition-colors">X</span>
-                                </div>
+                        <button type="submit"
+                            class="w-full py-3 bg-[#4AF2A1]/10 border border-[#4AF2A1] text-[#4AF2A1] font-tech tracking-widest hover:bg-[#4AF2A1] hover:text-[#000] transition-all duration-300 uppercase text-sm font-bold relative group overflow-hidden">
+                            <span class="relative z-10">Transmit Data</span>
+                            <div
+                                class="absolute inset-0 bg-[#4AF2A1] transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-0">
                             </div>
+                        </button>
+                    </form>
+                </div>
+                <!-- Social Links -->
+                <div class="glass-panel p-8 border-organic flex flex-col justify-center gap-4">
+                    <!-- LinkedIn -->
+                    <div class="group flex items-center gap-4 p-4 rounded-sm border border-[#4AF2A1]/30 bg-[#4AF2A1]/5 hover:bg-[#4AF2A1]/20 hover:border-[#4AF2A1] transition-all cursor-pointer"
+                        onclick="window.open('https://linkedin.com/in/charlenecordero', '_blank')">
+                        <div
+                            class="w-10 h-10 rounded-full bg-[#4AF2A1]/10 flex items-center justify-center border border-[#4AF2A1]/30 group-hover:bg-[#4AF2A1] group-hover:text-black transition-colors">
+                            <i
+                                class="fa-brands fa-linkedin text-[#4AF2A1] group-hover:text-black text-xl transition-colors"></i>
                         </div>
-
+                        <span
+                            class="font-tech text-[var(--txt-bone)] group-hover:text-[#4AF2A1] transition-colors">LinkedIn</span>
+                    </div>
+                    <!-- GitHub -->
+                    <div class="group flex items-center gap-4 p-4 rounded-sm border border-[#4AF2A1]/30 bg-[#4AF2A1]/5 hover:bg-[#4AF2A1]/20 hover:border-[#4AF2A1] transition-all cursor-pointer"
+                        onclick="window.open('https://github.com/charlenecordero', '_blank')">
+                        <div
+                            class="w-10 h-10 rounded-full bg-[#4AF2A1]/10 flex items-center justify-center border border-[#4AF2A1]/30 group-hover:bg-[#4AF2A1] group-hover:text-black transition-colors">
+                            <i
+                                class="fa-brands fa-github text-[#4AF2A1] group-hover:text-black text-xl transition-colors"></i>
+                        </div>
+                        <span
+                            class="font-tech text-[var(--txt-bone)] group-hover:text-[#4AF2A1] transition-colors">GitHub</span>
+                    </div>
+                    <!-- Dev.to -->
+                    <div class="group flex items-center gap-4 p-4 rounded-sm border border-[#4AF2A1]/30 bg-[#4AF2A1]/5 hover:bg-[#4AF2A1]/20 hover:border-[#4AF2A1] transition-all cursor-pointer"
+                        onclick="window.open('https://dev.to/charlenecordero', '_blank')">
+                        <div
+                            class="w-10 h-10 rounded-full bg-[#4AF2A1]/10 flex items-center justify-center border border-[#4AF2A1]/30 group-hover:bg-[#4AF2A1] group-hover:text-black transition-colors">
+                            <i
+                                class="fa-brands fa-dev text-[#4AF2A1] group-hover:text-black text-xl transition-colors"></i>
+                        </div>
+                        <span
+                            class="font-tech text-[#E0E5D7] group-hover:text-[#4AF2A1] transition-colors">Dev.to</span>
+                    </div>
+                    <!-- X (Twitter) -->
+                    <div class="group flex items-center gap-4 p-4 rounded-sm border border-[#4AF2A1]/30 bg-[#4AF2A1]/5 hover:bg-[#4AF2A1]/20 hover:border-[#4AF2A1] transition-all cursor-pointer"
+                        onclick="window.open('https://x.com/ccords8', '_blank')">
+                        <div
+                            class="w-10 h-10 rounded-full bg-[#4AF2A1]/10 flex items-center justify-center border border-[#4AF2A1]/30 group-hover:bg-[#4AF2A1] group-hover:text-black transition-colors">
+                            <i
+                                class="fa-brands fa-x-twitter text-[#4AF2A1] group-hover:text-black text-xl transition-colors"></i>
+                        </div>
+                        <span class="font-tech text-[#E0E5D7] group-hover:text-[#4AF2A1] transition-colors">X /
+                            Twitter</span>
+                    </div>
+                    <!-- YouTube -->
+                    <div class="group flex items-center gap-4 p-4 rounded-sm border border-[#4AF2A1]/30 bg-[#4AF2A1]/5 hover:bg-[#4AF2A1]/20 hover:border-[#4AF2A1] transition-all cursor-pointer"
+                        onclick="window.open('https://www.youtube.com/@wanderwithchai', '_blank')">
+                        <div
+                            class="w-10 h-10 rounded-full bg-[#4AF2A1]/10 flex items-center justify-center border border-[#4AF2A1]/30 group-hover:bg-[#4AF2A1] group-hover:text-black transition-colors">
+                            <i
+                                class="fa-brands fa-youtube text-[#4AF2A1] group-hover:text-black text-xl transition-colors"></i>
+                        </div>
+                        <span
+                            class="font-tech text-[#E0E5D7] group-hover:text-[#4AF2A1] transition-colors">YouTube</span>
                     </div>
                 </div>
+            </div>
+        </section>
 
-        </main>
+    </main>
 
-        <!-- Footer -->
-        <footer class="mt-12 py-6 border-t border-[#4AF2A1]/10 text-center">
-            <p class="text-[10px] text-[#4AF2A1]/40 uppercase tracking-widest font-tech">
-                System Architecture by Charlene Cordero &copy; 2025
-            </p>
-        </footer>
-    </div>
+    <!-- Footer -->
+    <footer class="py-6 border-t border-[#4AF2A1]/10 text-center bg-[#050505] z-50">
+        <p class="text-[10px] text-[#4AF2A1]/40 uppercase tracking-widest font-tech">
+            System Architecture by Charlene Cordero &copy; 2026
+        </p>
+    </footer>
 
-    <!-- Application Logic -->
-    <script>
-        function appData() {
-            return {
-                currentSection: 'home',
-                inputQuery: '',
-                // Unlocked state is no longer needed since nav is removed, but keeping logic for strict router-like feel
-
-                experience: [
-                    {
-                        role: 'Decision System Design',
-                        company: 'TaskUs',
-                        years: '2021 Timbits',
-                        desc: 'Architected automated routing protocols for high-volume operational data, reducing manual triage by 40%.'
-                    },
-                    {
-                        role: 'Automation Reliability',
-                        company: 'Accenture',
-                        years: '2019 - 2021',
-                        desc: 'Oversaw reliability engineering for deployed RPA bots. Decomposed complex failure modes into self-healing workflows.'
-                    }
-                ],
-                projects: [
-                    {
-                        title: 'Merchant Growth Engine',
-                        desc: 'RAG-based workflow bridging SQL databases with LLM reasoning to automate merchant vetting. Includes hallucination validation layer.',
-                        tags: ['Python', 'LangChain', 'PostgreSQL']
-                    },
-                    {
-                        title: 'Sentiment Neural Net',
-                        desc: 'Deployed minimal-latency sentiment analysis model on edge devices for real-time customer support feedback loops.',
-                        tags: ['TensorFlow', 'Edge Computing', 'API']
-                    },
-                    {
-                        title: 'The Garden Monitor',
-                        desc: 'IoT dashboard visualizing server health metrics using organic metaphors (growth, decay, water levels).',
-                        tags: ['Vue.js', 'D3.js', 'MQTT']
-                    }
-                ],
-
-                setSection(id) {
-                    this.currentSection = id;
-                    // Note: We do NOT reset inputQuery here to let user see what they typed, 
-                    // or we could clear it if preferred. Let's keep it clean.
-                    this.inputQuery = '';
-                },
-
-                handleCommand() {
-                    const cmd = this.inputQuery.toLowerCase().trim();
-                    if (cmd.includes('root')) {
-                        this.setSection('roots');
-                    } else if (cmd.includes('project') || cmd.includes('lab') || cmd.includes('solution')) {
-                        this.setSection('projects');
-                    } else if (cmd.includes('contact') || cmd.includes('email')) {
-                        this.setSection('contact');
-                    } else if (cmd.includes('home') || cmd.includes('clear')) {
-                        this.setSection('home');
-                    } else {
-                        // Optional: shake animation or error message
-                        const original = this.inputQuery;
-                        this.inputQuery = 'ERR: COMMAND NOT FOUND';
-                        setTimeout(() => this.inputQuery = original, 1000);
-                    }
-                },
-
-                autoType(word) {
-                    this.inputQuery = '';
-                    let i = 0;
-                    const typeInterval = setInterval(() => {
-                        this.inputQuery += word.charAt(i);
-                        i++;
-                        if (i > word.length) {
-                            clearInterval(typeInterval);
-                            setTimeout(() => this.handleCommand(), 300);
-                        }
-                    }, 50);
-                }
-            }
-        }
-    </script>
+    <!-- Scripts -->
+    <script src="script.js"></script>
 </body>
 
 </html>
