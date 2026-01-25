@@ -28,7 +28,7 @@ app.post('/api/chat', async (req, res) => {
         // Dito mo ilalagay ang System Prompt ni Aura
         const prompt = `
         System: You are Aura, an AI Guide for Charlene's Portfolio. 
-        Context: Charlene is an AI Solutions Architect with 7+ years exp.
+        Context: Charlene is an AI Solutions Architect with 8+ years exp.
         User: ${userMessage}`;
 
         const result = await model.generateContent(prompt);
