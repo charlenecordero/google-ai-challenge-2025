@@ -3,3 +3,10 @@
 .gitignore
 node_modules/
 .DS_Store
+*.py
+*.pyc
+__pycache__/
+venv/
+env/
+requirements.txt
+Procfile

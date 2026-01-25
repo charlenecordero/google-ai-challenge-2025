@@ -616,6 +616,7 @@ function appData() {
         ],
 
         init() {
+            console.log("CORE SYSTEM v2.1 LOADED - " + new Date().toISOString());
             this.refreshCharts();
             // Start scanline effect
             setTimeout(() => {
