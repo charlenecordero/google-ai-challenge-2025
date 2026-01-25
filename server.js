@@ -6,6 +6,12 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 8080; // Cloud Run requires port 8080
 
+// Middleware to prevent caching
+app.use((req, res, next) => {
+    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+    next();
+});
+
 // Serve static files (CSS, JS, Images)
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
