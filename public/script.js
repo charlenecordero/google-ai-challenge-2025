@@ -254,7 +254,7 @@ function appData() {
                 `
             },
             {
-                title: 'CyberCottage.ai',
+                title: 'CyCo.ai',
                 desc: 'Future AI startup brand.',
                 tags: ['Startup', 'AI', 'Future'],
                 link: 'https://www.facebook.com/cybercottage',

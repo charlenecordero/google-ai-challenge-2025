@@ -127,10 +127,9 @@
         <!-- Main Console Display (Section Title) -->
         <div class="max-w-4xl mx-auto w-full mb-6">
             <div class="relative group">
-                <div
-                    class="w-full font-tech px-3 md:px-6 py-2 border border-[var(--neon-mint)] rounded-sm bg-black/80 text-[#4AF2A1] shadow-[0_0_15px_rgba(74,242,161,0.2)] flex items-center min-h-[40px]">
-                    <span class="text-[10px] md:text-base tracking-wider whitespace-nowrap"
-                        x-text="displayTitle"></span>
+                <div class="w-full font-futuristic px-3 md:px-6 py-2 border border-[var(--neon-mint)] rounded-sm bg-black/80 shadow-[0_0_15px_rgba(74,242,161,0.2)] flex items-center min-h-[40px]"
+                    style="color: var(--txt-bone)">
+                    <span class="text-[10px] md:text-sm tracking-wider whitespace-nowrap" x-text="displayTitle"></span>
                     <span
                         class="animate-pulse ml-1 w-1.5 h-3 md:w-2 md:h-4 bg-[var(--neon-mint)] inline-block align-middle"></span>
                 </div>
@@ -151,8 +150,8 @@
             </button>
             <button @click="currentSection = 'projects'" :class="{'active': currentSection === 'projects'}"
                 class="btn-hud">
-                <i class="fa-solid fa-flask"></i> <span class="md:hidden">LAB</span><span class="hidden md:inline">THE
-                    LAB</span>
+                <i class="fa-solid fa-flask"></i> <span class="md:hidden">LAB</span><span
+                    class="hidden md:inline">PROJECTS</span>
             </button>
             <button @click="currentSection = 'experience'" :class="{'active': currentSection === 'experience'}"
                 class="btn-hud">
@@ -190,7 +189,7 @@
                 <div class="alien-border glass-panel p-4 flex flex-col justify-center relative w-full">
 
 
-                    <h2 class="font-playfair text-xl text-[#FF2E88] italic mb-2 tracking-wide">Identification</h2>
+                    <h2 class="font-playfair text-xl text-[#FF2E88] mb-2 tracking-wide">IDENTIFICATION</h2>
                     <p class="font-tech text-sm md:text-base leading-relaxed text-[var(--txt-bone)]">
                         <strong class="text-[var(--neon-mint)]">Business Insights
                             Analyst at TaskUs</strong>
@@ -248,7 +247,7 @@
 
                         <div class="absolute bottom-4 left-4 z-20">
                             <h3
-                                class="font-playfair text-[#FF2E88] italic text-xs mb-1 border-b border-[#FF2E88]/30 pb-1 inline-block">
+                                class="font-playfair text-[#FF2E88] text-xs mb-1 border-b border-[#FF2E88]/30 pb-1 inline-block">
                                 Location Data</h3>
                             <p class="text-[10px] text-[var(--txt-muted)]">REGION: APAC</p>
                             <p class="text-[10px] text-[var(--txt-muted)]">TIMEZONE: GMT+8</p>
@@ -259,8 +258,8 @@
                     <div class="w-full md:w-1/3 alien-border glass-panel p-4 flex flex-col justify-center h-[250px]">
 
 
-                        <h3 class="font-playfair text-lg text-[#FF2E88] italic mb-4 flex items-center gap-2">
-                            <i class="fa-solid fa-code"></i> Core Tools
+                        <h3 class="font-playfair text-lg text-[#FF2E88] mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-code"></i> CORE TOOLS
                         </h3>
                         <div class="space-y-4">
                             <!-- Skill: Python -->
@@ -321,8 +320,8 @@
                     <div class="w-full md:w-1/3 alien-border glass-panel p-4 flex flex-col justify-center h-[250px]">
 
 
-                        <h3 class="font-playfair text-lg italic mb-4 flex items-center gap-2 text-[#FF2E88]">
-                            <i class="fa-solid fa-graduation-cap"></i> Learning Modules
+                        <h3 class="font-tech text-lg mb-4 flex items-center gap-2 text-[#FF2E88]">
+                            <i class="fa-solid fa-graduation-cap"></i>MODULES
                         </h3>
                         <div class="w-full h-full relative">
                             <canvas id="learningChart"></canvas>
@@ -340,8 +339,8 @@
                         <div class="alien-border glass-panel p-4 flex flex-col justify-center h-[300px]">
 
 
-                            <h3 class="font-playfair text-lg italic mb-4 flex items-center gap-2 text-[#FF2E88]">
-                                <i class="fa-solid fa-layer-group"></i> AI Stack
+                            <h3 class="font-tech text-lg mb-4 flex items-center gap-2 text-[#FF2E88]">
+                                <i class="fa-solid fa-layer-group"></i> AI STACK
                             </h3>
                             <div class="w-full h-[200px] relative">
                                 <canvas id="architectStackChart"></canvas>
@@ -352,8 +351,8 @@
                         <div class="alien-border glass-panel p-4 flex flex-col h-[300px]">
 
 
-                            <h3 class="font-playfair text-lg italic mb-4 flex items-center gap-2 text-[#FF2E88]">
-                                <i class="fa-solid fa-rss"></i> Recent Logs
+                            <h3 class="font-playfair text-lg mb-4 flex items-center gap-2 text-[#FF2E88]">
+                                <i class="fa-solid fa-rss"></i> RECENT LOGS
                             </h3>
                             <div class="space-y-3 overflow-y-auto custom-scrollbar pr-2">
                                 <template x-for="blog in blogs.slice(0, 3)" :key="blog.id">
@@ -363,7 +362,7 @@
                                             class="block font-tech text-[var(--neon-mint)] text-[10px] mb-1 opacity-70"
                                             x-text="blog.date"></span>
                                         <span
-                                            class="block font-tech text-xs font-bold transition-colors truncate text-[var(--txt-bone)] group-hover:text-[#FF2E88]"
+                                            class="block font-tech text-xs transition-colors truncate text-[var(--txt-bone)] group-hover:text-[#FF2E88]"
                                             x-text="blog.title"></span>
                                         <span
                                             class="block font-tech text-[10px] text-[var(--txt-muted)] mt-1 line-clamp-1"
@@ -390,8 +389,8 @@
 
                             <!-- Header -->
                             <div class="flex justify-between items-center mb-6 border-b border-[#2d5a45] pb-2">
-                                <h3 class="font-playfair text-lg italic flex items-center gap-2 text-[#FF2E88]">
-                                    <i class="fa-solid fa-code-branch"></i>Version History
+                                <h3 class="font-tech text-lg flex items-center gap-2 text-[#FF2E88]">
+                                    <i class="fa-solid fa-code-branch"></i>VERSION HISTORY
                                 </h3>
                                 <div class="font-tech text-xs text-[#4AF2A1] animate-pulse">
                                     >> LIVE_MONITORING
@@ -465,7 +464,8 @@
                                             <h4 class="font-futuristic text-2xl text-[#FF2E88] mb-1" x-text="v.id">
                                             </h4>
                                             <h5 class="font-tech text-sm text-[#4AF2A1] mb-2" x-text="v.label"></h5>
-                                            <p class="font-bold text-xs mb-1 text-[var(--txt-bone)]" x-text="v.role">
+                                            <p class="font-futuristic text-xs mb-1 text-[var(--txt-bone)]"
+                                                x-text="v.role">
                                             </p>
                                             <p class="text-[var(--txt-muted)] text-[10px] uppercase tracking-wider"
                                                 x-text="v.company"></p>
@@ -495,7 +495,7 @@
                                                     </template>
                                                 </div>
                                             </div>
-                                            <p class="text-[var(--txt-muted)] text-xs italic mt-auto pt-2 border-t border-[#2d5a45]"
+                                            <p class="text-[var(--txt-muted)] text-xs mt-auto pt-2 border-t border-[#2d5a45]"
                                                 x-text="v.desc"></p>
                                         </div>
                                     </template>
@@ -672,7 +672,7 @@
                     </div>
 
                     <h2
-                        class="font-playfair text-xl md:text-2xl text-[#FF2E88] italic mb-6 tracking-wide flex items-center gap-3">
+                        class="font-playfair text-xl md:text-2xl text-[#FF2E88] mb-6 tracking-wide flex items-center gap-3">
                         <span>Cottagecore Muse</span>
                         <i class="fa-solid fa-sheep lamb-holo text-3xl text-[var(--neon-mint)]"
                             title="Cordero (Lamb)"></i>
@@ -682,7 +682,7 @@
 
                     <div class="space-y-6 relative z-10">
                         <!-- Intro -->
-                        <div class="text-sm font-organic text-[#E0E5D7] italic opacity-80 leading-relaxed mb-6">
+                        <div class="text-sm font-organic text-[#E0E5D7] opacity-80 leading-relaxed mb-6">
                             <p>A gentle soul drawn to slow mornings, handmade things, and creative expression. I explore
                                 the
                                 world through music, movement, and nature—singing, dancing, and crafting a softer life
@@ -728,7 +728,7 @@
                             <h4 class="text-[#FF2E88] font-bold text-xs uppercase mb-3 flex items-center gap-2">
                                 🕯 Workshops & Hands-On Crafts
                             </h4>
-                            <p class="text-[10px] text-[#E0E5D7] italic pl-2">
+                            <p class="text-[10px] text-[#E0E5D7] pl-2">
                                 Pottery, floral bouquet making, candle & scented crafts, barista training
                             </p>
                         </div>
@@ -949,9 +949,9 @@
                                 x-text="blog.date"></span>
                             <div class="h-4 w-px bg-[#2d5a45] hidden md:block"></div>
                             <div>
-                                <h3 class="font-organic text-sm md:text-lg text-[var(--txt-bone)] group-hover:text-[var(--neon-pink)] transition-colors tracking-wide"
+                                <h3 class="font-futuristic text-sm md:text-base text-[#FFEAF5] group-hover:text-[var(--neon-pink)] transition-colors tracking-wide"
                                     x-text="blog.title"></h3>
-                                <p class="font-tech text-[10px] text-[var(--txt-muted)] truncate max-w-[400px] hidden md:block"
+                                <p class="font-tech text-[10px] text-[var(--txt-muted)] truncate max-w-[400px] block"
                                     x-text="blog.summary"></p>
                             </div>
                         </div>
@@ -1016,9 +1016,9 @@
                     <!-- FORM STATE (Stays in DOM to preserve height) -->
                     <div :class="{'blur-sm pointer-events-none opacity-50': contactSent}"
                         class="transition-all duration-500">
-                        <h3 class="font-playfair text-xl text-[#FF2E88] italic mb-6 tracking-wide">Transmission Uplink
+                        <h3 class="font-playfair text-lg text-[#FF2E88] mb-4 tracking-wide">Transmission Uplink
                         </h3>
-                        <form action="/send-email" method="POST" class="space-y-4" @submit.prevent="
+                        <form action="/send-email" method="POST" class="space-y-3" @submit.prevent="
                             isSending = true; 
                             error = null;
                             const payload = { from: fromEmail, subject: subject, message: message };
@@ -1053,36 +1053,39 @@
 
                             <!-- Static 'TO' Field -->
                             <div class="opacity-70 pointer-events-none">
-                                <label class="block text-[#FF2E88] text-xs font-tech mb-2 tracking-widest">TO ::</label>
+                                <label
+                                    class="block text-[#FF2E88] text-[10px] font-tech mb-1 tracking-widest drop-shadow-[0_0_5px_rgba(255,46,136,0.8)]">TO
+                                    ::</label>
                                 <div
-                                    class="bg-black/50 border border-[#2d5a45]/50 text-[var(--txt-muted)] w-full font-tech p-3 rounded-sm flex items-center gap-2">
+                                    class="bg-black/50 border border-[#2d5a45]/50 text-[var(--txt-muted)] w-full font-tech p-2 rounded-sm flex items-center gap-2 text-xs">
                                     <i class="fa-solid fa-lock text-[10px]"></i> hello@charlenecordero.com
                                 </div>
                             </div>
 
                             <!-- FROM Field -->
                             <div>
-                                <label class="block text-[var(--neon-mint)] text-xs font-tech mb-2 tracking-widest">FROM
+                                <label
+                                    class="block text-[#FF2E88] text-[10px] font-tech mb-1 tracking-widest drop-shadow-[0_0_5px_rgba(255,46,136,0.8)]">FROM
                                     (EMAIL) ::</label>
                                 <input type="email" x-model="fromEmail" required
-                                    class="bg-black border-[#2d5a45] text-[var(--txt-bone)] w-full font-tech p-3 rounded-sm focus:border-[var(--neon-mint)] outline-none transition-all placeholder-[var(--txt-muted)]/30"
+                                    class="bg-black border-[#2d5a45] text-[var(--txt-bone)] w-full font-tech p-2 rounded-sm focus:border-[var(--neon-mint)] outline-none transition-all placeholder-[var(--txt-muted)]/30 text-xs"
                                     placeholder="your.email@example.com">
                             </div>
 
                             <div>
                                 <label
-                                    class="block text-[var(--neon-mint)] text-xs font-tech mb-2 tracking-widest">SUBJECT
+                                    class="block text-[#FF2E88] text-[10px] font-tech mb-1 tracking-widest drop-shadow-[0_0_5px_rgba(255,46,136,0.8)]">SUBJECT
                                     ::</label>
                                 <input type="text" x-model="subject" required
-                                    class="bg-black border-[#2d5a45] text-[var(--txt-bone)] w-full font-tech p-3 rounded-sm focus:border-[var(--neon-mint)] outline-none transition-all placeholder-[var(--txt-muted)]/30"
+                                    class="bg-black border-[#2d5a45] text-[var(--txt-bone)] w-full font-tech p-2 rounded-sm focus:border-[var(--neon-mint)] outline-none transition-all placeholder-[var(--txt-muted)]/30 text-xs"
                                     placeholder="Project / Inquiry / Hello">
                             </div>
                             <div>
                                 <label
-                                    class="block text-[var(--neon-mint)] text-xs font-tech mb-2 tracking-widest">MESSAGE
+                                    class="block text-[#FF2E88] text-[10px] font-tech mb-1 tracking-widest drop-shadow-[0_0_5px_rgba(255,46,136,0.8)]">MESSAGE
                                     ::</label>
-                                <textarea x-model="message" rows="5" required
-                                    class="bg-black border-[#2d5a45] text-[var(--txt-bone)] w-full font-tech p-3 rounded-sm focus:border-[var(--neon-mint)] outline-none transition-all placeholder-[var(--txt-muted)]/30 custom-scrollbar"
+                                <textarea x-model="message" rows="4" required
+                                    class="bg-black border-[#2d5a45] text-[var(--txt-bone)] w-full font-tech p-2 rounded-sm focus:border-[var(--neon-mint)] outline-none transition-all placeholder-[var(--txt-muted)]/30 custom-scrollbar text-xs"
                                     placeholder="Enter your message sequence here..."></textarea>
                             </div>
 
@@ -1093,7 +1096,7 @@
                             </div>
 
                             <button type="submit" :disabled="isSending"
-                                class="w-full py-3 bg-[#4AF2A1]/10 border border-[#4AF2A1] text-[#4AF2A1] font-tech tracking-widest hover:bg-[#4AF2A1] hover:text-[#000] transition-all duration-300 uppercase text-sm font-bold relative group overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed">
+                                class="w-full py-2 bg-[#4AF2A1]/10 border border-[#4AF2A1] text-[#4AF2A1] font-tech tracking-widest hover:bg-[#4AF2A1] hover:text-[#000] transition-all duration-300 uppercase text-xs font-bold relative group overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed">
                                 <span class="relative z-10"
                                     x-text="isSending ? 'Transmitting...' : 'Transmit Data'"></span>
                                 <div
@@ -1204,7 +1207,7 @@
                                 </div>
 
                                 <!-- Fixed: Reduced font size on mobile (text-xl vs text-2xl) -->
-                                <h2 class="font-playfair text-xl md:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-[#4AF2A1] to-[#FF2E88] italic leading-tight"
+                                <h2 class="font-playfair text-xl md:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-[#4AF2A1] to-[#FF2E88] leading-tight"
                                     x-text="selectedBlog.title"></h2>
                             </div>
 
@@ -1215,7 +1218,7 @@
                                     class="prose prose-invert max-w-none font-tech text-sm md:text-base text-[#8A9A90] leading-relaxed pb-8">
                                     <div x-html="selectedBlog.content"></div>
 
-                                    <p class="text-[#FF2E88]/60 italic mt-8 border-t border-[#FF2E88]/10 pt-4">[End of
+                                    <p class="text-[#FF2E88]/60 mt-8 border-t border-[#FF2E88]/10 pt-4">[End of
                                         Transmission]</p>
                                 </div>
                             </div>
@@ -1267,7 +1270,7 @@
                                         OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i>
                                     </a>
                                 </div>
-                                <h2 class="font-playfair text-xl md:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-[#4AF2A1] to-[#FF2E88] italic leading-tight"
+                                <h2 class="font-playfair text-xl md:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-[#4AF2A1] to-[#FF2E88] leading-tight"
                                     x-text="selectedProject.title"></h2>
                             </div>
 
@@ -1277,7 +1280,7 @@
                                     class="prose prose-invert max-w-none font-tech text-sm md:text-base text-[#8A9A90] leading-relaxed pb-8">
                                     <div x-html="selectedProject.details"></div>
 
-                                    <p class="text-[#FF2E88]/60 italic mt-8 border-t border-[#FF2E88]/10 pt-4">[End of
+                                    <p class="text-[#FF2E88]/60 mt-8 border-t border-[#FF2E88]/10 pt-4">[End of
                                         File]</p>
                                 </div>
                             </div>
