@@ -986,19 +986,17 @@
         <section x-show="currentSection === 'contact'" x-transition:enter="transition ease-out duration-300"
             x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0">
 
-
-            <div class="max-w-3xl mx-auto">
-                <!-- Contact Form Container -->
-                <!-- Contact Form Container -->
-                <div class="glass-panel p-8 border-organic relative overflow-hidden"
+            <div class="max-w-5xl mx-auto">
+                <!-- Contact Main Panel -->
+                <div class="glass-panel p-4 md:p-6 border-organic relative overflow-hidden"
                     x-data="{ contactSent: false, isSending: false, error: null }">
+
                     <!-- Neon Vines (Low Opacity) -->
                     <svg class="holo-vine absolute top-0 left-0 w-full h-full opacity-30" viewBox="0 0 400 400"
                         preserveAspectRatio="none">
                         <path d="M0,400 Q50,300 0,200 T0,0" fill="none" stroke="#4AF2A1" stroke-width="2" />
                         <path d="M400,0 Q350,100 400,200 T400,400" fill="none" stroke="#FF2E88" stroke-width="2" />
                     </svg>
-
 
                     <!-- SUCCESS STATE (Overlay) -->
                     <div x-show="contactSent" x-transition:enter="transition ease-out duration-500"
@@ -1019,138 +1017,156 @@
                         </button>
                     </div>
 
-                    <!-- FORM STATE (Stays in DOM to preserve height) -->
+                    <!-- Layout Container: Refactored to Single Column (Flex) -->
                     <div :class="{'blur-sm pointer-events-none opacity-50': contactSent}"
-                        class="transition-all duration-500">
-                        <h3 class="font-playfair text-lg text-[#FF2E88] mb-4 tracking-wide">Transmission Uplink
-                        </h3>
-                        <form action="/send-email" method="POST" class="space-y-3" @submit.prevent="
-                            isSending = true; 
-                            error = null;
-                            const payload = { from: fromEmail, subject: subject, message: message };
-                            
-                            fetch('/send-email', {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({ email: fromEmail, subject: subject, message: message })
-                            })
-                            .then(async res => {
-                                let data;
-                                try {
-                                    data = await res.json();
-                                } catch (e) {
-                                    // Fallback for non-JSON responses
-                                    console.warn('Non-JSON response received:', res.status);
-                                    if (!res.ok) throw new Error(`Transmission Failed: Server returned ${res.status} ${res.statusText}`);
-                                }
+                        class="transition-all duration-500 flex flex-col items-center justify-center relative z-10 max-w-xl mx-auto h-full">
 
-                                if (res.ok) {
-                                    contactSent = true;
-                                } else {
-                                    throw new Error(data?.error || 'Transmission Failed');
-                                }
-                            })
-                            .catch(err => {
-                                console.error(err);
-                                error = err.message;
-                            })
-                            .finally(() => { isSending = false; });
-                        ">
+                        <!-- Center Header with Email -->
+                        <div class="text-center mb-6 w-full">
+                            <h3
+                                class="font-playfair text-xl md:text-2xl text-[#FF2E88] tracking-wide inline-flex items-center gap-3">
+                                <span>Transmission Uplink</span>
+                                <span class="h-px w-12 bg-[#FF2E88]/30"></span>
+                            </h3>
 
-                            <!-- Static 'TO' Field -->
-                            <div class="opacity-70 pointer-events-none">
+                            <!-- Email Display -->
+                            <div
+                                class="mt-2 flex items-center justify-center gap-2 text-[var(--neon-mint)]/90 font-tech text-xs tracking-wider">
+                                <i class="fa-solid fa-satellite-dish text-[10px]"></i>
+                                <a href="mailto:hello@charlenecordero.com"
+                                    class="hover:text-[var(--neon-mint)] hover:underline decoration-[var(--neon-mint)]/50 underline-offset-4 transition-all">
+                                    hello@charlenecordero.com
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- FORM -->
+                        <div class="w-full flex-grow flex flex-col">
+                            <form action="/send-email" method="POST" class="space-y-3 flex-grow" @submit.prevent="
+                                isSending = true; 
+                                error = null;
+                                const payload = { from: fromEmail, subject: subject, message: message };
+                                
+                                fetch('/send-email', {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({ email: fromEmail, subject: subject, message: message })
+                                })
+                                .then(async res => {
+                                    let data;
+                                    try {
+                                        data = await res.json();
+                                    } catch (e) {
+                                        console.warn('Non-JSON response received:', res.status);
+                                        if (!res.ok) throw new Error(`Transmission Failed: Server returned ${res.status} ${res.statusText}`);
+                                    }
+
+                                    if (res.ok) {
+                                        contactSent = true;
+                                    } else {
+                                        throw new Error(data?.error || 'Transmission Failed');
+                                    }
+                                })
+                                .catch(err => {
+                                    console.error(err);
+                                    error = err.message;
+                                })
+                                .finally(() => { isSending = false; });
+                            ">
+                                <!-- FROM Field -->
+                                <div>
+                                    <label
+                                        class="block text-[#FF2E88] text-[10px] font-tech mb-1 tracking-widest drop-shadow-[0_0_5px_rgba(255,46,136,0.8)]">FROM
+                                        (EMAIL) ::</label>
+                                    <input type="email" x-model="fromEmail" required
+                                        class="bg-black border-[#2d5a45] text-[var(--txt-bone)] w-full font-tech p-2 rounded-sm focus:border-[var(--neon-mint)] outline-none transition-all placeholder-[var(--txt-muted)]/30 text-xs"
+                                        placeholder="your.email@example.com">
+                                </div>
+
+                                <div>
+                                    <label
+                                        class="block text-[#FF2E88] text-[10px] font-tech mb-1 tracking-widest drop-shadow-[0_0_5px_rgba(255,46,136,0.8)]">SUBJECT
+                                        ::</label>
+                                    <input type="text" x-model="subject" required
+                                        class="bg-black border-[#2d5a45] text-[var(--txt-bone)] w-full font-tech p-2 rounded-sm focus:border-[var(--neon-mint)] outline-none transition-all placeholder-[var(--txt-muted)]/30 text-xs"
+                                        placeholder="Project / Inquiry / Hello">
+                                </div>
+                                <div>
+                                    <label
+                                        class="block text-[#FF2E88] text-[10px] font-tech mb-1 tracking-widest drop-shadow-[0_0_5px_rgba(255,46,136,0.8)]">MESSAGE
+                                        ::</label>
+                                    <textarea x-model="message" rows="3" required
+                                        class="bg-black border-[#2d5a45] text-[var(--txt-bone)] w-full font-tech p-2 rounded-sm focus:border-[var(--neon-mint)] outline-none transition-all placeholder-[var(--txt-muted)]/30 custom-scrollbar text-xs"
+                                        placeholder="Enter your message sequence here..."></textarea>
+                                </div>
+
+                                <!-- Error Message -->
+                                <div x-show="error"
+                                    class="text-[#FF2E88] text-xs font-tech bg-[#FF2E88]/10 p-2 border border-[#FF2E88]/30">
+                                    <span class="font-bold">ERROR:</span> <span x-text="error"></span>
+                                </div>
+
+                                <button type="submit" :disabled="isSending"
+                                    class="w-full py-2 bg-[#4AF2A1]/10 border border-[#4AF2A1] text-[#4AF2A1] font-tech tracking-widest hover:bg-[#4AF2A1] hover:text-[#000] transition-all duration-300 uppercase text-xs font-bold relative group overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed mt-2">
+                                    <span class="relative z-10"
+                                        x-text="isSending ? 'Transmitting...' : 'Transmit Data'"></span>
+                                    <div
+                                        class="absolute inset-0 bg-[#4AF2A1] transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-0">
+                                    </div>
+                                </button>
+                            </form>
+
+                            <!-- Social Links (Relocated Below Form) -->
+                            <div
+                                class="mt-6 pt-4 border-t border-[#2d5a45] flex flex-col items-center justify-center gap-3 w-full">
                                 <label
-                                    class="block text-[#FF2E88] text-[10px] font-tech mb-1 tracking-widest drop-shadow-[0_0_5px_rgba(255,46,136,0.8)]">TO
-                                    ::</label>
-                                <div
-                                    class="bg-black/50 border border-[#2d5a45]/50 text-[var(--txt-muted)] w-full font-tech p-2 rounded-sm flex items-center gap-2 text-xs">
-                                    <i class="fa-solid fa-lock text-[10px]"></i> hello@charlenecordero.com
+                                    class="text-[#FF2E88] text-[10px] font-tech tracking-widest uppercase drop-shadow-[0_0_5px_rgba(255,46,136,0.8)]">
+                                    Social Frequency ::
+                                </label>
+                                <div class="flex flex-wrap gap-4 justify-center">
+                                    <!-- LinkedIn -->
+                                    <a href="https://linkedin.com/in/charlenecordero" target="_blank"
+                                        class="w-8 h-8 rounded-full flex items-center justify-center border border-[#4AF2A1]/50 text-[#4AF2A1] bg-[#4AF2A1]/5 hover:bg-[#4AF2A1] hover:text-black transition-all duration-300 group">
+                                        <i
+                                            class="fa-brands fa-linkedin text-sm group-hover:scale-110 transition-transform"></i>
+                                    </a>
+                                    <!-- GitHub -->
+                                    <a href="https://github.com/charlenecordero" target="_blank"
+                                        class="w-8 h-8 rounded-full flex items-center justify-center border border-[#4AF2A1]/50 text-[#4AF2A1] bg-[#4AF2A1]/5 hover:bg-[#4AF2A1] hover:text-black transition-all duration-300 group">
+                                        <i
+                                            class="fa-brands fa-github text-sm group-hover:scale-110 transition-transform"></i>
+                                    </a>
+                                    <!-- Dev.to -->
+                                    <a href="https://dev.to/charlenecordero" target="_blank"
+                                        class="w-8 h-8 rounded-full flex items-center justify-center border border-[#4AF2A1]/50 text-[#4AF2A1] bg-[#4AF2A1]/5 hover:bg-[#4AF2A1] hover:text-black transition-all duration-300 group">
+                                        <i
+                                            class="fa-brands fa-dev text-sm group-hover:scale-110 transition-transform"></i>
+                                    </a>
+                                    <!-- X (Twitter) -->
+                                    <a href="https://x.com/ccords8" target="_blank"
+                                        class="w-8 h-8 rounded-full flex items-center justify-center border border-[#4AF2A1]/50 text-[#4AF2A1] bg-[#4AF2A1]/5 hover:bg-[#4AF2A1] hover:text-black transition-all duration-300 group">
+                                        <i
+                                            class="fa-brands fa-x-twitter text-sm group-hover:scale-110 transition-transform"></i>
+                                    </a>
+                                    <!-- Youtube -->
+                                    <a href="https://youtube.com/@charlenecordero" target="_blank"
+                                        class="w-8 h-8 rounded-full flex items-center justify-center border border-[#4AF2A1]/50 text-[#4AF2A1] bg-[#4AF2A1]/5 hover:bg-[#4AF2A1] hover:text-black transition-all duration-300 group">
+                                        <i
+                                            class="fa-brands fa-youtube text-sm group-hover:scale-110 transition-transform"></i>
+                                    </a>
                                 </div>
                             </div>
 
-                            <!-- FROM Field -->
-                            <div>
-                                <label
-                                    class="block text-[#FF2E88] text-[10px] font-tech mb-1 tracking-widest drop-shadow-[0_0_5px_rgba(255,46,136,0.8)]">FROM
-                                    (EMAIL) ::</label>
-                                <input type="email" x-model="fromEmail" required
-                                    class="bg-black border-[#2d5a45] text-[var(--txt-bone)] w-full font-tech p-2 rounded-sm focus:border-[var(--neon-mint)] outline-none transition-all placeholder-[var(--txt-muted)]/30 text-xs"
-                                    placeholder="your.email@example.com">
+                            <!-- Return to Deck (Integrated) -->
+                            <div class="w-full flex justify-center mt-6">
+                                <button type="button" @click="currentSection = 'dashboard'; window.scrollTo(0,0)"
+                                    class="btn-hud">
+                                    <i class="fa-solid fa-arrow-left"></i> RETURN_TO_DECK
+                                </button>
                             </div>
-
-                            <div>
-                                <label
-                                    class="block text-[#FF2E88] text-[10px] font-tech mb-1 tracking-widest drop-shadow-[0_0_5px_rgba(255,46,136,0.8)]">SUBJECT
-                                    ::</label>
-                                <input type="text" x-model="subject" required
-                                    class="bg-black border-[#2d5a45] text-[var(--txt-bone)] w-full font-tech p-2 rounded-sm focus:border-[var(--neon-mint)] outline-none transition-all placeholder-[var(--txt-muted)]/30 text-xs"
-                                    placeholder="Project / Inquiry / Hello">
-                            </div>
-                            <div>
-                                <label
-                                    class="block text-[#FF2E88] text-[10px] font-tech mb-1 tracking-widest drop-shadow-[0_0_5px_rgba(255,46,136,0.8)]">MESSAGE
-                                    ::</label>
-                                <textarea x-model="message" rows="4" required
-                                    class="bg-black border-[#2d5a45] text-[var(--txt-bone)] w-full font-tech p-2 rounded-sm focus:border-[var(--neon-mint)] outline-none transition-all placeholder-[var(--txt-muted)]/30 custom-scrollbar text-xs"
-                                    placeholder="Enter your message sequence here..."></textarea>
-                            </div>
-
-                            <!-- Error Message -->
-                            <div x-show="error"
-                                class="text-[#FF2E88] text-xs font-tech bg-[#FF2E88]/10 p-2 border border-[#FF2E88]/30">
-                                <span class="font-bold">ERROR:</span> <span x-text="error"></span>
-                            </div>
-
-                            <button type="submit" :disabled="isSending"
-                                class="w-full py-2 bg-[#4AF2A1]/10 border border-[#4AF2A1] text-[#4AF2A1] font-tech tracking-widest hover:bg-[#4AF2A1] hover:text-[#000] transition-all duration-300 uppercase text-xs font-bold relative group overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed">
-                                <span class="relative z-10"
-                                    x-text="isSending ? 'Transmitting...' : 'Transmit Data'"></span>
-                                <div
-                                    class="absolute inset-0 bg-[#4AF2A1] transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-0">
-                                </div>
-                            </button>
-                        </form>
+                        </div>
                     </div>
                 </div>
-                <!-- Social Links (Moved from Footer) -->
-                <div class="mt-8 flex justify-center gap-6">
-                    <!-- LinkedIn -->
-                    <a href="https://linkedin.com/in/charlenecordero" target="_blank"
-                        class="w-10 h-10 rounded-full flex items-center justify-center border border-[#4AF2A1]/50 text-[#4AF2A1] shadow-[0_0_15px_rgba(74,242,161,0.3)] hover:shadow-[0_0_25px_rgba(74,242,161,0.6)] hover:bg-[#4AF2A1] hover:text-black hover:scale-110 transition-all duration-300">
-                        <i class="fa-brands fa-linkedin text-xl"></i>
-                    </a>
-                    <!-- GitHub -->
-                    <a href="https://github.com/charlenecordero" target="_blank"
-                        class="w-10 h-10 rounded-full flex items-center justify-center border border-[#4AF2A1]/50 text-[#4AF2A1] shadow-[0_0_15px_rgba(74,242,161,0.3)] hover:shadow-[0_0_25px_rgba(74,242,161,0.6)] hover:bg-[#4AF2A1] hover:text-black hover:scale-110 transition-all duration-300">
-                        <i class="fa-brands fa-github text-xl"></i>
-                    </a>
-                    <!-- Dev.to -->
-                    <a href="https://dev.to/charlenecordero" target="_blank"
-                        class="w-10 h-10 rounded-full flex items-center justify-center border border-[#4AF2A1]/50 text-[#4AF2A1] shadow-[0_0_15px_rgba(74,242,161,0.3)] hover:shadow-[0_0_25px_rgba(74,242,161,0.6)] hover:bg-[#4AF2A1] hover:text-black hover:scale-110 transition-all duration-300">
-                        <i class="fa-brands fa-dev text-xl"></i>
-                    </a>
-                    <!-- X (Twitter) -->
-                    <a href="https://x.com/ccords8" target="_blank"
-                        class="w-10 h-10 rounded-full flex items-center justify-center border border-[#4AF2A1]/50 text-[#4AF2A1] shadow-[0_0_15px_rgba(74,242,161,0.3)] hover:shadow-[0_0_25px_rgba(74,242,161,0.6)] hover:bg-[#4AF2A1] hover:text-black hover:scale-110 transition-all duration-300 group">
-                        <!-- Inline SVG for X Logo -->
-                        <svg class="w-5 h-5 fill-current text-[#4AF2A1] group-hover:text-black transition-colors"
-                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
-                        </svg>
-                    </a>
-                    <!-- YouTube -->
-                    <a href="https://www.youtube.com/@wanderwithchai" target="_blank"
-                        class="w-10 h-10 rounded-full flex items-center justify-center border border-[#4AF2A1]/50 text-[#4AF2A1] shadow-[0_0_15px_rgba(74,242,161,0.3)] hover:shadow-[0_0_25px_rgba(74,242,161,0.6)] hover:bg-[#4AF2A1] hover:text-black hover:scale-110 transition-all duration-300">
-                        <i class="fa-brands fa-youtube text-xl"></i>
-                    </a>
-                </div>
-            </div>
-
-            <div class="w-full flex justify-center mt-8">
-                <button @click="currentSection = 'dashboard'; window.scrollTo(0,0)" class="btn-hud">
-                    <i class="fa-solid fa-arrow-left"></i> RETURN_TO_DECK
-                </button>
             </div>
         </section>
 
@@ -1208,12 +1224,13 @@
                             <div class="flex-none mb-4 md:mb-6 border-b border-[#FF2E88]/20 pb-4 md:pb-6 pr-8">
                                 <div class="flex items-center gap-2 mb-2 md:mb-4">
                                     <span class="bg-[#4AF2A1] w-2 h-2 rounded-full animate-pulse"></span>
-                                    <span class="font-tech text-[10px] md:text-xs text-[#4AF2A1]"
+                                    <!-- Reduced Date Size -->
+                                    <span class="font-tech text-[10px] text-[#4AF2A1] tracking-widest"
                                         x-text="'LOG_ENTRY: ' + selectedBlog.date"></span>
                                 </div>
 
-                                <!-- Fixed: Reduced font size on mobile (text-xl vs text-2xl) -->
-                                <h2 class="font-playfair text-xl md:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-[#4AF2A1] to-[#FF2E88] leading-tight"
+                                <!-- Title: Wrapped, Leading Tight -->
+                                <h2 class="font-playfair text-xl md:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-[#4AF2A1] to-[#FF2E88] leading-tight max-w-prose"
                                     x-text="selectedBlog.title"></h2>
                             </div>
 
