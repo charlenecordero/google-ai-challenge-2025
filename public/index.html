@@ -41,6 +41,9 @@
 
     <!-- Background Decorations -->
     <div id="bg-decorations" class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <!-- Falling Petals Container -->
+        <div class="falling-petals" id="falling-petals"></div>
+
         <svg class="absolute left-0 top-0 h-full w-full md:w-1/3 opacity-30" preserveAspectRatio="none"
             viewBox="0 0 100 800">
             <path d="M0,0 C30,150 10,300 40,450 C70,600 20,750 0,900" fill="none" stroke="var(--neon-mint)"
@@ -79,7 +82,7 @@
             <div class="flex flex-col md:flex-row md:items-center gap-1 md:gap-4 flex-wrap">
                 <div class="flex items-center gap-2 group cursor-pointer" @click="currentSection = 'dashboard'">
                     <span
-                        class="text-[#FF2E88] font-tech text-xs md:text-sm tracking-widest font-bold drop-shadow-[0_0_5px_rgba(255,46,136,0.5)]">>
+                        class="text-[#FF2E88] font-tech text-xs md:text-sm tracking-widest font-bold drop-shadow-[0_0_5px_rgba(255,46,136,0.5)]">>>
                         CHARLENE ANNE CORDERO</span>
                     <span class="animate-pulse text-[#4AF2A1]">_</span>
                 </div>
@@ -93,8 +96,6 @@
                 </div>
             </div>
 
-            <!-- Right: System Stats -->
-            <!-- Right: System Stats -->
             <!-- Right: System Stats -->
             <div
                 class="grid grid-cols-2 md:flex md:items-center justify-items-end gap-x-2 gap-y-0.5 md:gap-4 text-[8px] md:text-[10px] font-tech tracking-wider text-[#4AF2A1]/80 leading-tight pr-2 md:pr-0">
@@ -123,72 +124,64 @@
     <!-- Main Content -->
     <main class="relative z-10 w-full max-w-7xl mx-auto px-4 pb-20 flex-grow">
 
-        <!-- Persistent Console Input -->
-        <div
-            class="mt-2 text-xs md:text-sm text-[var(--txt-bone)] font-tech opacity-80 flex flex-wrap justify-center gap-2 mb-2">
-            <span class="mr-1">TRY:</span>
-            <button @click="autoType('dashboard')"
-                class="hover:text-[#4AF2A1] cursor-pointer transition-colors hover:shadow-[0_0_8px_#FF2E88]">DASHBOARD</button>
-            <span class="text-[#FF2E88]/40">/</span>
-            <button @click="autoType('about')"
-                class="hover:text-[#4AF2A1] cursor-pointer transition-colors hover:shadow-[0_0_8px_#FF2E88]">ABOUT</button>
-            <span class="text-[#FF2E88]/40">/</span>
-            <button @click="autoType('projects')"
-                class="hover:text-[#4AF2A1] cursor-pointer transition-colors hover:shadow-[0_0_8px_#FF2E88]">PROJECTS</button>
-            <span class="text-[#FF2E88]/40">/</span>
-
-            <button @click="autoType('experience')"
-                class="hover:text-[#4AF2A1] cursor-pointer transition-colors hover:shadow-[0_0_8px_#FF2E88]">EXPERIENCE</button>
-            <span class="text-[#FF2E88]/40">/</span>
-
-            <button @click="autoType('blog')"
-                class="hover:text-[#4AF2A1] cursor-pointer transition-colors hover:shadow-[0_0_8px_#FF2E88]">BLOG</button>
-            <span class="text-[#FF2E88]/40">/</span>
-            <button @click="autoType('contact')"
-                class="hover:text-[#4AF2A1] cursor-pointer transition-colors hover:shadow-[0_0_8px_#FF2E88]">CONTACT</button>
-        </div>
-
-        <div class="max-w-2xl mx-auto w-full mb-12">
+        <!-- Main Console Display (Section Title) -->
+        <div class="max-w-4xl mx-auto w-full mb-6">
             <div class="relative group">
-                <span
-                    class="absolute left-4 top-1/2 transform -translate-y-1/2 text-[var(--neon-mint)] font-tech text-lg">></span>
-                <input type="text" x-model="inputQuery" @keyup.enter="handleCommand()"
-                    placeholder="Type 'roots', 'projects', or 'contact'..."
-                    class="w-full font-tech pl-10 pr-24 py-4 border border-[var(--neon-mint)] focus:border-[var(--neon-mint)] outline-none rounded-sm focus:shadow-[0_0_15px_rgba(74,242,161,0.2)] transition-all placeholder-[var(--neon-mint)]/30 bg-black/80 text-[#4AF2A1]"
-                    autocomplete="off" autofocus>
-
-                <button @click="autoType('clear')"
-                    class="absolute right-2 top-1/2 transform -translate-y-1/2 text-[#FF2E88] text-[10px] border border-[#FF2E88]/30 px-2 py-1 rounded hover:bg-[#FF2E88]/10 transition-colors font-tech tracking-widest z-10">
-                    CLEAR
-                </button>
+                <div
+                    class="w-full font-tech px-6 py-2 border border-[var(--neon-mint)] rounded-sm bg-black/80 text-[#4AF2A1] shadow-[0_0_15px_rgba(74,242,161,0.2)] flex items-center min-h-[40px]">
+                    <span class="text-sm md:text-base tracking-wider" x-text="displayTitle"></span>
+                    <span class="animate-pulse ml-1 w-2 h-4 bg-[var(--neon-mint)] inline-block align-middle"></span>
+                </div>
             </div>
         </div>
+
+        <!-- HUD Navigation Console -->
+        <div class="hud-nav-grid mb-8">
+
+            <button @click="currentSection = 'dashboard'" :class="{'active': currentSection === 'dashboard'}"
+                class="btn-hud">
+                <i class="fa-solid fa-gauge-high"></i> DASHBOARD
+            </button>
+            <button @click="currentSection = 'about'" :class="{'active': currentSection === 'about'}" class="btn-hud">
+                <i class="fa-solid fa-user-astronaut"></i> IDENTITY
+            </button>
+            <button @click="currentSection = 'projects'" :class="{'active': currentSection === 'projects'}"
+                class="btn-hud">
+                <i class="fa-solid fa-flask"></i> THE LAB
+            </button>
+            <button @click="currentSection = 'experience'" :class="{'active': currentSection === 'experience'}"
+                class="btn-hud">
+                <i class="fa-solid fa-file-code"></i> LOGS
+            </button>
+            <button @click="currentSection = 'blog'" :class="{'active': currentSection === 'blog'}" class="btn-hud">
+                <i class="fa-solid fa-satellite-dish"></i> ARCHIVES
+            </button>
+            <button @click="currentSection = 'contact'" :class="{'active': currentSection === 'contact'}"
+                class="btn-hud">
+                <i class="fa-solid fa-handshake"></i> UPLINK
+            </button>
+        </div>
+
+
+
+
 
         <!-- DASHBOARD SECTION (Default) -->
         <section x-show="currentSection === 'dashboard'" x-transition:enter="transition ease-out duration-500"
             x-transition:enter-start="opacity-0 transform scale-95"
             x-transition:enter-end="opacity-100 transform scale-100" class="space-y-6">
 
-            <!-- Welcome Header -->
-            <div class="mb-4 border-b border-[#2d5a45] pb-2">
-                <div>
-                    <h1 class="font-futuristic text-xl md:text-3xl mb-1 glitch-text text-[var(--txt-bone)]">System
-                        Dashboard
-                    </h1>
-                    <div class="flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
-                        <p class="font-tech text-[var(--txt-muted)] text-xs md:text-sm">// Real-time metrics and status
-                            overview.
-                        </p>
-                    </div>
-                </div>
-            </div>
+            <!-- Welcome Header Removed -->
+
             </div>
 
             <!-- Dashboard Flex Container -->
             <div class="flex flex-col gap-6">
 
                 <!-- Row 1: Summary Card -->
-                <div class="glass-panel p-6 border-organic flex flex-col justify-center relative w-full">
+                <div class="alien-border glass-panel p-4 flex flex-col justify-center relative w-full">
+
+
                     <h2 class="font-playfair text-xl text-[#FF2E88] italic mb-2 tracking-wide">System Identity</h2>
                     <p class="font-tech text-sm md:text-base leading-relaxed text-[var(--txt-bone)]">
                         <strong class="text-[var(--neon-mint)]">Business Insights
@@ -210,8 +203,8 @@
                 <div class="flex flex-col md:flex-row gap-6 w-full">
 
                     <!-- 1. Map Visualization (Manila) -->
-                    <div
-                        class="w-full md:w-1/3 glass-panel p-0 border-organic relative overflow-hidden h-[250px] group">
+                    <div class="w-full md:w-1/3 alien-border glass-panel p-0 relative overflow-hidden h-[250px] group">
+
                         <div class="absolute inset-0 bg-[var(--void-moss)] opacity-80 z-10 transition-colors"></div>
                         <!-- Abstract grid lines representing map -->
                         <div class="absolute inset-0"
@@ -255,7 +248,9 @@
                     </div>
 
                     <!-- 2. Skills Bars -->
-                    <div class="w-full md:w-1/3 glass-panel p-6 border-organic flex flex-col justify-center h-[250px]">
+                    <div class="w-full md:w-1/3 alien-border glass-panel p-4 flex flex-col justify-center h-[250px]">
+
+
                         <h3 class="font-playfair text-lg text-[#FF2E88] italic mb-4 flex items-center gap-2">
                             <i class="fa-solid fa-code"></i> Core Tools
                         </h3>
@@ -315,7 +310,9 @@
                     </div>
 
                     <!-- 3. Learning Progress -->
-                    <div class="w-full md:w-1/3 glass-panel p-6 border-organic flex flex-col justify-center h-[250px]">
+                    <div class="w-full md:w-1/3 alien-border glass-panel p-4 flex flex-col justify-center h-[250px]">
+
+
                         <h3 class="font-playfair text-lg italic mb-4 flex items-center gap-2 text-[#FF2E88]">
                             <i class="fa-solid fa-graduation-cap"></i> Learning Modules
                         </h3>
@@ -332,9 +329,11 @@
                     <div class="flex flex-col w-full md:w-1/3 gap-6">
 
                         <!-- 6. Architect Stack Chart -->
-                        <div class="glass-panel p-6 border-organic flex flex-col justify-center h-[300px]">
+                        <div class="alien-border glass-panel p-4 flex flex-col justify-center h-[300px]">
+
+
                             <h3 class="font-playfair text-lg italic mb-4 flex items-center gap-2 text-[#FF2E88]">
-                                <i class="fa-solid fa-layer-group"></i> Architect Stack
+                                <i class="fa-solid fa-layer-group"></i> AI Stack
                             </h3>
                             <div class="w-full h-[200px] relative">
                                 <canvas id="architectStackChart"></canvas>
@@ -342,7 +341,9 @@
                         </div>
 
                         <!-- 4. Recent Blogs -->
-                        <div class="glass-panel p-6 border-organic flex flex-col h-[300px]">
+                        <div class="alien-border glass-panel p-4 flex flex-col h-[300px]">
+
+
                             <h3 class="font-playfair text-lg italic mb-4 flex items-center gap-2 text-[#FF2E88]">
                                 <i class="fa-solid fa-rss"></i> Recent Logs
                             </h3>
@@ -374,7 +375,9 @@
                     <div class="w-full md:w-2/3">
                         <!-- SYSTEM VERSION HISTORY COMPONENT -->
                         <div
-                            class="glass-panel p-6 border-organic h-full flex flex-col relative overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.5)] transition-colors duration-300 bg-black/80 text-[var(--txt-bone)] min-h-[624px]">
+                            class="alien-border glass-panel p-4 h-full flex flex-col relative overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.5)] transition-colors duration-300 bg-black/80 text-[var(--txt-bone)] min-h-[624px]">
+
+
                             <!-- Matched height to left col (300+300+24 gap) -->
 
                             <!-- Header -->
@@ -511,14 +514,9 @@
         <section x-show="currentSection === 'about'" x-transition:enter="transition ease-out duration-300"
             x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
             class="max-w-7xl mx-auto">
-            <button @click="currentSection = 'dashboard'"
-                class="mb-6 text-[#4AF2A1] font-tech text-xs hover:text-[var(--txt-bone)] flex items-center gap-2 transition-colors">
-                <i class="fa-solid fa-arrow-left"></i> RETURN_TO_DASHBOARD
-            </button>
-            <div class="mb-8 border-b border-[#2d5a45] pb-4">
-                <h2 class="font-futuristic text-xl md:text-3xl text-[var(--txt-bone)] glitch-text">Identity Core</h2>
-                <p class="text-sm text-[var(--txt-muted)] font-tech mt-1">// Personal & Professional Bio</p>
-            </div>
+
+
+
 
             <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
                 <!-- 1. CYBERPUNK BADDIE CONTAINER (Tech Focus) - Span 8 -->
@@ -549,8 +547,8 @@
                             complex business and technical problems into structured, actionable solutions.
                         </p>
                         <p>
-                            Currently transitioning into <strong class="text-[var(--txt-bone)]">AI Solutions
-                                Architecture</strong>,
+                            Currently transitioning into <strong class="text-[var(--txt-bone)]">AI & Automation
+                            </strong>,
                             with formal training in AI fundamentals, Generative AI concepts, and applied data analysis.
                             I
                             have hands-on experience validating outputs, improving workflows, and supporting production
@@ -578,14 +576,14 @@
                                 class="text-[var(--txt-bone)] font-bold mb-2 uppercase text-xs tracking-widest text-[var(--neon-mint)]">
                                 Technical Stack</h3>
                             <ul class="space-y-1 text-xs font-tech text-[var(--txt-muted)]">
-                                <li><span class="text-[var(--txt-bone)]">Languages:</span> Python (foundational), SQL
+                                <li><span class="text-[var(--txt-bone)]">Languages:</span> Python, JavaScript, SQL
                                     (Oracle,
-                                    PostgreSQL), Basic Statistics</li>
+                                    PostgreSQL)</li>
                                 <li><span class="text-[var(--txt-bone)]">Systems:</span> UNIX/Linux, Shell Scripting,
                                     Oracle SQL
                                     Developer, Dynatrace, ServiceNow</li>
-                                <li><span class="text-[var(--txt-bone)]">Visualization:</span> Excel, Power BI, Tableau
-                                    Public,
+                                <li><span class="text-[var(--txt-bone)]">Visualization:</span> Sigma Computing, Power
+                                    BI,
                                     Google Sheets</li>
                             </ul>
                         </div>
@@ -644,8 +642,16 @@
 
                 <!-- 2. COTTAGECORE MUSE CONTAINER (Personal/Hobbies) - Span 4 -->
                 <div
-                    class="md:col-span-4 glass-panel p-8 border border-[#FF2E88]/30 relative overflow-hidden flex flex-col h-full bg-[#FF2E88]/5">
+                    class="md:col-span-4 glass-panel p-8 border border-[#FF2E88]/30 relative overflow-hidden flex flex-col h-full bg-[#FF2E88]/5 warm-glow">
+                    <!-- Neon Vines -->
+                    <svg class="holo-vine absolute top-0 left-0 w-full h-full opacity-60" viewBox="0 0 400 400"
+                        preserveAspectRatio="none">
+                        <path d="M0,400 Q50,300 0,200 T0,0" fill="none" stroke="#4AF2A1" stroke-width="2" />
+                        <path d="M400,0 Q350,100 400,200 T400,400" fill="none" stroke="#FF2E88" stroke-width="2" />
+                    </svg>
+
                     <!-- Floral Filter Overlay -->
+
                     <div class="absolute inset-0 pointer-events-none opacity-10"
                         style="background-image: radial-gradient(#FF2E88 1px, transparent 1px); background-size: 10px 10px;">
                     </div>
@@ -657,8 +663,14 @@
                         </svg>
                     </div>
 
-                    <h2 class="font-playfair text-xl md:text-2xl text-[#FF2E88] italic mb-6 tracking-wide">Cottagecore
-                        Muse</h2>
+                    <h2
+                        class="font-playfair text-xl md:text-2xl text-[#FF2E88] italic mb-6 tracking-wide flex items-center gap-3">
+                        <span>Cottagecore Muse</span>
+                        <i class="fa-solid fa-sheep lamb-holo text-3xl text-[var(--neon-mint)]"
+                            title="Cordero (Lamb)"></i>
+
+                    </h2>
+
 
                     <div class="space-y-6 relative z-10">
                         <!-- Intro -->
@@ -753,6 +765,13 @@
                     </div>
                 </div>
             </div>
+
+            <div class="flex justify-end mt-8">
+                <button @click="currentSection = 'dashboard'" class="btn-hud">
+                    <i class="fa-solid fa-arrow-left"></i> RETURN_TO_DECK
+                </button>
+            </div>
+
         </section>
 
 
@@ -760,20 +779,22 @@
         <!-- PROJECTS SECTION -->
         <section x-show="currentSection === 'projects'" x-transition:enter="transition ease-out duration-300"
             x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0">
-            <button @click="currentSection = 'dashboard'"
-                class="mb-6 text-[var(--neon-mint)] font-tech text-xs hover:text-[#E0E5D7] flex items-center gap-2 transition-colors">
-                <i class="fa-solid fa-arrow-left"></i> RETURN_TO_DASHBOARD
-            </button>
-            <div class="mb-8 border-b border-[#2d5a45] pb-4">
-                <h2 class="font-futuristic text-xl md:text-3xl text-[var(--txt-bone)] glitch-text">The Lab</h2>
-                <p class="text-sm text-[var(--txt-muted)] font-tech mt-1">// AI Projects & Experiments</p>
-            </div>
+
+
+
 
             <div class="grid grid-cols-1 gap-3">
                 <!-- Using Alpine x-for to render projects from data -->
                 <template x-for="project in projects" :key="project.title">
                     <div
-                        class="glass-panel p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:-translate-y-1 transition-transform duration-300 border-organic border border-[#2d5a45] hover:border-[#FF2E88] group relative">
+                        class="glass-panel p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:-translate-y-1 transition-transform duration-300 border-organic border border-[#2d5a45] hover:border-[#FF2E88] group relative overflow-hidden">
+                        <!-- Neon Vines (Low Opacity) -->
+                        <svg class="holo-vine absolute top-0 left-0 w-full h-full opacity-30" viewBox="0 0 400 400"
+                            preserveAspectRatio="none">
+                            <path d="M0,400 Q50,300 0,200 T0,0" fill="none" stroke="#4AF2A1" stroke-width="2" />
+                            <path d="M400,0 Q350,100 400,200 T400,400" fill="none" stroke="#FF2E88" stroke-width="2" />
+                        </svg>
+
 
                         <!-- Left: Title & Link -->
                         <div class="flex items-center gap-3 min-w-[200px]">
@@ -815,19 +836,22 @@
                     </div>
                 </template>
             </div>
+            </div>
+
+            <div class="flex justify-end mt-8">
+                <button @click="currentSection = 'dashboard'" class="btn-hud">
+                    <i class="fa-solid fa-arrow-left"></i> RETURN_TO_DECK
+                </button>
+            </div>
+
         </section>
 
         <!-- EXPERIENCE SECTION -->
         <section x-show="currentSection === 'experience'" x-transition:enter="transition ease-out duration-300"
             x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0">
-            <button @click="currentSection = 'dashboard'"
-                class="mb-6 text-[var(--neon-mint)] font-tech text-xs hover:text-[#E0E5D7] flex items-center gap-2 transition-colors">
-                <i class="fa-solid fa-arrow-left"></i> RETURN_TO_DASHBOARD
-            </button>
-            <div class="mb-8 border-b border-[#2d5a45] pb-4">
-                <h2 class="font-futuristic text-xl md:text-3xl text-[var(--txt-bone)] glitch-text">Deploy Logs</h2>
-                <p class="text-sm text-[var(--txt-muted)] font-tech mt-1">// Work Experience & History</p>
-            </div>
+
+
+
 
 
 
@@ -835,6 +859,13 @@
                 <template x-for="job in experience" :key="job.company + job.years">
                     <div
                         class="glass-panel p-3 border-organic border border-[#2d5a45] hover:border-[#FF2E88]/60 transition-all group relative overflow-hidden hover:bg-[#050505]/60">
+                        <!-- Neon Vines (Low Opacity) -->
+                        <svg class="holo-vine absolute top-0 left-0 w-full h-full opacity-30" viewBox="0 0 400 400"
+                            preserveAspectRatio="none">
+                            <path d="M0,400 Q50,300 0,200 T0,0" fill="none" stroke="#4AF2A1" stroke-width="2" />
+                            <path d="M400,0 Q350,100 400,200 T400,400" fill="none" stroke="#FF2E88" stroke-width="2" />
+                        </svg>
+
 
                         <!-- Header Line: Role | Company | Year | Skills -->
                         <div
@@ -876,6 +907,14 @@
                     </div>
                 </template>
             </div>
+            </div>
+
+            <div class="flex justify-end mt-8">
+                <button @click="currentSection = 'dashboard'" class="btn-hud">
+                    <i class="fa-solid fa-arrow-left"></i> RETURN_TO_DECK
+                </button>
+            </div>
+
         </section>
 
 
@@ -883,20 +922,22 @@
         <!-- BLOG SECTION -->
         <section x-show="currentSection === 'blog'" x-transition:enter="transition ease-out duration-300"
             x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0">
-            <button @click="currentSection = 'dashboard'"
-                class="mb-6 text-[var(--neon-mint)] font-tech text-xs hover:text-[#E0E5D7] flex items-center gap-2 transition-colors">
-                <i class="fa-solid fa-arrow-left"></i> RETURN_TO_DASHBOARD
-            </button>
-            <div class="mb-8 border-b border-[#2d5a45] pb-4">
-                <h2 class="font-futuristic text-xl md:text-3xl text-[var(--txt-bone)] glitch-text">Neural Archives</h2>
-                <p class="text-sm text-[var(--txt-muted)] font-tech mt-1">// Thoughts, Logs & Tutorials</p>
-            </div>
+
+
+
 
             <div class="grid grid-cols-1 gap-3">
                 <!-- Blog List (Transmission Log Style) -->
                 <template x-for="blog in blogs" :key="blog.id">
                     <div @click="selectedBlog = blog"
                         class="glass-panel p-4 border border-[#2d5a45] hover:border-[#FF2E88] hover:bg-[#FF2E88]/5 cursor-pointer group transition-all relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-2 md:gap-6">
+                        <!-- Neon Vines (Low Opacity) -->
+                        <svg class="holo-vine absolute top-0 left-0 w-full h-full opacity-30" viewBox="0 0 400 400"
+                            preserveAspectRatio="none">
+                            <path d="M0,400 Q50,300 0,200 T0,0" fill="none" stroke="#4AF2A1" stroke-width="2" />
+                            <path d="M400,0 Q350,100 400,200 T400,400" fill="none" stroke="#FF2E88" stroke-width="2" />
+                        </svg>
+
 
                         <!-- Left: Meta & Title -->
                         <div class="flex items-start md:items-center gap-4">
@@ -919,6 +960,13 @@
                     </div>
                 </template>
             </div>
+
+            <div class="flex justify-end mt-8">
+                <button @click="currentSection = 'dashboard'" class="btn-hud">
+                    <i class="fa-solid fa-arrow-left"></i> RETURN_TO_DECK
+                </button>
+            </div>
+
         </section>
 
         <!-- Modal moved to root body -->
@@ -927,20 +975,20 @@
         <!-- CONTACT SECTION -->
         <section x-show="currentSection === 'contact'" x-transition:enter="transition ease-out duration-300"
             x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0">
-            <button @click="currentSection = 'dashboard'"
-                class="mb-6 text-[#4AF2A1] font-tech text-xs hover:text-[#E0E5D7] flex items-center gap-2 transition-colors">
-                <i class="fa-solid fa-arrow-left"></i> RETURN_TO_DASHBOARD
-            </button>
-            <div class="mb-8 border-b border-[#2d5a45] pb-4">
-                <h2 class="font-futuristic text-xl md:text-3xl text-[var(--txt-bone)] glitch-text">Initialize Handshake
-                </h2>
-                <p class="text-sm text-[var(--txt-muted)] font-tech mt-1">// Connect & Collaborate</p>
-            </div>
+
 
             <div class="max-w-3xl mx-auto">
                 <!-- Contact Form Container -->
+                <!-- Contact Form Container -->
                 <div class="glass-panel p-8 border-organic relative overflow-hidden"
                     x-data="{ contactSent: false, isSending: false, error: null }">
+                    <!-- Neon Vines (Low Opacity) -->
+                    <svg class="holo-vine absolute top-0 left-0 w-full h-full opacity-30" viewBox="0 0 400 400"
+                        preserveAspectRatio="none">
+                        <path d="M0,400 Q50,300 0,200 T0,0" fill="none" stroke="#4AF2A1" stroke-width="2" />
+                        <path d="M400,0 Q350,100 400,200 T400,400" fill="none" stroke="#FF2E88" stroke-width="2" />
+                    </svg>
+
 
                     <!-- SUCCESS STATE (Overlay) -->
                     <div x-show="contactSent" x-transition:enter="transition ease-out duration-500"
@@ -1085,6 +1133,10 @@
                     </a>
                 </div>
             </div>
+
+            <button @click="currentSection = 'dashboard'" class="mt-8 btn-hud">
+                <i class="fa-solid fa-arrow-left"></i> RETURN_TO_DECK
+            </button>
         </section>
 
     </main>

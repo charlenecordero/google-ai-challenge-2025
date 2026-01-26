@@ -224,44 +224,43 @@ function appData() {
             }
         ],
 
-        autoType(cmd) {
-            if (cmd === 'clear') {
-                this.inputQuery = '';
-                return;
-            }
-            this.inputQuery = cmd;
-            this.handleCommand();
+        // Console Header Data
+        displayTitle: '',
+        typingInterval: null,
+        sectionTitles: {
+            'dashboard': { title: 'SYSTEM_DASHBOARD', subtitle: 'Real-time metrics and status overview.' },
+            'about': { title: 'IDENTITY_CORE', subtitle: 'Personal & Professional Bio' },
+            'projects': { title: 'THE_LAB', subtitle: 'AI Projects & Experiments' },
+            'experience': { title: 'DEPLOY_LOGS', subtitle: 'Work Experience & History' },
+            'blog': { title: 'NEURAL_ARCHIVES', subtitle: 'Thoughts, Logs & Tutorials' },
+            'contact': { title: 'INITIALIZE_HANDSHAKE', subtitle: 'Connect & Collaborate' }
         },
 
-        handleCommand() {
-            const cmd = this.inputQuery.trim().toLowerCase();
-            if (!cmd) return;
+        typeTitle(sectionKey) {
+            const data = this.sectionTitles[sectionKey] || this.sectionTitles['dashboard'];
+            const fullText = `>> ${data.title} // ${data.subtitle}`;
 
-            if (cmd.includes('root') || cmd.includes('experi')) {
-                this.currentSection = 'experience';
-            } else if (cmd.includes('project') || cmd.includes('lab') || cmd.includes('work')) {
-                this.currentSection = 'projects';
-            } else if (cmd.includes('blog') || cmd.includes('write') || cmd.includes('read')) {
-                this.currentSection = 'blog';
-            } else if (cmd.includes('learn') || cmd.includes('cert') || cmd.includes('school')) {
-                this.currentSection = 'about'; // Redirect to about as Knowledge Base is now there
-            } else if (cmd.includes('about') || cmd.includes('who') || cmd.includes('intro')) {
-                this.currentSection = 'about';
-            } else if (cmd.includes('contact') || cmd.includes('email') || cmd.includes('hire')) {
-                this.currentSection = 'contact';
-            } else if (cmd.includes('cal') || cmd.includes('sched') || cmd.includes('date')) {
-                this.currentSection = 'calendar';
-            } else if (cmd.includes('home') || cmd.includes('dash') || cmd.includes('start')) {
-                this.currentSection = 'dashboard';
-            } else if (cmd === 'clear') {
-                this.inputQuery = '';
-            }
+            this.displayTitle = '';
+            if (this.typingInterval) clearInterval(this.typingInterval);
 
-            // Optional: clear input after successful command if desired, but user might want to see what they typed.
-            // keeping text allows 'clear' button to have purpose.
+            let i = 0;
+            this.typingInterval = setInterval(() => {
+                this.displayTitle += fullText.charAt(i);
+                i++;
+                if (i > fullText.length) {
+                    clearInterval(this.typingInterval);
+                }
+            }, 30); // Speed of typing
+        },
+
+        // Legacy autoType (optional support or remove)
+        autoType(cmd) {
+            // No longer used for input, but maybe for direct section jumps if we keep the function
+            // converted to direct navigation for now
         },
 
         initChart() {
+
             const ctx = document.getElementById('careerChart');
             if (ctx) {
                 if (this.careerChartInstance) this.careerChartInstance.destroy();
@@ -379,7 +378,7 @@ function appData() {
                 this.stackChartInstance = new Chart(ctx, {
                     type: 'doughnut',
                     data: {
-                        labels: ['SYSTEM DESIGN', 'AI/LLM OPS', 'AUTOMATION', 'AI STRATEGY', 'GOVERNANCE'],
+                        labels: ['WORKFLOW AUTO', 'RAG SYSTEMS', 'LLM AGENTS', 'PYTHON / APIS', 'DATA OPS'],
                         datasets: [{
                             data: [30, 25, 20, 15, 10],
                             backgroundColor: [
@@ -672,7 +671,7 @@ function appData() {
             // OFFLINE FALLBACKS (Instant Response)
             const offlineMap = {
                 "Summarize Portfolio": "Here is quick summary:\n- **Role**: Business Insights Analyst (TaskUs)\n- **Focus**: Transitioning into AI & Automation.\n- **Experience**: 7+ years (Amdocs, Accenture, Multisys)\n- **Style**: Cyberpunk x Cottagecore.",
-                "Who is Charlene?": "Charlene Cordero is a **Business Insights Analyst** at TaskUs. She has a strong background in DevOps & QA and is now **transitioning into AI & Automation**, aiming to build resilient, intelligent systems.",
+                "Who is Charlene?": "Charlene Cordero is a **Business Insights Analyst** at TaskUs. She has a strong background in DevOps & QA and is now **transitioning into AI & Automation**, aiming to build efficient, intelligent systems.",
                 "Explain Design": "This portfolio uses a **'Neural Garden'** design:\n- **Cyberpunk**: Neon greens/pinks representing raw data.\n- **Cottagecore**: Organic textures representing life.\nIt symbolizes AI supporting human growth.",
                 "What is Cottagecore?": "**Cottagecore** celebrates simple, rural living. Here, it represents the 'Soft Life'—using high-tech automation to reclaim time for meaningful experiences.",
                 "What is Cyberpunk?": "**Cyberpunk** is a subgenre of sci-fi usually featuring advanced tech in a dystopian future. In this portfolio, I use its **neon aesthetics** to represent the power of data and automation.",
@@ -758,10 +757,38 @@ function appData() {
         init() {
             console.log("CORE SYSTEM v2.1 LOADED - " + new Date().toISOString());
             this.refreshCharts();
+
+            // Initial Typewriter
+            this.typeTitle(this.currentSection);
+
+            // Watch for section changes
+            this.$watch('currentSection', (value) => {
+                this.typeTitle(value);
+            });
+
             // Start scanline effect
             setTimeout(() => {
                 document.querySelector('.scanlines').style.opacity = '0.15';
             }, 100);
+
+            // Generate Falling Petals
+            this.generatePetals();
+        },
+
+        generatePetals() {
+            const container = document.getElementById('falling-petals');
+            if (container) {
+                for (let i = 0; i < 20; i++) {
+                    const petal = document.createElement('div');
+                    petal.classList.add('petal');
+                    petal.style.left = Math.random() * 100 + '%';
+                    petal.style.animationDuration = Math.random() * 5 + 5 + 's';
+                    petal.style.animationDelay = Math.random() * 5 + 's';
+                    container.appendChild(petal);
+                }
+            }
         }
     }
 }
+
+
