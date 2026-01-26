@@ -208,9 +208,10 @@
 
                 <!-- Row 2: Map, Skills, Learning (Three Columns) -->
                 <div class="flex flex-col md:flex-row gap-6 w-full">
-                    
+
                     <!-- 1. Map Visualization (Manila) -->
-                    <div class="w-full md:w-1/3 glass-panel p-0 border-organic relative overflow-hidden h-[250px] group">
+                    <div
+                        class="w-full md:w-1/3 glass-panel p-0 border-organic relative overflow-hidden h-[250px] group">
                         <div class="absolute inset-0 bg-[var(--void-moss)] opacity-80 z-10 transition-colors"></div>
                         <!-- Abstract grid lines representing map -->
                         <div class="absolute inset-0"
@@ -221,13 +222,14 @@
                             viewBox="0 0 400 300" style="filter: drop-shadow(0 0 8px var(--neon-mint));">
                             <!-- Abstract Bay Coastline (Land on Right) -->
                             <path d="M140,60 C175,120 175,180 130,240 L260,230 L270,70 Z" fill="none"
-                                stroke="var(--neon-mint)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                stroke="var(--neon-mint)" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
                                 class="opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
                             <!-- Grid Overlay for Tech Feel -->
                             <path d="M150,100 L260,100 M160,140 L260,140 M150,180 L250,180" stroke="var(--neon-mint)"
                                 stroke-width="0.5" opacity="0.2" />
                         </svg>
-    
+
                         <!-- Location Marker -->
                         <div
                             class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center">
@@ -242,7 +244,7 @@
                                 <span class="block font-tech text-[10px] text-[var(--neon-mint)]">CENTRAL_HUB</span>
                             </div>
                         </div>
-    
+
                         <div class="absolute bottom-4 left-4 z-20">
                             <h3
                                 class="font-playfair text-[#FF2E88] italic text-xs mb-1 border-b border-[#FF2E88]/30 pb-1 inline-block">
@@ -325,10 +327,10 @@
 
                 <!-- Row 3: Split Columns (Architect Stack + Blogs | System History) -->
                 <div class="flex flex-col md:flex-row gap-6 w-full">
-                    
+
                     <!-- Left Column (Stack + Blogs) - Approx 1/3 -->
                     <div class="flex flex-col w-full md:w-1/3 gap-6">
-                        
+
                         <!-- 6. Architect Stack Chart -->
                         <div class="glass-panel p-6 border-organic flex flex-col justify-center h-[300px]">
                             <h3 class="font-playfair text-lg italic mb-4 flex items-center gap-2 text-[#FF2E88]">
@@ -348,12 +350,14 @@
                                 <template x-for="blog in blogs.slice(0, 3)" :key="blog.id">
                                     <div @click="selectedBlog = blog; currentSection = 'blog'"
                                         class="p-3 border border-[#0f2e1e] hover:border-[#FF2E88] bg-[var(--neon-mint)]/5 hover:bg-[#FF2E88]/10 rounded cursor-pointer transition-all group">
-                                        <span class="block font-tech text-[var(--neon-mint)] text-[10px] mb-1 opacity-70"
+                                        <span
+                                            class="block font-tech text-[var(--neon-mint)] text-[10px] mb-1 opacity-70"
                                             x-text="blog.date"></span>
                                         <span
                                             class="block font-tech text-xs font-bold transition-colors truncate text-[var(--txt-bone)] group-hover:text-[#FF2E88]"
                                             x-text="blog.title"></span>
-                                        <span class="block font-tech text-[10px] text-[var(--txt-muted)] mt-1 line-clamp-1"
+                                        <span
+                                            class="block font-tech text-[10px] text-[var(--txt-muted)] mt-1 line-clamp-1"
                                             x-text="blog.summary"></span>
                                     </div>
                                 </template>
@@ -368,9 +372,11 @@
 
                     <!-- Right Column (System History) - Approx 2/3 -->
                     <div class="w-full md:w-2/3">
-                         <!-- SYSTEM VERSION HISTORY COMPONENT -->
-                        <div class="glass-panel p-6 border-organic h-full flex flex-col relative overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.5)] transition-colors duration-300 bg-black/80 text-[var(--txt-bone)] min-h-[624px]"> <!-- Matched height to left col (300+300+24 gap) -->
-        
+                        <!-- SYSTEM VERSION HISTORY COMPONENT -->
+                        <div
+                            class="glass-panel p-6 border-organic h-full flex flex-col relative overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.5)] transition-colors duration-300 bg-black/80 text-[var(--txt-bone)] min-h-[624px]">
+                            <!-- Matched height to left col (300+300+24 gap) -->
+
                             <!-- Header -->
                             <div class="flex justify-between items-center mb-6 border-b border-[#2d5a45] pb-2">
                                 <h3 class="font-playfair text-lg italic flex items-center gap-2 text-[#FF2E88]">
@@ -380,27 +386,28 @@
                                     >> LIVE_MONITORING
                                 </div>
                             </div>
-        
+
                             <!-- Timeline Container -->
                             <div class="relative py-8 px-4 mb-6 flex-grow flex items-center">
                                 <!-- Progress Line background -->
                                 <div class="absolute top-1/2 left-0 w-full h-1 bg-[#4AF2A1]/20 -translate-y-1/2 z-0">
                                 </div>
-        
+
                                 <!-- Scan Animation -->
                                 <div
                                     class="absolute top-0 bottom-0 w-16 bg-gradient-to-r from-transparent via-[#4AF2A1]/20 to-transparent z-0 pointer-events-none animate-scan-x">
                                 </div>
-        
+
                                 <!-- Nodes -->
                                 <div class="relative z-10 flex justify-between items-center w-full">
                                     <template x-for="(version, index) in systemHistory" :key="version.id">
-                                        <div class="relative group cursor-pointer" @click="activeVersion = version.version">
+                                        <div class="relative group cursor-pointer"
+                                            @click="activeVersion = version.version">
                                             <!-- Connector Line (Active) -->
                                             <div class="absolute top-1/2 right-[50%] w-[100vw] h-1 bg-[#4AF2A1] -translate-y-1/2 -z-10 origin-right transition-transform duration-500"
                                                 :class="activeVersion > version.version ? 'scale-x-100' : 'scale-x-0'"
                                                 style="left: 50%; width: 500px; transform-origin: left;"></div>
-        
+
                                             <!-- Node Icon -->
                                             <div class="w-10 h-10 rounded-sm border-2 flex items-center justify-center transition-all duration-300 relative bg-black"
                                                 :class="[
@@ -408,14 +415,14 @@
                                                     (activeVersion > version.version ? 'border-[#4AF2A1] text-[#4AF2A1]' : 'border-[#2d5a45] text-[#4AF2A1]/30')
                                                 ]">
                                                 <i class="fa-solid fa-terminal text-sm"></i>
-        
+
                                                 <!-- Tooltip -->
                                                 <div
                                                     class="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity border border-[#4AF2A1] px-2 py-1 text-[9px] font-tech text-[#4AF2A1] z-20 pointer-events-none bg-black/90">
                                                     <span x-text="version.id"></span>
                                                 </div>
                                             </div>
-        
+
                                             <!-- Label (Desktop) -->
                                             <div
                                                 class="absolute -top-8 left-1/2 -translate-x-1/2 hidden md:block text-center w-24">
@@ -427,7 +434,7 @@
                                     </template>
                                 </div>
                             </div>
-        
+
                             <!-- Detail Panel -->
                             <div
                                 class="grid grid-cols-1 md:grid-cols-3 gap-6 p-4 border border-[#2d5a45] rounded-sm relative mt-auto bg-[var(--void-moss)]/50">
@@ -437,7 +444,7 @@
                                 <div class="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-[#4AF2A1]"></div>
                                 <div class="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-[#4AF2A1]">
                                 </div>
-        
+
                                 <!-- Version Info -->
                                 <div
                                     class="md:col-span-1 border-b md:border-b-0 md:border-r border-[#2d5a45] pb-4 md:pb-0 md:pr-4 grid grid-cols-1">
@@ -454,7 +461,7 @@
                                         </div>
                                     </template>
                                 </div>
-        
+
                                 <!-- Module Focus & Skills -->
                                 <div class="md:col-span-2 pl-0 md:pl-4 grid grid-cols-1">
                                     <template x-for="v in systemHistory">
@@ -914,65 +921,8 @@
             </div>
         </section>
 
-        <!-- BLOG DETAIL MODAL (Cyberpunk Neon Frame) -->
-        <div x-show="selectedBlog" x-transition.opacity
-            class="fixed inset-0 z-[100] flex items-center justify-center p-4">
-            <!-- Backdrop -->
-            <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" @click="selectedBlog = null"></div>
+        <!-- Modal moved to root body -->
 
-            <!-- Modal Content -->
-            <div class="relative w-full max-w-4xl h-[85vh] bg-[var(--void-moss)] p-1 shadow-[0_0_50px_rgba(74,242,161,0.3)] z-[101]"
-                style="clip-path: polygon(0 0, 100% 0, 100% 90%, 95% 100%, 0 100%);">
-
-                <!-- Neon Gradient Border Container -->
-                <div class="absolute inset-0 p-[2px] bg-gradient-to-br from-[#4AF2A1] to-[#FF2E88] z-0"
-                    style="clip-path: polygon(0 0, 100% 0, 100% 90%, 95% 100%, 0 100%);"></div>
-
-                <!-- Inner Content -->
-                <div class="relative z-10 bg-[var(--void-moss)] h-full w-full flex flex-col"
-                    style="clip-path: polygon(0 0, 100% 0, 100% 90%, 95% 100%, 0 100%);">
-
-                    <!-- Close Button -->
-                    <button @click="selectedBlog = null"
-                        class="absolute top-6 right-6 text-[#FF2E88] hover:text-[#4AF2A1] transition-colors font-tech text-xl z-20">
-                        <i class="fa-solid fa-times"></i>
-                    </button>
-
-                    <template x-if="selectedBlog">
-                        <div class="h-full flex flex-col p-8 md:p-12">
-                            <!-- Header Section (Fixed) -->
-                            <div class="flex-none mb-6 border-b border-[#FF2E88]/20 pb-6">
-                                <div class="flex items-center gap-2 mb-4">
-                                    <span class="bg-[#4AF2A1] w-2 h-2 rounded-full animate-pulse"></span>
-                                    <span class="font-tech text-xs text-[#4AF2A1]"
-                                        x-text="'LOG_ENTRY: ' + selectedBlog.date"></span>
-                                </div>
-
-                                <h2 class="font-playfair text-2xl md:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-[#4AF2A1] to-[#FF2E88] italic leading-tight"
-                                    x-text="selectedBlog.title"></h2>
-                            </div>
-
-                            <!-- Scrollable Content Section -->
-                            <div class="flex-1 overflow-y-auto pr-4 custom-scrollbar">
-                                <div
-                                    class="prose prose-invert max-w-none font-tech text-sm md:text-base text-[#8A9A90] leading-relaxed">
-                                    <!-- Changed x-text to x-html to render HTML tags -->
-                                    <div x-html="selectedBlog.content"></div>
-
-                                    <p class="text-[#FF2E88]/60 italic mt-8 border-t border-[#FF2E88]/10 pt-4">[End of
-                                        Transmission]</p>
-                                </div>
-                            </div>
-                        </div>
-                    </template>
-                </div>
-            </div>
-        </div>
-        </div>
-        </template>
-        </div>
-        </div>
-        </div>
 
         <!-- CONTACT SECTION -->
         <section x-show="currentSection === 'contact'" x-transition:enter="transition ease-out duration-300"
@@ -1157,6 +1107,66 @@
     </footer>
 
     <!-- Chat Widget -->
+    <!-- BLOG DETAIL MODAL (Cyberpunk Neon Frame) -->
+    <!-- Moved to root to fix stacking context -->
+    <div x-show="selectedBlog" x-transition.opacity class="fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" @click="selectedBlog = null"></div>
+
+        <!-- Modal Content -->
+        <!-- Fixed: Changed h-[85vh] to h-auto max-h-[80vh] for dynamic sizing -->
+        <div class="relative w-full max-w-4xl h-auto max-h-[80vh] bg-[var(--void-moss)] p-1 shadow-[0_0_50px_rgba(74,242,161,0.3)] z-[101] flex flex-col"
+            style="clip-path: polygon(0 0, 100% 0, 100% 90%, 95% 100%, 0 100%);">
+
+            <!-- Neon Gradient Border Container -->
+            <div class="absolute inset-0 p-[2px] bg-gradient-to-br from-[#4AF2A1] to-[#FF2E88] z-0"
+                style="clip-path: polygon(0 0, 100% 0, 100% 90%, 95% 100%, 0 100%);"></div>
+
+            <!-- Inner Content -->
+            <div class="relative z-10 bg-[var(--void-moss)] w-full flex flex-col overflow-hidden"
+                style="clip-path: polygon(0 0, 100% 0, 100% 90%, 95% 100%, 0 100%);">
+
+                <!-- Close Button -->
+                <button @click="selectedBlog = null"
+                    class="absolute top-4 right-4 md:top-6 md:right-6 text-[#FF2E88] hover:text-[#4AF2A1] transition-colors font-tech text-lg md:text-xl z-20">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+
+                <template x-if="selectedBlog">
+                    <div class="flex flex-col h-full bg-[var(--void-moss)] max-h-[80vh]">
+                        <!-- Wrapper for padding to avoid double scrollbars if padding is on the overflow container -->
+                        <div class="flex flex-col h-full p-6 md:p-12 overflow-hidden">
+
+                            <!-- Header Section (Fixed) -->
+                            <div class="flex-none mb-4 md:mb-6 border-b border-[#FF2E88]/20 pb-4 md:pb-6 pr-8">
+                                <div class="flex items-center gap-2 mb-2 md:mb-4">
+                                    <span class="bg-[#4AF2A1] w-2 h-2 rounded-full animate-pulse"></span>
+                                    <span class="font-tech text-[10px] md:text-xs text-[#4AF2A1]"
+                                        x-text="'LOG_ENTRY: ' + selectedBlog.date"></span>
+                                </div>
+
+                                <!-- Fixed: Reduced font size on mobile (text-xl vs text-2xl) -->
+                                <h2 class="font-playfair text-xl md:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-[#4AF2A1] to-[#FF2E88] italic leading-tight"
+                                    x-text="selectedBlog.title"></h2>
+                            </div>
+
+                            <!-- Scrollable Content Section -->
+                            <!-- Added flex-1 and overflow-y-auto to this container explicitly -->
+                            <div class="flex-1 overflow-y-auto pr-2 custom-scrollbar">
+                                <div
+                                    class="prose prose-invert max-w-none font-tech text-sm md:text-base text-[#8A9A90] leading-relaxed pb-8">
+                                    <div x-html="selectedBlog.content"></div>
+
+                                    <p class="text-[#FF2E88]/60 italic mt-8 border-t border-[#FF2E88]/10 pt-4">[End of
+                                        Transmission]</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
     <div class="chat-widget-container">
         <!-- Chat Window -->
         <div class="chat-window" x-show="chatOpen" x-transition:enter="transition ease-out duration-300"
