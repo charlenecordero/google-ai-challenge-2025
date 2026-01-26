@@ -474,6 +474,21 @@ body {
     transform: translateY(-2px);
 }
 
+@media (max-width: 768px) {
+    .btn-hud {
+        padding: 6px 2px;
+        font-size: 0.55rem;
+        gap: 4px;
+        flex-direction: column;
+        height: 100%;
+        line-height: 1.1;
+    }
+
+    .btn-hud i {
+        font-size: 0.9rem;
+    }
+}
+
 .btn-hud.active {
     background: var(--neon-mint);
     color: #000;
@@ -483,9 +498,10 @@ body {
 /* Nav Grid */
 .hud-nav-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 1rem;
-    padding: 1rem;
+    /* Force single row */
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.5rem;
+    padding: 0.5rem;
     background: rgba(0, 0, 0, 0.3);
     border-top: 1px solid var(--glass-border);
     border-bottom: 1px solid var(--glass-border);
