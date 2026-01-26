@@ -162,7 +162,8 @@
             </button>
             <button @click="currentSection = 'contact'" :class="{'active': currentSection === 'contact'}"
                 class="btn-hud">
-                <i class="fa-solid fa-handshake"></i> UPLINK
+                <i class="fa-solid fa-handshake"></i> <span class="md:hidden">MSG</span><span
+                    class="hidden md:inline">MESSAGE</span>
             </button>
         </div>
 
