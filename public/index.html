@@ -14,7 +14,7 @@
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+
 
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
@@ -950,12 +950,12 @@
 
 
                         <!-- Left: Meta & Title -->
-                        <div class="flex items-start md:items-center gap-4">
-                            <span class="font-tech text-xs text-[var(--neon-mint)] whitespace-nowrap min-w-[80px]"
+                        <div class="flex flex-col md:flex-row items-start md:items-center gap-1 md:gap-4 w-full">
+                            <span class="font-tech text-xs text-[var(--neon-mint)] min-w-[80px]"
                                 x-text="blog.date"></span>
                             <div class="h-4 w-px bg-[#2d5a45] hidden md:block"></div>
-                            <div>
-                                <h3 class="font-tech text-sm md:text-base text-[#FFEAF5] group-hover:text-[var(--neon-pink)] transition-colors tracking-wide"
+                            <div class="w-full min-w-0">
+                                <h3 class="font-tech text-sm md:text-base text-[#FFEAF5] group-hover:text-[var(--neon-pink)] transition-colors tracking-wide break-words"
                                     x-text="blog.title"></h3>
                                 <p class="font-tech text-[10px] text-[var(--txt-muted)] truncate max-w-[400px] block"
                                     x-text="blog.summary"></p>
@@ -1022,7 +1022,7 @@
                         class="transition-all duration-500 flex flex-col items-center justify-center relative z-10 max-w-xl mx-auto h-full">
 
                         <!-- Center Header with Email -->
-                        <div class="text-center mb-6 w-full">
+                        <div class="text-center mb-4 w-full">
                             <h3
                                 class="font-playfair text-xl md:text-2xl text-[#FF2E88] tracking-wide inline-flex items-center gap-3">
                                 <span>Transmission Uplink</span>
@@ -1031,7 +1031,7 @@
 
                             <!-- Email Display -->
                             <div
-                                class="mt-2 flex items-center justify-center gap-2 text-[var(--neon-mint)]/90 font-tech text-xs tracking-wider">
+                                class="mt-1 flex items-center justify-center gap-2 text-[var(--neon-mint)]/90 font-tech text-xs tracking-wider">
                                 <i class="fa-solid fa-satellite-dish text-[10px]"></i>
                                 <a href="mailto:hello@charlenecordero.com"
                                     class="hover:text-[var(--neon-mint)] hover:underline decoration-[var(--neon-mint)]/50 underline-offset-4 transition-all">
@@ -1042,7 +1042,7 @@
 
                         <!-- FORM -->
                         <div class="w-full flex-grow flex flex-col">
-                            <form action="/send-email" method="POST" class="space-y-3 flex-grow" @submit.prevent="
+                            <form action="/send-email" method="POST" class="space-y-2 flex-grow" @submit.prevent="
                                 isSending = true; 
                                 error = null;
                                 const payload = { from: fromEmail, subject: subject, message: message };
@@ -1118,7 +1118,7 @@
 
                             <!-- Social Links (Relocated Below Form) -->
                             <div
-                                class="mt-6 pt-4 border-t border-[#2d5a45] flex flex-col items-center justify-center gap-3 w-full">
+                                class="mt-4 pt-2 border-t border-[#2d5a45] flex flex-col items-center justify-center gap-3 w-full">
                                 <label
                                     class="text-[#FF2E88] text-[10px] font-tech tracking-widest uppercase drop-shadow-[0_0_5px_rgba(255,46,136,0.8)]">
                                     Social Frequency ::
@@ -1175,7 +1175,7 @@
     <!-- Chat Widget moved to end of body -->
 
     <!-- Footer -->
-    <footer class="py-8 border-t border-[#2d5a45] text-center bg-[#050505] z-50 relative overflow-hidden">
+    <footer class="py-4 border-t border-[#2d5a45] text-center bg-[#050505] z-50 relative overflow-hidden">
         <!-- Scanline overlay specific to footer -->
         <div class="absolute inset-0 bg-[#4AF2A1]/5 pointer-events-none"></div>
 

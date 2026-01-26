@@ -555,9 +555,6 @@
   .max-w-xl {
     max-width: var(--container-xl);
   }
-  .min-w-0 {
-    min-width: calc(var(--spacing) * 0);
-  }
   .min-w-\[80px\] {
     min-width: 80px;
   }
@@ -1194,9 +1191,6 @@
   .tracking-widest {
     --tw-tracking: var(--tracking-widest);
     letter-spacing: var(--tracking-widest);
-  }
-  .break-words {
-    overflow-wrap: break-word;
   }
   .whitespace-nowrap {
     white-space: nowrap;
@@ -1925,11 +1919,6 @@
     @media (width >= 64rem) {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
-  }
-}
-@layer utilities {
-  .line-clamp-1 {
-    line-clamp: 1;
   }
 }
 :root {

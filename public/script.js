@@ -299,7 +299,7 @@ function appData() {
         displayTitle: '',
         typingInterval: null,
         sectionTitles: {
-            'dashboard': { title: 'SYSTEM_DASHBOARD', subtitle: 'Real-time metrics and status overview.' },
+            'dashboard': { title: 'SYSTEM_DASHBOARD', subtitle: 'KPIs & status overview.' },
             'about': { title: 'IDENTITY_CORE', subtitle: 'Personal & Professional Bio' },
             'projects': { title: 'THE_LAB', subtitle: 'AI Projects & Experiments' },
             'experience': { title: 'DEPLOY_LOGS', subtitle: 'Work Experience & History' },

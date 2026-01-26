@@ -1,0 +1,472 @@
+@import "tailwindcss";
+
+@layer utilities {
+    .line-clamp-1 {
+        line-clamp: 1;
+    }
+}
+
+
+/* Cyberpunk-Cottagecore Design System */
+:root {
+    /* Palette */
+    --void-moss: #000000;
+    /* Pure Black */
+    --deep-moss: #050505;
+    /* Almost Black */
+    --neon-mint: #4AF2A1;
+    /* Primary Accent */
+    --neon-pink: #FF2E88;
+    /* Sakura Accent */
+    --hologram-fern: #2d5a45;
+    /* Secondary/Muted */
+    --txt-bone: #E0E5D7;
+    /* Text Base */
+    --txt-muted: #8A9A90;
+
+    /* Glass Effects */
+    --glass-bg: rgba(18, 24, 21, 0.65);
+    /* Lighter, slight moss tint */
+    --glass-border: #2d5a45;
+    --glass-shine: rgba(74, 242, 161, 0.15);
+
+    /* Animations */
+    --scanline-speed: 6s;
+}
+
+
+
+
+
+body {
+    min-height: 100vh;
+    background-color: var(--void-moss);
+    color: var(--txt-bone);
+    font-family: 'Fira Code', monospace;
+    overflow-x: hidden;
+    /* Restore snap */
+    background-image:
+        /* Stylized Neon Vegetation (Green) */
+        radial-gradient(circle at 10% 20%, rgba(74, 242, 161, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(74, 242, 161, 0.05) 0%, transparent 40%),
+        /* Neon Blooms (Pink) */
+        radial-gradient(circle at 85% 15%, rgba(255, 46, 136, 0.1) 0%, transparent 35%),
+        radial-gradient(circle at 15% 85%, rgba(255, 46, 136, 0.08) 0%, transparent 30%),
+        /* Deep Void Atmosphere */
+        radial-gradient(circle at 50% 50%, rgba(5, 10, 8, 0.95) 0%, rgba(0, 0, 0, 1) 100%);
+    background-attachment: fixed;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+
+
+/* Typography Override */
+.font-organic {
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 0.05em;
+    /* Added for better readability on Orbitron */
+}
+
+.font-tech {
+    font-family: 'Fira Code', monospace;
+}
+
+.font-cyber-cottage {
+    font-family: 'Orbitron', sans-serif;
+    /* Unify to sci-fi */
+}
+
+.font-futuristic {
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 0.05em;
+}
+
+/* ... */
+
+.chat-input {
+    flex-grow: 1;
+    background: transparent;
+    border: 1px solid rgba(74, 242, 161, 0.5);
+    padding: 0.5rem;
+    color: var(--txt-bone);
+    /* Gray-white */
+    border-radius: 4px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.8rem;
+}
+
+.chat-input:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(74, 242, 161, 0.2);
+}
+
+.typing-indicator {
+    font-size: 0.7rem;
+    color: var(--neon-pink);
+    margin-left: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Chat Suggestions */
+.chat-suggestions {
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    border-top: 1px solid rgba(74, 242, 161, 0.1);
+}
+
+.suggestion-chip {
+    background: rgba(74, 242, 161, 0.1);
+    border: 1px solid var(--neon-mint);
+    border-radius: 12px;
+    padding: 4px 10px;
+    font-size: 0.7rem;
+    color: var(--neon-mint);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.suggestion-chip:hover {
+    background: var(--neon-mint);
+    color: #000;
+    box-shadow: 0 0 10px rgba(74, 242, 161, 0.4);
+}
+
+/* Alien / Sci-Fi HUD Styles */
+.alien-border {
+    position: relative;
+    background: rgba(5, 10, 8, 0.7);
+    border: 1px solid var(--neon-mint);
+    /* Sci-Fi Shape */
+    clip-path: polygon(20px 0, 100% 0,
+            100% calc(100% - 20px), calc(100% - 20px) 100%,
+            0 100%, 0 20px);
+}
+
+.alien-border::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 50%, rgba(74, 242, 161, 0.05) 100%);
+    z-index: -1;
+}
+
+.btn-hud {
+    position: relative;
+    padding: 8px 16px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: #fff;
+    background: rgba(74, 242, 161, 0.05);
+    border: 1px solid var(--neon-mint);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    /* Angled Corners */
+    clip-path: polygon(10px 0, 100% 0,
+            100% calc(100% - 10px), calc(100% - 10px) 100%,
+            0 100%, 0 10px);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-hud:hover {
+    background: var(--neon-mint);
+    color: #000;
+    box-shadow: 0 0 15px rgba(74, 242, 161, 0.6);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .hud-nav-grid .btn-hud {
+        padding: 4px 2px;
+        font-size: 0.5rem;
+        gap: 2px;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        line-height: 1.1;
+    }
+
+    .hud-nav-grid .btn-hud i {
+        font-size: 0.8rem;
+    }
+}
+
+.btn-hud.active {
+    background: var(--neon-mint);
+    color: #000;
+    box-shadow: 0 0 10px rgba(74, 242, 161, 0.4);
+}
+
+/* Nav Grid */
+.hud-nav-grid {
+    display: grid;
+    /* Force single row */
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-top: 1px solid var(--glass-border);
+    border-bottom: 1px solid var(--glass-border);
+    margin-bottom: 2rem;
+}
+
+/* Glow Text */
+.hud-text {
+    text-shadow: 0 0 5px var(--neon-mint);
+}
+
+/* Loop Typing Animation */
+.typing-text {
+    border-right: 2px solid var(--neon-mint);
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    animation: typing 3.5s steps(40, end) infinite, blink-caret 0.75s step-end infinite;
+    max-width: 100%;
+}
+
+@keyframes typing {
+    0% {
+        width: 0;
+    }
+
+    50% {
+        width: 100%;
+    }
+
+    90% {
+        width: 100%;
+    }
+
+    100% {
+        width: 0;
+    }
+}
+
+@keyframes blink-caret {
+
+    from,
+    to {
+        border-color: transparent;
+    }
+
+    50% {
+        border-color: var(--neon-mint);
+    }
+}
+
+/* Cottagecore Fusion */
+.holo-vine {
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+    filter: drop-shadow(0 0 5px var(--neon-mint));
+}
+
+.holo-vine path {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    animation: growVine 4s ease-out forwards;
+}
+
+@keyframes growVine {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+.falling-petals {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.petal {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #FF2E88;
+    opacity: 0.6;
+    border-radius: 60% 40% 40% 60%;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-10vh) rotate(0deg);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.warm-glow {
+    box-shadow: 0 0 15px rgba(255, 46, 136, 0.3), inset 0 0 10px rgba(255, 46, 136, 0.1);
+}
+
+.lamb-holo {
+    filter: drop-shadow(0 0 8px #FF2E88);
+    animation: holoPulse 4s infinite ease-in-out;
+}
+
+@keyframes holoPulse {
+
+    0%,
+    100% {
+        opacity: 0.8;
+        filter: drop-shadow(0 0 8px #FF2E88);
+    }
+
+    50% {
+        opacity: 0.4;
+        filter: drop-shadow(0 0 2px #FF2E88);
+    }
+}
+
+/* Chat Widget Fixed Position */
+.chat-widget-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+/* Avatar Button */
+.chat-avatar-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid var(--neon-mint);
+    background: rgba(0, 0, 0, 0.8);
+    cursor: pointer;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 15px rgba(74, 242, 161, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chat-avatar-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px rgba(74, 242, 161, 0.6);
+}
+
+.chat-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Chat Window */
+.chat-window {
+    width: 300px;
+    height: 400px;
+    background: rgba(5, 10, 8, 0.95);
+    border: 1px solid var(--neon-mint);
+    border-radius: 12px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+.chat-header {
+    padding: 12px;
+    border-bottom: 1px solid rgba(74, 242, 161, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(74, 242, 161, 0.05);
+}
+
+.chat-messages {
+    flex-grow: 1;
+    padding: 12px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Messages */
+.message-bubble {
+    max-width: 80%;
+    padding: 8px 12px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    font-family: 'Fira Code', monospace;
+}
+
+.message-aura {
+    align-self: flex-start;
+    background: rgba(74, 242, 161, 0.1);
+    border: 1px solid rgba(74, 242, 161, 0.3);
+    color: var(--txt-bone);
+    border-bottom-left-radius: 2px;
+}
+
+.message-user {
+    align-self: flex-end;
+    background: rgba(255, 46, 136, 0.2);
+    border: 1px solid var(--neon-pink);
+    color: #fff;
+    border-bottom-right-radius: 2px;
+}
+
+.chat-input-area {
+    padding: 12px;
+    border-top: 1px solid rgba(74, 242, 161, 0.2);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* Animation */
+@keyframes breathe {
+
+    0%,
+    100% {
+        box-shadow: 0 0 15px rgba(74, 242, 161, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 25px rgba(74, 242, 161, 0.6);
+    }
+}
+
+.animate-breathe {
+    animation: breathe 3s infinite ease-in-out;
+}
