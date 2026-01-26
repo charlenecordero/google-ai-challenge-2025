@@ -1,13 +1,13 @@
 steps:
-  # 1. Build the container image
+  # 1. BUILD the image first
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'asia-southeast1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/ai-portfolio:$COMMIT_SHA', '.']
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/ai-portfolio:$COMMIT_SHA', '.']
   
-  # 2. Push the image to Artifact Registry
+  # 2. PUSH it to the registry so Cloud Run can "find" it
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'asia-southeast1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/ai-portfolio:$COMMIT_SHA']
+    args: ['push', 'gcr.io/$PROJECT_ID/ai-portfolio:$COMMIT_SHA']
   
-  # 3. Deploy the pushed image to Cloud Run
+  # 3. DEPLOY the image only after it is pushed
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
     args:
@@ -15,10 +15,11 @@ steps:
       - 'deploy'
       - 'ai-portfolio'
       - '--image'
-      - 'asia-southeast1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/ai-portfolio:$COMMIT_SHA'
+      - 'gcr.io/$PROJECT_ID/ai-portfolio:$COMMIT_SHA'
       - '--region'
       - 'asia-southeast1'
       - '--allow-unauthenticated'
 
+# This line ensures the image is permanently stored in your registry
 images:
-  - 'asia-southeast1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/ai-portfolio:$COMMIT_SHA'
+  - 'gcr.io/$PROJECT_ID/ai-portfolio:$COMMIT_SHA'
