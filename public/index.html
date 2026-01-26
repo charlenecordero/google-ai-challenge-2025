@@ -140,7 +140,8 @@
 
             <button @click="currentSection = 'dashboard'" :class="{'active': currentSection === 'dashboard'}"
                 class="btn-hud">
-                <i class="fa-solid fa-gauge-high"></i> DASHBOARD
+                <i class="fa-solid fa-gauge-high"></i> <span class="md:hidden">DECK</span><span
+                    class="hidden md:inline">DASHBOARD</span>
             </button>
             <button @click="currentSection = 'about'" :class="{'active': currentSection === 'about'}" class="btn-hud">
                 <i class="fa-solid fa-user-astronaut"></i> IDENTITY
