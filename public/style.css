@@ -2854,7 +2854,7 @@ body {
 }
 
 .light-mode .btn-hud.active {
-  color: #ffffff;
+  color: #ffffff !important;
 }
 
 .light-mode input,
