@@ -24,6 +24,11 @@
     /* Text Base */
     --txt-muted: #8A9A90;
 
+    /* Semantic Backgrounds */
+    --card-bg: rgba(5, 10, 8, 0.7);
+    --console-bg: rgba(0, 0, 0, 0.8);
+    --nav-bg: rgba(0, 0, 0, 0.3);
+
     /* Glass Effects */
     --glass-bg: rgba(18, 24, 21, 0.65);
     /* Lighter, slight moss tint */
@@ -31,9 +36,49 @@
     --glass-shine: rgba(74, 242, 161, 0.15);
 
     /* Animations */
+    /* Animations */
     --scanline-speed: 6s;
+
+    /* Background Gradient */
+    --bg-gradient: radial-gradient(circle at 10% 20%, rgba(74, 242, 161, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(74, 242, 161, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 85% 15%, rgba(255, 46, 136, 0.1) 0%, transparent 35%),
+        radial-gradient(circle at 15% 85%, rgba(255, 46, 136, 0.08) 0%, transparent 30%),
+        radial-gradient(circle at 50% 50%, rgba(5, 10, 8, 0.95) 0%, rgba(0, 0, 0, 1) 100%);
 }
 
+/* Light Mode Overrides */
+.light-mode {
+    --void-moss: #f8fafc;
+    /* Almost White */
+    --deep-moss: #e2e8f0;
+    /* Light Grey */
+    --neon-mint: #047857;
+    /* Darker Green (Emerald 700) for visibility */
+    --neon-pink: #be185d;
+    /* Darker Pink (Pink 700) */
+    --hologram-fern: #cbd5e1;
+    --txt-bone: #1a1a1a;
+    /* Almost Black */
+    --txt-muted: #475569;
+
+    /* Semantic Backgrounds Light Mode */
+    --card-bg: rgba(255, 255, 255, 0.8);
+    --console-bg: rgba(255, 255, 255, 0.9);
+    --nav-bg: rgba(255, 255, 255, 0.9);
+
+    /* Glass Effects */
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: #cbd5e1;
+    --glass-shine: rgba(5, 150, 105, 0.1);
+
+    /* Background Gradient Light Mode */
+    --bg-gradient: radial-gradient(circle at 10% 20%, rgba(5, 150, 105, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(5, 150, 105, 0.03) 0%, transparent 40%),
+        radial-gradient(circle at 85% 15%, rgba(219, 39, 119, 0.05) 0%, transparent 35%),
+        radial-gradient(circle at 15% 85%, rgba(219, 39, 119, 0.04) 0%, transparent 30%),
+        radial-gradient(circle at 50% 50%, rgba(248, 250, 252, 0.95) 0%, rgba(255, 255, 255, 1) 100%);
+}
 
 
 
@@ -45,15 +90,8 @@ body {
     font-family: 'Fira Code', monospace;
     overflow-x: hidden;
     /* Restore snap */
-    background-image:
-        /* Stylized Neon Vegetation (Green) */
-        radial-gradient(circle at 10% 20%, rgba(74, 242, 161, 0.08) 0%, transparent 40%),
-        radial-gradient(circle at 90% 80%, rgba(74, 242, 161, 0.05) 0%, transparent 40%),
-        /* Neon Blooms (Pink) */
-        radial-gradient(circle at 85% 15%, rgba(255, 46, 136, 0.1) 0%, transparent 35%),
-        radial-gradient(circle at 15% 85%, rgba(255, 46, 136, 0.08) 0%, transparent 30%),
-        /* Deep Void Atmosphere */
-        radial-gradient(circle at 50% 50%, rgba(5, 10, 8, 0.95) 0%, rgba(0, 0, 0, 1) 100%);
+    /* Restore snap */
+    background-image: var(--bg-gradient);
     background-attachment: fixed;
     transition: background-color 0.5s ease, color 0.5s ease;
 }
@@ -137,7 +175,7 @@ body {
 /* Alien / Sci-Fi HUD Styles */
 .alien-border {
     position: relative;
-    background: rgba(5, 10, 8, 0.7);
+    background: var(--card-bg);
     border: 1px solid var(--neon-mint);
     /* Sci-Fi Shape */
     clip-path: polygon(20px 0, 100% 0,
@@ -162,7 +200,7 @@ body {
     font-family: 'Orbitron', sans-serif;
     font-size: 0.7rem;
     letter-spacing: 0.1em;
-    color: #fff;
+    color: var(--txt-bone);
     background: rgba(74, 242, 161, 0.05);
     border: 1px solid var(--neon-mint);
     cursor: pointer;
@@ -217,10 +255,48 @@ body {
     grid-template-columns: repeat(6, 1fr);
     gap: 0.5rem;
     padding: 0.5rem;
-    background: rgba(0, 0, 0, 0.3);
+    background: var(--nav-bg);
     border-top: 1px solid var(--glass-border);
     border-bottom: 1px solid var(--glass-border);
     margin-bottom: 2rem;
+}
+
+/* Light Mode Nav Overrides */
+.light-mode .btn-hud {
+    color: #000000;
+}
+
+.light-mode .btn-hud:hover {
+    color: #ffffff;
+    background: var(--neon-mint);
+}
+
+/* Light Mode Inputs */
+.light-mode input,
+.light-mode textarea,
+.light-mode .chat-input {
+    background-color: rgba(255, 255, 255, 0.95);
+    color: #1a1a1a;
+    border-color: var(--neon-mint);
+}
+
+/* Light Mode Cottagecore Boxes */
+.light-mode .cottage-box {
+    background-color: rgba(255, 240, 245, 0.85);
+    /* Light Pinkish White */
+    border-color: var(--neon-pink);
+    color: #1a1a1a;
+}
+
+.light-mode .cottage-box h4 {
+    text-shadow: none;
+    /* Cleaner look for light mode */
+}
+
+/* Light Mode Project Floating Frames */
+.light-mode .glass-panel {
+    background: var(--card-bg);
+    /* Ensure it uses the light variable */
 }
 
 /* Glow Text */
@@ -390,7 +466,7 @@ body {
 .chat-window {
     width: 300px;
     height: 400px;
-    background: rgba(5, 10, 8, 0.95);
+    background: var(--card-bg);
     border: 1px solid var(--neon-mint);
     border-radius: 12px;
     margin-bottom: 20px;
