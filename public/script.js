@@ -6,11 +6,11 @@ function appData() {
         fromEmail: '',
         inputQuery: '',
         inputQuery: '',
-        isLightMode: localStorage.getItem('theme_preference') === 'light',
+        isLightMode: localStorage.getItem('theme_default_v1') === 'light',
 
         toggleTheme() {
             this.isLightMode = !this.isLightMode;
-            localStorage.setItem('theme_preference', this.isLightMode ? 'light' : 'dark');
+            localStorage.setItem('theme_default_v1', this.isLightMode ? 'light' : 'dark');
             this.refreshCharts();
         },
 
@@ -43,10 +43,10 @@ function appData() {
             {
                 version: 1,
                 id: 'v1.0.0',
-                label: 'APL-Web',
+                label: 'Web-Dev',
                 year: '2016',
                 role: 'Intern Web Programmer',
-                company: 'APL co. ptd. Ltd.',
+                company: 'Logistics Firm',
                 focus: 'Module_Focus: Web Development Foundation',
                 skills: ['PHP', 'MySQL', 'JavaScript', 'HTML/CSS'],
                 desc: 'Assisted in front-end and back-end web development tasks. Built foundational skills in translating requirements into functional web components.'
@@ -54,10 +54,10 @@ function appData() {
             {
                 version: 2,
                 id: 'v2.0.0',
-                label: 'Accenture-PS',
+                label: 'BPO-PS',
                 year: '2018-2019',
                 role: 'Oracle PeopleSoft Developer',
-                company: 'Accenture',
+                company: 'Tech Consulting',
                 focus: 'Module_Focus: Enterprise HR Systems',
                 skills: ['Oracle PeopleSoft', 'HCM', 'Oracle SQL', 'Enterprise Architecture'],
                 desc: 'Designed and configured enterprise HR systems for state DOT. Translated complex business requirements into technical configurations.'
@@ -65,10 +65,10 @@ function appData() {
             {
                 version: 3,
                 id: 'v3.0.0',
-                label: 'CareCoach-AI',
+                label: 'Health-AI',
                 year: '2020',
                 role: 'Health Advocate',
-                company: 'Care Coach',
+                company: 'Digital Health',
                 focus: 'Module_Focus: AI-Assisted UX',
                 skills: ['Human-AI Interaction', 'Workflow Design', 'Responsible Automation'],
                 desc: 'Delivered interactive user experiences through AI-assisted conversational systems. Balanced automation with human empathy.'
@@ -76,10 +76,10 @@ function appData() {
             {
                 version: 4,
                 id: 'v4.0.0',
-                label: 'Multisys-QA',
+                label: 'IT-QA',
                 year: '2020-2021',
                 role: 'Mobile QA Specialist',
-                company: 'Multisys Tech',
+                company: 'IT Services',
                 focus: 'Module_Focus: Quality Assurance',
                 skills: ['End-to-End Testing', 'Mobile Validation', 'Edge-Case Analysis'],
                 desc: 'Conducted end-to-end quality validation for web and mobile apps. Designed test scenarios to verify system behavior.'
@@ -90,7 +90,7 @@ function appData() {
                 label: 'DevOps-Unix',
                 year: '2021-2023',
                 role: 'DevOps / Ops Analyst',
-                company: 'Accenture / Amdocs',
+                company: 'Tech / Telecom',
                 focus: 'Module_Focus: Production Systems & Automation',
                 skills: ['UNIX Shell', 'Oracle SQL', 'Automation Pipelines', 'Incident Management'],
                 desc: 'Supported large-scale customer resource and telecom systems. Enhanced backend workflows and resolved production incidents.'
@@ -98,10 +98,10 @@ function appData() {
             {
                 version: 6,
                 id: 'v6.0.0',
-                label: 'TaskUs-AI',
+                label: 'Analytics-AI',
                 year: '2024-Present',
                 role: 'Business Insights Analyst',
-                company: 'TaskUs',
+                company: 'BPO',
                 focus: 'Module_Focus: AI & Data Strategy',
                 skills: ['SQL', 'Sigma Computing', 'ETL', 'Business Strategy'],
                 desc: 'Designing data-driven decision systems. Bridging technical analysis and business strategy for sales/ops growth.'
@@ -381,7 +381,7 @@ function appData() {
                                             "Health Advocate / QA",
                                             "DevOps (Accenture)",
                                             "Ops Analyst (Amdocs)",
-                                            "Business Insights (TaskUs)",
+                                            "Business Insights (BPO)",
                                             "AI Architect Goal"
                                         ];
                                         return roles[context.dataIndex];
@@ -637,11 +637,11 @@ function appData() {
         // Resume Data
         experience: [
             {
-                company: 'TaskUs',
+                company: 'BPO Services',
                 role: 'Business Insights Analyst',
                 years: 'May 2024 – Present',
                 points: [
-                    'Design and deliver data-driven decision systems to support merchant and vendor growth.',
+                    'Design and deliver data-driven decision systems to support SMB merchant and vendor growth.',
                     'Use SQL on ETL pipelines to decompose business questions and identify patterns.',
                     'Build and maintain Sigma Computing dashboards as decision-support tools.',
                     'Validate data, assumptions, and logic to ensure accuracy and trust.'
@@ -649,7 +649,7 @@ function appData() {
                 skills: ['SQL', 'UNIX', 'Sigma Computing', 'ETL']
             },
             {
-                company: 'Amdocs',
+                company: 'Telecom Software',
                 role: 'Technical & Business Operations Analyst',
                 years: 'Dec 2022 – Dec 2023',
                 points: [
@@ -660,7 +660,7 @@ function appData() {
                 skills: ['System Monitoring', 'Workflow Analysis', 'SQL', 'Incident Mgmt']
             },
             {
-                company: 'Accenture',
+                company: 'Tech Consulting',
                 role: 'DevOps / Production Systems Engineer',
                 years: 'May 2021 – July 2022',
                 points: [
@@ -672,7 +672,7 @@ function appData() {
                 skills: ['DevOps', 'UNIX Shell', 'Oracle SQL', 'Automation']
             },
             {
-                company: 'Multisys Technologies',
+                company: 'IT Services',
                 role: 'Mobile QA Specialist',
                 years: 'Oct 2020 – Apr 2021',
                 points: [
@@ -683,7 +683,7 @@ function appData() {
                 skills: ['QA Testing', 'Mobile Validation']
             },
             {
-                company: 'Care Coach',
+                company: 'Digital Health',
                 role: 'Health Advocate',
                 years: 'Jan 2020 – Oct 2020',
                 points: [
@@ -694,7 +694,7 @@ function appData() {
                 skills: ['HCI', 'Workflow Design']
             },
             {
-                company: 'Accenture',
+                company: 'Tech Consulting',
                 role: 'Oracle PeopleSoft Developer',
                 years: 'Mar 2018 – Dec 2019',
                 points: [
@@ -705,7 +705,7 @@ function appData() {
                 skills: ['Oracle PeopleSoft', 'HCM', 'Oracle SQL']
             },
             {
-                company: 'APL co. ptd. Ltd.',
+                company: 'Logistics Firm',
                 role: 'Intern Web Programmer',
                 years: 'July 2016 – Oct 2016',
                 points: ['Assisted in front-end and back-end web development tasks (PHP, MySQL).'],
