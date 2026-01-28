@@ -1402,8 +1402,25 @@
                 </template>
             </div>
 
+            <!-- Floating Control Buttons (Quick Asks + End Chat) -->
+            <div x-show="chatMessages.length >= 2" x-transition.opacity
+                class="flex justify-center w-full gap-2 pb-2 z-10">
+
+                <!-- Quick Asks -->
+                <button @click="showInputSuggestions = !showInputSuggestions"
+                    class="text-[10px] bg-[var(--neon-mint)]/10 border border-[var(--neon-mint)]/50 text-[var(--neon-mint)] hover:bg-[var(--neon-mint)] hover:text-black px-2 py-1 rounded-full backdrop-blur-sm transition-all shadow-lg flex items-center gap-1">
+                    <i class="fa-solid fa-bolt"></i> QUICK_ASKS
+                </button>
+
+                <!-- End Session -->
+                <button @click="endChat()"
+                    class="text-[10px] bg-red-500/10 border border-red-500/50 text-red-500 hover:bg-red-500 hover:text-white px-2 py-1 rounded-full backdrop-blur-sm transition-all shadow-lg flex items-center gap-1">
+                    <i class="fa-solid fa-power-off"></i> END_SESSION
+                </button>
+            </div>
+
             <!-- Input -->
-            <div class="chat-input-area relative" x-data="{ showInputSuggestions: false }">
+            <div class="chat-input-area relative">
 
                 <!-- Input Dropdown Suggestions -->
                 <div x-show="showInputSuggestions" @click.outside="showInputSuggestions = false"
@@ -1415,7 +1432,7 @@
                     <div class="flex flex-wrap gap-1.5">
                         <template x-for="suggestion in suggestions">
                             <button @click="chatInput = suggestion; sendChatMessage(); showInputSuggestions = false"
-                                class="text-[10px] px-2 py-1 bg-[var(--deep-moss)] border border-[#4AF2A1]/30 rounded text-[#E0E5D7] hover:bg-[#4AF2A1] hover:text-[#000] transition-colors text-left"
+                                class="text-[10px] px-2 py-1 bg-[var(--deep-moss)] border border-[#4AF2A1]/30 rounded text-[var(--txt-bone)] hover:bg-[#4AF2A1] hover:text-[#000] transition-colors text-left"
                                 x-text="suggestion"></button>
                         </template>
                     </div>
@@ -1424,12 +1441,6 @@
                 <input type="text" x-model="chatInput" @keyup.enter="sendChatMessage()"
                     @focus="showInputSuggestions = true" class="chat-input" placeholder="Ask about Charlene..."
                     :disabled="isTyping">
-
-                <!-- Quick Menu Toggle (Optional visual cue) -->
-                <button @click="showInputSuggestions = !showInputSuggestions"
-                    class="text-[#4AF2A1]/70 hover:text-[#FF2E88] text-xs px-2" title="Quick Suggestions">
-                    <i class="fa-solid fa-bolt"></i>
-                </button>
 
                 <button @click="sendChatMessage()" class="text-[#4AF2A1] hover:text-white transition-colors"
                     :class="{'opacity-50': isTyping}">

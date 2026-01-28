@@ -277,7 +277,7 @@ body {
 .light-mode textarea,
 .light-mode .chat-input {
     background-color: rgba(255, 255, 255, 0.95);
-    color: #1a1a1a;
+    color: #000000;
     border-color: var(--neon-mint);
 }
 
@@ -518,7 +518,7 @@ body {
     align-self: flex-end;
     background: rgba(255, 46, 136, 0.2);
     border: 1px solid var(--neon-pink);
-    color: #fff;
+    color: var(--txt-bone);
     border-bottom-right-radius: 2px;
 }
 

@@ -6,11 +6,11 @@ function appData() {
         fromEmail: '',
         inputQuery: '',
         inputQuery: '',
-        isLightMode: localStorage.getItem('theme_default_v1') === 'light',
+        isLightMode: localStorage.getItem('theme_v3') === 'light',
 
         toggleTheme() {
             this.isLightMode = !this.isLightMode;
-            localStorage.setItem('theme_default_v1', this.isLightMode ? 'light' : 'dark');
+            localStorage.setItem('theme_v3', this.isLightMode ? 'light' : 'dark');
             this.refreshCharts();
         },
 
@@ -21,9 +21,11 @@ function appData() {
         stackChartInstance: null,
         learningChartInstance: null,
         chartRefreshTimeout: null,
+        inactivityTimer: null,
 
         // Chatbot Data
         chatOpen: false,
+        showInputSuggestions: false, // Promoted from local scope
         chatInput: '',
         isTyping: false,
         chatMessages: [
@@ -717,7 +719,20 @@ function appData() {
             this.chatOpen = !this.chatOpen;
             if (this.chatOpen) {
                 this.scrollToBottom();
+                this.startInactivityTimer();
+            } else {
+                if (this.inactivityTimer) clearTimeout(this.inactivityTimer);
             }
+        },
+
+        startInactivityTimer() {
+            if (this.inactivityTimer) clearTimeout(this.inactivityTimer);
+            this.inactivityTimer = setTimeout(() => {
+                if (this.chatOpen) {
+                    this.toggleChat(); // Close chat
+                    // Optional: this.clearChat(); // Uncomment if "reset" implies clearing
+                }
+            }, 30000); // 30 seconds
         },
 
         clearChat() {
@@ -732,6 +747,27 @@ function appData() {
             ];
         },
 
+        endChat() {
+            this.chatOpen = false;
+            this.isTyping = false;
+            if (this.inactivityTimer) clearTimeout(this.inactivityTimer);
+
+            // Reset after a short delay so the user sees it closed first
+            setTimeout(() => {
+                this.chatMessages = [
+                    { role: 'aura', text: "System rebooted. How can I assist you?" }
+                ];
+                // Reset suggestions to default
+                this.suggestions = [
+                    "Summarize Portfolio",
+                    "Who is Charlene?",
+                    "Explain Design",
+                    "What is Cottagecore?",
+                    "Explain Code Architecture"
+                ];
+            }, 300);
+        },
+
         formatMessage(text) {
             if (!text) return '';
             return text
@@ -742,6 +778,7 @@ function appData() {
         },
 
         async sendChatMessage() {
+            this.startInactivityTimer(); // Reset timer on send
             const text = this.chatInput.trim();
             if (!text) return;
 
@@ -848,6 +885,11 @@ function appData() {
             // Watch for section changes
             this.$watch('currentSection', (value) => {
                 this.typeTitle(value);
+            });
+
+            // Watch for chat input to reset timer (typing activity)
+            this.$watch('chatInput', () => {
+                if (this.chatOpen) this.startInactivityTimer();
             });
 
             // Start scanline effect
