@@ -9,8 +9,8 @@
     <!-- Alpine.js -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind CSS (Local Build) -->
+    <!-- <script src="https://cdn.tailwindcss.com"></script> REMOVED: Using local style.css build -->
 
     <!-- Fonts -->
     <link
@@ -38,18 +38,19 @@
         .tech-card:hover {
             transform: translateY(-2px);
             box-shadow: 0 0 15px rgba(74, 242, 161, 0.2);
-            border-color: #4AF2A1;
+            border-color: var(--neon-mint);
         }
 
         .code-block {
             font-family: 'Fira Code', monospace;
             background: #0a0a0a;
-            border-left: 3px solid #FF2E88;
+            border-left: 3px solid var(--neon-pink);
         }
     </style>
 </head>
 
-<body class="min-h-screen flex flex-col justify-between bg-[#050505] text-[#E0E5D7] overflow-x-hidden font-tech">
+<body
+    class="min-h-screen flex flex-col justify-between bg-[var(--void-moss)] text-[var(--txt-bone)] overflow-x-hidden font-tech">
 
     <!-- Scanline Effect -->
     <div class="scanlines"></div>
@@ -58,31 +59,31 @@
     <div id="bg-decorations" class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <svg class="absolute left-0 top-0 h-full w-full md:w-1/3 opacity-30" preserveAspectRatio="none"
             viewBox="0 0 100 800">
-            <path d="M0,0 C30,150 10,300 40,450 C70,600 20,750 0,900" fill="none" stroke="#4AF2A1" stroke-width="2"
-                style="filter: drop-shadow(0 0 5px #4AF2A1);" />
+            <path d="M0,0 C30,150 10,300 40,450 C70,600 20,750 0,900" fill="none" stroke="var(--neon-mint)"
+                stroke-width="2" style="filter: drop-shadow(0 0 5px var(--neon-mint));" />
         </svg>
     </div>
 
     <!-- Top Header / Status Bar -->
     <header
-        class="fixed top-0 left-0 w-full z-50 bg-[#050505]/95 border-b border-[#FF2E88]/20 backdrop-blur-md px-4 py-3 shadow-[0_4px_20px_rgba(255,46,136,0.1)] font-tech">
+        class="fixed top-0 left-0 w-full z-50 bg-[var(--void-moss)]/95 border-b border-[var(--neon-pink)]/20 backdrop-blur-md px-4 py-3 shadow-[0_4px_20px_rgba(255,46,136,0.1)] font-tech">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <!-- Left: Identity -->
             <div class="flex flex-col md:flex-row md:items-center gap-1 md:gap-4">
                 <a href="index.html" class="flex items-center gap-2 group cursor-pointer decoration-transparent">
                     <span
-                        class="text-[#FF2E88] font-tech text-base md:text-lg tracking-widest font-bold drop-shadow-[0_0_5px_rgba(255,46,136,0.5)]">>
+                        class="text-[var(--neon-pink)] font-tech text-base md:text-lg tracking-widest font-bold drop-shadow-[0_0_5px_rgba(255,46,136,0.5)]">>
                         SYSTEM ARCHITECTURE</span>
-                    <span class="animate-pulse text-[#4AF2A1]">
-                        <_< /span>
+                    <span class="animate-pulse text-[var(--neon-mint)]">
+                        _</span>
                 </a>
             </div>
 
             <!-- Right: System Stats -->
-            <div class="flex items-center gap-4 text-[10px] font-tech text-[#4AF2A1]/60 tracking-wider">
+            <div class="flex items-center gap-4 text-[10px] font-tech text-[var(--neon-mint)]/60 tracking-wider">
                 <div class="hidden md:flex items-center gap-2">
-                    <span class="text-[#8A9A90]">MODE:</span>
-                    <span class="text-[#4AF2A1]">DEBUG_VIEW</span>
+                    <span class="text-[var(--txt-muted)]">MODE:</span>
+                    <span class="text-[var(--neon-mint)]">DEBUG_VIEW</span>
                 </div>
             </div>
         </div>
@@ -92,30 +93,31 @@
     <main class="relative z-10 w-full max-w-7xl mx-auto px-4 pt-24 pb-20 flex-grow">
 
         <!-- Header Section -->
-        <div class="mb-12 border-b border-[#4AF2A1]/20 pb-6">
-            <h1 class="text-3xl md:text-5xl font-playfair italic text-[#E0E5D7] mb-4">
-                <span class="text-[#FF2E88] not-italic font-tech text-2xl mr-2">>></span>
-                Codebase <span class="text-[#4AF2A1]">Overview</span>
+        <div class="mb-12 border-b border-[var(--neon-mint)]/20 pb-6">
+            <h1 class="text-3xl md:text-5xl font-playfair italic text-[var(--txt-bone)] mb-4">
+                <span class="text-[var(--neon-pink)] not-italic font-tech text-2xl mr-2">>></span>
+                Codebase <span class="text-[var(--neon-mint)]">Overview</span>
             </h1>
-            <p class="text-[#8A9A90] max-w-2xl text-sm md:text-base font-tech leading-relaxed">
-                <span class="text-[#FF2E88] font-bold">SYSTEM_LOG:</span> This portfolio is built as a lightweight
+            <p class="text-[var(--txt-muted)] max-w-2xl text-sm md:text-base font-tech leading-relaxed">
+                <span class="text-[var(--neon-pink)] font-bold">SYSTEM_LOG:</span> This portfolio is built as a
+                lightweight
                 Single Page Application (SPA) leveraging modern frontend technologies without heavy framework overhead.
             </p>
         </div>
 
         <!-- Tech Stack Grid -->
-        <h2 class="text-2xl font-tech text-[#4AF2A1] mb-6 flex items-center gap-2">
+        <h2 class="text-2xl font-tech text-[var(--neon-mint)] mb-6 flex items-center gap-2">
             <i class="fa-solid fa-layer-group text-sm"></i> TECHNOLOGY STACK
         </h2>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
             <!-- Node.js & Express -->
             <div class="glass-panel p-6 rounded-lg tech-card group">
-                <div class="text-[#4AF2A1] text-3xl mb-4 group-hover:scale-110 transition-transform">
+                <div class="text-[var(--neon-mint)] text-3xl mb-4 group-hover:scale-110 transition-transform">
                     <i class="fa-brands fa-node-js"></i>
                 </div>
                 <h3 class="text-xl font-playfair italic mb-2">Node.js & Express</h3>
-                <p class="text-xs text-[#8A9A90] font-tech leading-relaxed">
+                <p class="text-xs text-[var(--txt-muted)] font-tech leading-relaxed">
                     Robust backend runtime serving the application and acting as the secure gateway to the Gemini API
                     layer.
                 </p>
@@ -123,11 +125,11 @@
 
             <!-- Google Gemini -->
             <div class="glass-panel p-6 rounded-lg tech-card group">
-                <div class="text-[#FF2E88] text-3xl mb-4 group-hover:scale-110 transition-transform">
+                <div class="text-[var(--neon-pink)] text-3xl mb-4 group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-brain"></i>
                 </div>
                 <h3 class="text-xl font-playfair italic mb-2">Google Gemini</h3>
-                <p class="text-xs text-[#8A9A90] font-tech leading-relaxed">
+                <p class="text-xs text-[var(--txt-muted)] font-tech leading-relaxed">
                     Generative AI model (gemini-1.5-flash) powering the interactive "Aura" chat interface and dynamic
                     content generation.
                 </p>
@@ -135,11 +137,11 @@
 
             <!-- Google Cloud Run -->
             <div class="glass-panel p-6 rounded-lg tech-card group">
-                <div class="text-[#4AF2A1] text-3xl mb-4 group-hover:scale-110 transition-transform">
+                <div class="text-[var(--neon-mint)] text-3xl mb-4 group-hover:scale-110 transition-transform">
                     <i class="fa-brands fa-google"></i>
                 </div>
                 <h3 class="text-xl font-playfair italic mb-2">Google Cloud Run</h3>
-                <p class="text-xs text-[#8A9A90] font-tech leading-relaxed">
+                <p class="text-xs text-[var(--txt-muted)] font-tech leading-relaxed">
                     Serverless container platform ensuring auto-scaling, high availability, and zero-maintenance
                     infrastructure.
                 </p>
@@ -147,11 +149,11 @@
 
             <!-- Alpine.js -->
             <div class="glass-panel p-6 rounded-lg tech-card group">
-                <div class="text-[#FF2E88] text-3xl mb-4 group-hover:scale-110 transition-transform">
+                <div class="text-[var(--neon-pink)] text-3xl mb-4 group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-code"></i>
                 </div>
                 <h3 class="text-xl font-playfair italic mb-2">Alpine.js</h3>
-                <p class="text-xs text-[#8A9A90] font-tech leading-relaxed">
+                <p class="text-xs text-[var(--txt-muted)] font-tech leading-relaxed">
                     Lightweight reactive framework managing frontend state, transitions, and user interactions without
                     virtual DOM overhead.
                 </p>
@@ -159,23 +161,23 @@
 
             <!-- Tailwind CSS -->
             <div class="glass-panel p-6 rounded-lg tech-card group">
-                <div class="text-[#4AF2A1] text-3xl mb-4 group-hover:scale-110 transition-transform">
+                <div class="text-[var(--neon-mint)] text-3xl mb-4 group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-wind"></i>
                 </div>
-                <h3 class="text-xl font-playfair italic mb-2">Tailwind CSS</h3>
-                <p class="text-xs text-[#8A9A90] font-tech leading-relaxed">
-                    Utility-first design system enabling the custom "Cyberpunk x Cottagecore" aesthetic with arbitrary
-                    value support.
+                <h3 class="text-xl font-playfair italic mb-2">Tailwind CSS (CLI)</h3>
+                <p class="text-xs text-[var(--txt-muted)] font-tech leading-relaxed">
+                    Utility-first design system utilizing Tailwind CLI for custom build steps and verified local class
+                    generation.
                 </p>
             </div>
 
             <!-- Chart.js -->
             <div class="glass-panel p-6 rounded-lg tech-card group">
-                <div class="text-[#FF2E88] text-3xl mb-4 group-hover:scale-110 transition-transform">
+                <div class="text-[var(--neon-pink)] text-3xl mb-4 group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-chart-line"></i>
                 </div>
                 <h3 class="text-xl font-playfair italic mb-2">Chart.js</h3>
-                <p class="text-xs text-[#8A9A90] font-tech leading-relaxed">
+                <p class="text-xs text-[var(--txt-muted)] font-tech leading-relaxed">
                     Renders responsive, hardware-accelerated data visualizations for career and skill metrics.
                 </p>
             </div>
@@ -185,44 +187,64 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
             <!-- File Structure -->
             <div>
-                <h2 class="text-2xl font-tech text-[#FF2E88] mb-6 flex items-center gap-2">
+                <h2 class="text-2xl font-tech text-[var(--neon-pink)] mb-6 flex items-center gap-2">
                     <i class="fa-solid fa-folder-tree text-sm"></i> DIRECTORY STRUCTURE
                 </h2>
-                <div class="glass-panel p-6 rounded-lg font-tech text-xs md:text-sm text-[#8A9A90]">
+                <div class="glass-panel p-6 rounded-lg font-tech text-xs md:text-sm text-[var(--txt-muted)]">
                     <ul class="space-y-2">
-                        <li class="pl-2 border-l-2 border-[#4AF2A1]"><span class="text-[#E0E5D7] font-bold">root/</span>
+                        <li class="pl-2 border-l-2 border-[var(--neon-mint)]"><span
+                                class="text-[var(--txt-bone)] font-bold">root/</span>
                         </li>
 
                         <!-- Backend Files -->
-                        <li class="pl-6 border-l border-[#4AF2A1]/20">
-                            <span class="text-[#FF2E88]">server.js</span> <span class="text-[#8A9A90]/50 ml-2">//
+                        <li class="pl-6 border-l border-[var(--neon-mint)]/20">
+                            <span class="text-[var(--neon-pink)]">server.js</span> <span
+                                class="text-[var(--txt-muted)]/50 ml-2">//
                                 Express Backend & API</span>
                         </li>
-                        <li class="pl-6 border-l border-[#4AF2A1]/20">
-                            <span class="text-[#FF2E88]">Procfile</span> <span class="text-[#8A9A90]/50 ml-2">// Cloud
+                        <li class="pl-6 border-l border-[var(--neon-mint)]/20">
+                            <span class="text-[var(--neon-pink)]">Procfile</span> <span
+                                class="text-[var(--txt-muted)]/50 ml-2">// Cloud
                                 Run Entrypoint</span>
                         </li>
-                        <li class="pl-6 border-l border-[#4AF2A1]/20">
-                            <span class="text-[#FF2E88]">.gcloudignore</span> <span class="text-[#8A9A90]/50 ml-2">//
+                        <li class="pl-6 border-l border-[var(--neon-mint)]/20">
+                            <span class="text-[var(--neon-pink)]">.gcloudignore</span> <span
+                                class="text-[var(--txt-muted)]/50 ml-2">//
                                 Deployment Config</span>
                         </li>
 
+                        <!-- Styles Folder -->
+                        <li class="pl-6 border-l border-[var(--neon-mint)]/20 mt-2">
+                            <span class="text-[var(--txt-bone)]">styles/</span> <span
+                                class="text-[var(--txt-muted)]/50 ml-2">// Source
+                                Styles</span>
+                        </li>
+                        <li class="pl-10 border-l border-[var(--neon-mint)]/20">
+                            <span class="text-[var(--neon-mint)]">input.css</span> <span
+                                class="text-[var(--txt-muted)]/50 ml-2">// Tailwind
+                                Input</span>
+                        </li>
+
                         <!-- Public Folder -->
-                        <li class="pl-6 border-l border-[#4AF2A1]/20 mt-2">
-                            <span class="text-[#E0E5D7]">public/</span> <span class="text-[#8A9A90]/50 ml-2">// Static
+                        <li class="pl-6 border-l border-[var(--neon-mint)]/20 mt-2">
+                            <span class="text-[var(--txt-bone)]">public/</span> <span
+                                class="text-[var(--txt-muted)]/50 ml-2">// Static
                                 Assets</span>
                         </li>
-                        <li class="pl-10 border-l border-[#4AF2A1]/20">
-                            <span class="text-[#4AF2A1]">index.html</span> <span class="text-[#8A9A90]/50 ml-2">// SPA
+                        <li class="pl-10 border-l border-[var(--neon-mint)]/20">
+                            <span class="text-[var(--neon-mint)]">index.html</span> <span
+                                class="text-[var(--txt-muted)]/50 ml-2">// SPA
                                 Entry</span>
                         </li>
-                        <li class="pl-10 border-l border-[#4AF2A1]/20">
-                            <span class="text-[#4AF2A1]">script.js</span> <span class="text-[#8A9A90]/50 ml-2">//
+                        <li class="pl-10 border-l border-[var(--neon-mint)]/20">
+                            <span class="text-[var(--neon-mint)]">script.js</span> <span
+                                class="text-[var(--txt-muted)]/50 ml-2">//
                                 Frontend Logic</span>
                         </li>
-                        <li class="pl-10 border-l border-[#4AF2A1]/20">
-                            <span class="text-[#4AF2A1]">style.css</span> <span class="text-[#8A9A90]/50 ml-2">// Core
-                                Styles</span>
+                        <li class="pl-10 border-l border-[var(--neon-mint)]/20">
+                            <span class="text-[var(--neon-mint)]">style.css</span> <span
+                                class="text-[var(--txt-muted)]/50 ml-2">// Compiled
+                                CSS</span>
                         </li>
                     </ul>
                 </div>
@@ -230,14 +252,14 @@
 
             <!-- Core Logic -->
             <div>
-                <h2 class="text-2xl font-tech text-[#FF2E88] mb-6 flex items-center gap-2">
+                <h2 class="text-2xl font-tech text-[var(--neon-pink)] mb-6 flex items-center gap-2">
                     <i class="fa-solid fa-microchip text-sm"></i> CORE LOGIC
                 </h2>
                 <div class="code-block p-4 rounded-lg text-xs overflow-x-auto">
                     <pre><code class="language-javascript">
-<span class="text-[#8A9A90]">// 1. Frontend: Sends Message to Backend</span>
-async function <span class="text-[#FF2E88]">sendMessage(msg)</span> {
-    const response = await fetch('<span class="text-[#4AF2A1]">/api/chat</span>', {
+<span class="text-[var(--txt-muted)]">// 1. Frontend: Sends Message to Backend</span>
+async function <span class="text-[var(--neon-pink)]">sendMessage(msg)</span> {
+    const response = await fetch('<span class="text-[var(--neon-mint)]">/api/chat</span>', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: msg })
@@ -245,8 +267,8 @@ async function <span class="text-[#FF2E88]">sendMessage(msg)</span> {
     return await response.json();
 }
 
-<span class="text-[#8A9A90]">// 2. Backend (server.js): Calls Gemini</span>
-app.post('<span class="text-[#4AF2A1]">/api/chat</span>', async (req, res) => {
+<span class="text-[var(--txt-muted)]">// 2. Backend (server.js): Calls Gemini</span>
+app.post('<span class="text-[var(--neon-mint)]">/api/chat</span>', async (req, res) => {
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     const result = await model.generateContent(prompt);
     res.json({ reply: result.response.text() });
@@ -259,7 +281,7 @@ app.post('<span class="text-[#4AF2A1]">/api/chat</span>', async (req, res) => {
         <!-- Footer Action -->
         <div class="flex justify-center mt-12">
             <a href="index.html"
-                class="px-8 py-3 bg-[#FF2E88]/10 border border-[#FF2E88] hover:bg-[#FF2E88]/20 transition-all text-[#FF2E88] font-tech text-sm tracking-widest hover:shadow-[0_0_15px_#FF2E88]">
+                class="px-8 py-3 bg-[var(--neon-pink)]/10 border border-[var(--neon-pink)] hover:bg-[var(--neon-pink)]/20 transition-all text-[var(--neon-pink)] font-tech text-sm tracking-widest hover:shadow-[0_0_15px_var(--neon-pink)]">
                 << RETURN TO MAIN TERMINAL </a>
         </div>
 
