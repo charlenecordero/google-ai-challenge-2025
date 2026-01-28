@@ -247,19 +247,25 @@
                                 opacity: 0.2;">
                         </div>
 
-                        <!-- Stylized Map Background (Abstract) -->
+                        <!-- Stylized Map Background (Glowing Regions) -->
                         <svg class="absolute inset-0 w-full h-full z-0 transition-opacity duration-500"
-                            viewBox="0 0 400 300" style="filter: drop-shadow(0 0 5px rgba(0, 243, 255, 0.3));">
-                            <!-- Philippines Arch (Abstract) -->
-                            <path d="M180,80 Q220,150 180,220" fill="none" stroke="#00F3FF" stroke-width="1"
-                                opacity="0.4" stroke-linecap="round" />
-                            <!-- Continental Shelves (Abstract Lines) -->
-                            <path d="M50,150 Q100,100 150,150" fill="none" stroke="#00F3FF" stroke-width="0.5"
-                                opacity="0.2" /> <!-- Asia -->
-                            <path d="M250,50 Q300,100 350,50" fill="none" stroke="#00F3FF" stroke-width="0.5"
-                                opacity="0.2" /> <!-- NA -->
-                            <path d="M250,250 Q300,200 350,250" fill="none" stroke="#00F3FF" stroke-width="0.5"
-                                opacity="0.2" /> <!-- AUS -->
+                            viewBox="0 0 400 300" style="filter: drop-shadow(0 0 8px rgba(0, 243, 255, 0.6));">
+
+                            <!-- Philippines Arch (Center) -->
+                            <path d="M180,80 Q220,150 180,220" fill="rgba(0, 243, 255, 0.05)" stroke="#00F3FF"
+                                stroke-width="2" opacity="0.8" stroke-linecap="round" class="animate-pulse" />
+
+                            <!-- Asia (Left) -->
+                            <path d="M50,150 Q90,120 120,160 T150,220" fill="rgba(0, 243, 255, 0.03)" stroke="#00F3FF"
+                                stroke-width="1.5" opacity="0.5" />
+
+                            <!-- North America (Top Right) -->
+                            <path d="M250,40 Q300,80 340,60 T380,100" fill="rgba(0, 243, 255, 0.03)" stroke="#00F3FF"
+                                stroke-width="1.5" opacity="0.5" />
+
+                            <!-- Australia/NZ (Bottom Right) -->
+                            <path d="M260,240 Q300,220 340,260" fill="rgba(0, 243, 255, 0.03)" stroke="#00F3FF"
+                                stroke-width="1.5" opacity="0.5" />
                         </svg>
 
                         <!-- MAP POINTS CONTAINER -->
