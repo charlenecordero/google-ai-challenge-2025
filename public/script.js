@@ -839,6 +839,7 @@ function appData() {
 
         init() {
             console.log("CORE SYSTEM v2.1 LOADED - " + new Date().toISOString());
+            this.chatOpen = false; // Ensure chat is closed on load
             this.refreshCharts();
 
             // Initial Typewriter
