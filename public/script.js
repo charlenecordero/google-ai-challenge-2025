@@ -6,7 +6,8 @@ function appData() {
         fromEmail: '',
         inputQuery: '',
         inputQuery: '',
-        isLightMode: localStorage.getItem('theme_v4') === 'light',
+        isLightMode: false, // Always start in Dark Mode on refresh
+        visitorCount: 10420, // Default display value
 
         toggleTheme() {
             this.isLightMode = !this.isLightMode;
@@ -19,12 +20,14 @@ function appData() {
                 // Use a unique namespace for this portfolio
                 const response = await fetch('https://api.countapi.xyz/hit/ai-portfolio-charlene/visits');
                 const data = await response.json();
+                this.visitorCount = data.value;
                 localStorage.setItem('visitorCount', data.value);
             } catch (error) {
                 console.warn('Visitor counter offline, using local fallback');
                 // Fallback to local simulated count if API fails
                 let count = localStorage.getItem('visitorCount');
                 if (!count) count = 10420;
+                this.visitorCount = count;
                 localStorage.setItem('visitorCount', count);
             }
         },

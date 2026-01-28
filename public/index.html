@@ -1616,10 +1616,10 @@
     </div>
 
     <!-- Visitor Counter (Subtle Footer) -->
-    <div class="fixed bottom-2 left-2 z-[1000] font-tech text-[5px] md:text-[9px] text-[var(--neon-mint)] bg-black/80 px-1 py-0.5 md:px-2 md:py-1 rounded border border-[var(--neon-mint)]/30 opacity-80 hover:opacity-100 transition-opacity select-none"
-        x-data="{ count: localStorage.getItem('visitorCount') || 10243 }">
+    <div class="fixed bottom-2 left-2 z-[1000] font-tech text-[5px] md:text-[9px] text-[var(--neon-mint)] px-1 py-0.5 md:px-2 md:py-1 rounded border border-[var(--neon-mint)]/30 opacity-80 hover:opacity-100 transition-opacity select-none"
+        :class="isLightMode ? 'bg-transparent' : 'bg-black/80'">
         <span class="tracking-widest">VISITOR_ID:</span>
-        <span x-text="count.toString().padStart(6, '0')"></span>
+        <span x-text="visitorCount.toString().padStart(6, '0')"></span>
     </div>
 
     <!-- Scripts -->
