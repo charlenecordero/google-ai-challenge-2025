@@ -458,7 +458,7 @@ function appData() {
                 this.stackChartInstance = new Chart(ctx, {
                     type: 'doughnut',
                     data: {
-                        labels: ['WORKFLOW AUTO', 'RAG SYSTEMS', 'LLM AGENTS', 'PYTHON / APIS', 'DATA OPS'],
+                        labels: ['AUTOMATION', 'RAG SYSTEMS', 'LLM AGENTS', 'PYTHON / APIS', 'DATA OPS'],
                         datasets: [{
                             data: [30, 25, 20, 15, 10],
                             backgroundColor: [
