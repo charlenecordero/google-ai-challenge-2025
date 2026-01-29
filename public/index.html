@@ -611,8 +611,8 @@
                                                 <i class="fa-solid fa-terminal text-sm"></i>
 
                                                 <!-- Tooltip -->
-                                                <div
-                                                    class="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity border border-[var(--neon-mint)] px-2 py-1 text-[9px] font-tech text-[var(--neon-mint)] z-20 pointer-events-none bg-black/90">
+                                                <div class="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity border border-[var(--neon-mint)] px-2 py-1 text-[9px] font-tech text-[var(--neon-mint)] z-20 pointer-events-none"
+                                                    :class="isLightMode ? 'bg-white' : 'bg-black/90'">
                                                     <span x-text="version.id"></span>
                                                 </div>
                                             </div>
@@ -1298,7 +1298,8 @@
                                 </div>
 
                                 <button type="submit" :disabled="isSending"
-                                    class="w-full py-2 bg-[var(--neon-mint)]/10 border border-[var(--neon-mint)] text-[var(--neon-mint)] font-tech tracking-widest hover:bg-[var(--neon-mint)] hover:text-[#000] transition-all duration-300 uppercase text-xs font-bold relative group overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed mt-2">
+                                    class="w-full py-2 bg-[var(--neon-mint)]/10 border border-[var(--neon-mint)] text-[var(--neon-mint)] font-tech tracking-widest hover:bg-[var(--neon-mint)] transition-all duration-300 uppercase text-xs font-bold relative group overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed mt-2"
+                                    :class="isLightMode ? 'hover:text-white' : 'hover:text-[#000]'">
                                     <span class="relative z-10"
                                         x-text="isSending ? 'Transmitting...' : 'Transmit Data'"></span>
                                     <div
